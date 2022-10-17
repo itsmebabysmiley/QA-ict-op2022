@@ -3,13 +3,3 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-
-@layer base {
-  html {
-    @apply bg-op-oxford-blue text-white;
-  }
-
-  body {
-    @apply h-screen w-full bg-base-overlay bg-center bg-cover bg-no-repeat;
-  }
-}
