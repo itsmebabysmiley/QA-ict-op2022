@@ -1,4 +1,5 @@
-import '~/styles/globals.css'
+import './styles.css'
+import '~/utils/iconify.ts'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
