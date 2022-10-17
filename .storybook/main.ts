@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal: (config) => {
+    config.base = '/ict-op2022-web/'
     config.plugins = [...(config.plugins || []), tsconfigPaths()]
     return config
   },
