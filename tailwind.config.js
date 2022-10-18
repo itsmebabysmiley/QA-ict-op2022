@@ -19,6 +19,15 @@ const config = {
       backgroundImage: {
         'base-overlay': "url('/static/images/bg/bg-base-overlay.png')",
         'planet-moon': "url('/static/images/bg/planet-moon.png')",
+        'type-button-overlay-primary':
+          "url('/static/images/types/type-button-overlay.svg')",
+        'type-button-overlay-secondary':
+          "url('/static/images/types/type-button-overlay-secondary.svg')",
+      },
+      backgroundSize: {
+        'size-half': '50%',
+        'size-double': '200%',
+        'size-triple': '300%',
       },
     },
   },
