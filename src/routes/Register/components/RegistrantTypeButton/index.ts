@@ -1,3 +1,3 @@
-import TypeButton from './RegistrantTypeButton'
+import RegistrantTypeButton from './RegistrantTypeButton'
 
-export default TypeButton
+export default RegistrantTypeButton

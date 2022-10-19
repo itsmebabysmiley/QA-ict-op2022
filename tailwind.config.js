@@ -11,7 +11,7 @@ const config = {
       },
       colors: {
         'op-oxford-blue': '#00063E',
-        'ict-terquoise': '#56d7b8',
+        'ict-turquoise': '#56d7b8',
         'ict-magenta-process': '#f2048a',
         'dst-prussian-blue': '#003366',
         'dst-sunglow': '#ffc914',
@@ -26,6 +26,7 @@ const config = {
       },
       backgroundSize: {
         'size-half': '50%',
+        'size-full': '100%',
         'size-double': '200%',
         'size-triple': '300%',
       },
