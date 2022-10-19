@@ -9,24 +9,30 @@ interface TextInputProps
 }
 
 const TextInput: FC<TextInputProps> = ({
-  id,
+  name,
   label,
   required,
   className,
   ...props
 }) => {
   return (
-    <>
+    <div>
       {label && (
         <InputLabel
-          htmlFor={id}
+          htmlFor={name}
           label={label}
           className="mb-1 block"
           required={required}
         />
       )}
-      <BaseInput type="text" className={clsx('block', className)} {...props} />
-    </>
+      <BaseInput
+        type="text"
+        id={name}
+        name={name}
+        className={clsx('block', className)}
+        {...props}
+      />
+    </div>
   )
 }
 

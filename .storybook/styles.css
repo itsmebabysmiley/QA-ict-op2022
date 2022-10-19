@@ -1,2 +1,6 @@
-@import '../src/styles/globals.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Sarabun:wght@400;700&family=IBM+Plex+Sans+Thai:wght@400;700&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @config './tailwind.config.storybook.js';

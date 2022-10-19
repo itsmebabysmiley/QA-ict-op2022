@@ -3,30 +3,35 @@ import type { ComponentProps, FC } from 'react'
 import BaseInput from '../BaseInput'
 import InputLabel from '../InputLabel'
 
-interface DateInputProps
-  extends Omit<ComponentProps<typeof BaseInput>, 'type'> {
+interface DateInputProps extends Omit<ComponentProps<'input'>, 'type'> {
   label?: string
 }
 
 const DateInput: FC<DateInputProps> = ({
-  id,
+  name,
   label,
   required,
   className,
   ...props
 }) => {
   return (
-    <>
+    <div>
       {label && (
         <InputLabel
-          htmlFor={id}
+          htmlFor={name}
           label={label}
           className="mb-1 block"
           required={required}
         />
       )}
-      <BaseInput type="date" className={clsx('block', className)} {...props} />
-    </>
+      <BaseInput
+        type="date"
+        id={name}
+        name={name}
+        className={clsx('block', className)}
+        {...props}
+      />
+    </div>
   )
 }
 
