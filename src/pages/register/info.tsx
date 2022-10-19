@@ -1,9 +1,11 @@
+import type { NextPage } from 'next'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import DateInput from '~/components/Input/DateInput'
 import TextInput from '~/components/Input/TextInput'
+import FormHeader from '~/routes/Register/components/FormHeader'
 
-const Page = () => {
+const Page: NextPage = () => {
   const {
     register,
     handleSubmit,
@@ -18,13 +20,8 @@ const Page = () => {
         })}
       >
         <div className="rounded-xl sm:bg-white sm:p-16 sm:text-black">
-          <div className="mb-10 w-full font-bold">
-            <div className="mb-5 font-heading text-4xl sm:text-5xl">
-              ลงทะเบียน
-            </div>
-            <div className="font-heading text-xl sm:text-2xl">
-              ส่วนที่ 1: ข้อมูลทั่วไป
-            </div>
+          <div className="mb-10 w-full">
+            <FormHeader title="ลงทะเบียน" section="ส่วนที่ 1: ข้อมูลทั่วไป" />
           </div>
 
           <div className="w-full space-y-5">
