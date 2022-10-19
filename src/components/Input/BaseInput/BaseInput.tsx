@@ -1,18 +1,24 @@
 import clsx from 'clsx'
-import type { ComponentProps, FC } from 'react'
+import { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
 
-interface BaseInputProps extends ComponentProps<'input'> {}
+interface BaseInputProps extends Omit<ComponentProps<'input'>, 'ref'> {}
 
-const BaseInput: FC<BaseInputProps> = ({ className, ...props }) => {
-  return (
-    <input
-      className={clsx(
-        'rounded-xl border border-gray-200 py-2 px-3 text-black outline-none placeholder:text-gray-300',
-        className
-      )}
-      {...props}
-    />
-  )
-}
+const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <input
+        ref={ref}
+        className={clsx(
+          'rounded-xl border border-gray-200 py-2 px-3 text-black outline-none placeholder:text-gray-300',
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+
+BaseInput.displayName = 'BaseInput'
 
 export default BaseInput

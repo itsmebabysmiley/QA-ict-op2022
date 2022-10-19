@@ -24,7 +24,7 @@ const Button: FC<ButtonProps> = ({
       type={type}
       {...props}
       className={clsx(
-        'rounded-xl border border-gray-100 py-2 px-4 font-heading font-bold',
+        'rounded-xl py-2 px-4 font-heading font-bold',
         ColorVariants[variant],
         className
       )}

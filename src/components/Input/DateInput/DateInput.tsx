@@ -1,38 +1,38 @@
 import clsx from 'clsx'
-import type { ComponentProps, FC } from 'react'
+import type { ComponentProps } from 'react'
+import { forwardRef } from 'react'
 import BaseInput from '../BaseInput'
 import InputLabel from '../InputLabel'
 
-interface DateInputProps extends Omit<ComponentProps<'input'>, 'type'> {
+interface DateInputProps extends Omit<ComponentProps<'input'>, 'type' | 'ref'> {
   label?: string
 }
 
-const DateInput: FC<DateInputProps> = ({
-  name,
-  label,
-  required,
-  className,
-  ...props
-}) => {
-  return (
-    <div>
-      {label && (
-        <InputLabel
-          htmlFor={name}
-          label={label}
-          className="mb-1 block"
-          required={required}
+const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
+  ({ name, label, required, className, ...props }, ref) => {
+    return (
+      <div>
+        {label && (
+          <InputLabel
+            htmlFor={name}
+            label={label}
+            className="mb-1 block"
+            required={required}
+          />
+        )}
+        <BaseInput
+          type="date"
+          id={name}
+          name={name}
+          ref={ref}
+          className={clsx('block', className)}
+          {...props}
         />
-      )}
-      <BaseInput
-        type="date"
-        id={name}
-        name={name}
-        className={clsx('block', className)}
-        {...props}
-      />
-    </div>
-  )
-}
+      </div>
+    )
+  }
+)
+
+DateInput.displayName = 'DateInput'
 
 export default DateInput
