@@ -5,7 +5,7 @@ import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 const Page = () => {
   return (
     <Wrapper variant={BG_VARIANT_TYPES.LANDING}>
-      <div className="flex min-h-screen flex-col items-center justify-center px-8">
+      <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col items-center justify-center px-8">
         <IctMahidolOpenHouseWordmark className="mb-10 w-full" />
 
         <div className="mb-6 space-y-2 text-center font-heading text-xl">
