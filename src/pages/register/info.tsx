@@ -19,8 +19,10 @@ const Page = () => {
       >
         <div className="rounded-xl sm:bg-white sm:p-16 sm:text-black">
           <div className="mb-10 w-full font-bold">
-            <div className="mb-6 font-heading text-4xl">ลงทะเบียน</div>
-            <div className="font-heading text-base">
+            <div className="mb-5 font-heading text-4xl sm:text-5xl">
+              ลงทะเบียน
+            </div>
+            <div className="font-heading text-xl sm:text-2xl">
               ส่วนที่ 1: ข้อมูลทั่วไป
             </div>
           </div>
