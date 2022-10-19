@@ -25,6 +25,7 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
           id={name}
           name={name}
           ref={ref}
+          required={required}
           className={clsx('block', className)}
           {...props}
         />
