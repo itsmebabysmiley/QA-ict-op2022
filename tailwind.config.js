@@ -23,6 +23,13 @@ const config = {
           "url('/static/images/types/type-button-overlay.svg')",
         'type-button-overlay-secondary':
           "url('/static/images/types/type-button-overlay-secondary.svg')",
+        'base-desktop': 'url(/static/images/background/base-desktop.svg)',
+        'landing-desktop': 'url(/static/images/background/landing-desktop.svg)',
+        'stardust-desktop':
+          'url(/static/images/background/stardust-desktop.svg)',
+        'base-mobile': 'url(/static/images/background/base-mobile.svg)',
+        'landing-mobile': 'url(/static/images/background/landing-mobile.svg)',
+        'stardust-mobile': 'url(/static/images/background/stardust-mobile.svg)',
       },
       backgroundSize: {
         'size-half': '50%',
