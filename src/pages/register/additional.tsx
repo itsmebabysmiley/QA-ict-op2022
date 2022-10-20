@@ -1,12 +1,24 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import SelectInput from '~/components/Input/SelectInput'
 import TextInput from '~/components/Input/TextInput'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
+import { strSubstitute } from '~/utils/formatter'
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale || 'th', ['register'])),
+  },
+})
 
 const Page: NextPage = () => {
+  const { t } = useTranslation('register')
+  const { push } = useRouter()
   const {
     register,
     handleSubmit,
@@ -19,20 +31,25 @@ const Page: NextPage = () => {
         <form
           onSubmit={handleSubmit((data) => {
             console.log(data)
+            push('/register/success')
           })}
         >
           <div className="rounded-xl sm:bg-white sm:p-16 sm:text-black">
             <div className="mb-10 w-full">
               <FormHeader
-                title="ลงทะเบียน"
-                section="ส่วนที่ 2: ข้อมูลเพิ่มเติม"
+                title={t('REG_FORM.REG_FORM_TITLE')}
+                section={strSubstitute(
+                  t('REG_FORM.REG_SECTION_TEMPLATE'),
+                  '2',
+                  t('REG_FORM.REG_SECTION_ADDITIONAL')
+                )}
               />
             </div>
 
             <div className="w-full space-y-5">
               <SelectInput
                 id="province"
-                label="จังหวัดที่อาศัยอยู่ปัจจุบัน"
+                label={t('REG_FORM.REG_FIELD_PROVINCE')}
                 required
                 className="w-full"
                 options={[
@@ -43,15 +60,15 @@ const Page: NextPage = () => {
               />
               <TextInput
                 id="school"
-                label="โรงเรียน/สถาบัน/มหาวิทยาลัย"
-                placeholder="โรงเรียนน้องสตาร์วิทยาคม"
+                label={t('REG_FORM.REG_FIELD_SCHOOL')}
+                placeholder={t('REG_FORM.REG_FIELD_SCHOOL_PLACEHOLDER')}
                 required
                 className="w-full"
                 {...register('lastName', { required: true })}
               />
               <SelectInput
                 id="level"
-                label="ระดับชั้น"
+                label={t('REG_FORM.REG_FIELD_SCHOOL_LEVEL')}
                 required
                 className="w-full"
                 options={[
@@ -65,7 +82,7 @@ const Page: NextPage = () => {
           <div className="mt-10 text-center">
             <Button
               type="submit"
-              label="ลงทะเบียน"
+              label={t('REG_FORM.REG_BUTTON_SUBMIT')}
               variant="ictTurquoise"
               className="w-full sm:w-32"
             />

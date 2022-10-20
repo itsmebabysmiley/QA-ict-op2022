@@ -20,7 +20,7 @@ const Page = () => {
     <Wrapper>
       <div className="mx-auto flex min-h-screen max-w-screen-md flex-col items-center justify-center px-8 py-10">
         <div className="mb-10 text-center font-heading text-4xl font-bold">
-          <div>{t('REG_TYPE_SELECTION_TITLE')}</div>
+          <div>{t('TYPE_SELECTION.REG_TYPE_SELECTION_TITLE')}</div>
         </div>
 
         <div className="grid w-full grid-cols-[repeat(3,_minmax(100px,_1fr))] justify-between gap-3 sm:grid-cols-3 sm:gap-6">
@@ -28,7 +28,7 @@ const Page = () => {
             <RegistrantTypeButton
               key={type.type}
               icon={type.icon}
-              label={t(type.label)}
+              label={t(`TYPE_SELECTION.${type.label}`)}
               variant={i % 2 === 0 ? 'primary' : 'secondary'}
               className="cursor-pointer"
               onClick={() => push(`/register/info?type=${type.type}`)}

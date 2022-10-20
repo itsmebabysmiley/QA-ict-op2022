@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
 const Page = () => {
+  const { push } = useRouter()
   return (
     <Wrapper variant={BG_VARIANT_TYPES.LANDING}>
       <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col items-center justify-center px-8">
@@ -19,12 +21,18 @@ const Page = () => {
             iconPosition="left"
             label="สัญชาติไทย"
             className="w-full sm:w-1/2"
+            onClick={() => {
+              push('/register/type')
+            }}
           />
           <Button
             icon="op2022:globe"
             iconPosition="left"
             label="International"
             className="w-full sm:w-1/2"
+            onClick={() => {
+              push('/register/type', undefined, { locale: 'en' })
+            }}
           />
         </div>
       </div>
