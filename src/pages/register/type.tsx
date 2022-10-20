@@ -1,3 +1,4 @@
+import RegistrantTypes from '~/const/register/registrantType'
 import Wrapper from '~/layouts/Wrapper'
 import RegistrantTypeButton from '~/routes/Register/components/RegistrantTypeButton'
 
@@ -10,36 +11,14 @@ const Page = () => {
         </div>
 
         <div className="grid w-full grid-cols-[repeat(3,_minmax(100px,_1fr))] justify-between gap-3 sm:grid-cols-3 sm:gap-6">
-          <RegistrantTypeButton
-            icon="/static/images/types/type-icon-student.svg"
-            label="นักเรียน"
-            variant="primary"
-          />
-          <RegistrantTypeButton
-            icon="/static/images/types/type-icon-college-student.svg"
-            label="นักศึกษา"
-            variant="secondary"
-          />
-          <RegistrantTypeButton
-            icon="/static/images/types/type-icon-teacher.svg"
-            label="อาจารย์"
-            variant="primary"
-          />
-          <RegistrantTypeButton
-            icon="/static/images/types/type-icon-parents.svg"
-            label="ผู้ปกครอง"
-            variant="secondary"
-          />
-          <RegistrantTypeButton
-            icon="/static/images/types/type-icon-mu-staff.svg"
-            label="บุคลากร ม.มหิดล"
-            variant="primary"
-          />
-          <RegistrantTypeButton
-            icon="/static/images/types/type-icon-external.svg"
-            label="อื่น ๆ"
-            variant="secondary"
-          />
+          {RegistrantTypes.map((type, i) => (
+            <RegistrantTypeButton
+              key={type.type}
+              icon={type.icon}
+              label={type.label}
+              variant={i % 2 === 0 ? 'primary' : 'secondary'}
+            />
+          ))}
         </div>
       </div>
     </Wrapper>
