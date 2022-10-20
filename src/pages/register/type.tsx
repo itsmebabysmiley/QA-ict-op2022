@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import RegistrantTypes from '~/const/register/registrantType'
+import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import RegistrantTypeButton from '~/routes/Register/components/RegistrantTypeButton'
 
@@ -15,6 +16,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 const Page = () => {
   const { push } = useRouter()
   const { t } = useTranslation('register')
+  const { dispatch } = useStoreon('form')
 
   return (
     <Wrapper>
@@ -31,7 +33,11 @@ const Page = () => {
               label={t(`TYPE_SELECTION.${type.label}`)}
               variant={i % 2 === 0 ? 'primary' : 'secondary'}
               className="cursor-pointer"
-              onClick={() => push(`/register/info?type=${type.type}`)}
+              onClick={() => {
+                dispatch('form/register/setFields', { regType: type.type })
+                dispatch('form/register/nextStep')
+                push(`/register/info?type=${type.type}`)
+              }}
             />
           ))}
         </div>

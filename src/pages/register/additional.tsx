@@ -9,6 +9,7 @@ import SelectInput from '~/components/Input/SelectInput'
 import TextInput from '~/components/Input/TextInput'
 import EduLevels from '~/const/register/eduLevel'
 import Provinces from '~/const/register/province'
+import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
 import { strSubstitute } from '~/utils/formatter'
@@ -22,11 +23,19 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 const Page: NextPage = () => {
   const { t } = useTranslation('register')
   const { push, locale = 'th' } = useRouter()
+  const { form, dispatch } = useStoreon('form')
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      province: form.register.fields?.province || undefined,
+      school: form.register.fields?.school || '',
+      eduLevel: form.register.fields?.eduLevel || undefined,
+    },
+  })
 
   const provincesList = useMemo(() => {
     const provinceSorted =
@@ -59,6 +68,12 @@ const Page: NextPage = () => {
         <form
           onSubmit={handleSubmit((data) => {
             console.log(data)
+            dispatch('form/register/setFields', {
+              province: data.province,
+              school: data.school,
+              eduLevel: data.eduLevel,
+            })
+            dispatch('form/register/nextStep')
             push('/register/success')
           })}
         >
@@ -89,7 +104,7 @@ const Page: NextPage = () => {
                 placeholder={t('REG_FORM.REG_FIELD_SCHOOL_PLACEHOLDER')}
                 required
                 className="w-full"
-                {...register('lastName', { required: true })}
+                {...register('school', { required: true })}
               />
               <SelectInput
                 id="level"
@@ -97,7 +112,7 @@ const Page: NextPage = () => {
                 required
                 className="w-full"
                 options={educationList}
-                {...register('level', { required: true })}
+                {...register('eduLevel', { required: true })}
               />
             </div>
           </div>

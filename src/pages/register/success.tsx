@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useLiff } from 'react-liff'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
+import { useStoreon } from '~/context/storeon'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
@@ -18,11 +19,13 @@ const Page: NextPage = () => {
   const { liff, isReady } = useLiff()
   const { push } = useRouter()
   const { t } = useTranslation('register')
+  const { form, dispatch } = useStoreon('form')
 
   useEffect(() => {
     if (isReady) {
       if (!liff.isInClient()) {
         setTimeout(() => {
+          dispatch('form/register/reset')
           push('/register', undefined, { locale: 'th' })
         }, 2000)
       }

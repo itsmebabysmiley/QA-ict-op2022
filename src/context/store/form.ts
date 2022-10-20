@@ -1,57 +1,83 @@
 import type { StoreonModule } from 'storeon'
 
 interface RegisterFormFields {
+  language: string
+  regType: string
   firstName: string
   lastName: string
-  dateOfBirth: Date
+  dob: Date | string
   email: string
   phone: string
   province: string
   school: string
-  level: string
+  eduLevel: string
 }
 
 export interface FormStore {
-  registerForm: {
-    currentStep: number
-    fields?: Partial<RegisterFormFields>
+  form: {
+    register: {
+      currentStep: number
+      fields?: Partial<RegisterFormFields>
+    }
   }
 }
 
 export interface FormEvent {
-  'registerForm/nextStep': void
-  'registerForm/prevStep': void
-  'registerForm/setFields': Partial<RegisterFormFields>
+  'form/register/nextStep': void
+  'form/register/prevStep': void
+  'form/register/setFields': Partial<RegisterFormFields>
+  'form/register/reset': void
 }
 
 export const form: StoreonModule<FormStore, FormEvent> = (store) => {
   store.on('@init', () => ({
-    registerForm: {
-      currentStep: 1,
-      fields: {},
+    form: {
+      register: {
+        currentStep: 1,
+        fields: {},
+      },
     },
   }))
 
-  store.on('registerForm/nextStep', (store, event) => ({
-    registerForm: {
-      ...store.registerForm,
-      currentStep: store.registerForm.currentStep + 1,
+  store.on('form/register/nextStep', (store, event) => ({
+    form: {
+      ...store.form,
+      register: {
+        ...store.form.register,
+        currentStep: store.form.register.currentStep + 1,
+      },
     },
   }))
 
-  store.on('registerForm/prevStep', (store, event) => ({
-    registerForm: {
-      ...store.registerForm,
-      currentStep: store.registerForm.currentStep - 1,
+  store.on('form/register/prevStep', (store, event) => ({
+    form: {
+      ...store.form,
+      register: {
+        ...store.form.register,
+        currentStep: store.form.register.currentStep - 1,
+      },
     },
   }))
 
-  store.on('registerForm/setFields', (store, fields) => ({
-    registerForm: {
-      ...store.registerForm,
-      fields: {
-        ...store.registerForm.fields,
-        ...fields,
+  store.on('form/register/setFields', (store, fields) => ({
+    form: {
+      ...store.form,
+      register: {
+        ...store.form.register,
+        fields: {
+          ...store.form.register.fields,
+          ...fields,
+        },
+      },
+    },
+  }))
+
+  store.on('form/register/reset', (store, event) => ({
+    form: {
+      ...store.form,
+      register: {
+        currentStep: 1,
+        fields: {},
       },
     },
   }))

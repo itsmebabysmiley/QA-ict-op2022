@@ -1,10 +1,13 @@
 import { useRouter } from 'next/router'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
+import { useStoreon } from '~/context/storeon'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
 const Page = () => {
   const { push } = useRouter()
+  const { form, dispatch } = useStoreon('form')
+
   return (
     <Wrapper variant={BG_VARIANT_TYPES.LANDING}>
       <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col items-center justify-center px-8">
@@ -22,6 +25,8 @@ const Page = () => {
             label="สัญชาติไทย"
             className="w-full sm:w-1/2"
             onClick={() => {
+              dispatch('form/register/setFields', { language: 'th' })
+              dispatch('form/register/nextStep')
               push('/register/type', undefined, { locale: 'th' })
             }}
           />
@@ -31,6 +36,8 @@ const Page = () => {
             label="International"
             className="w-full sm:w-1/2"
             onClick={() => {
+              dispatch('form/register/setFields', { language: 'en' })
+              dispatch('form/register/nextStep')
               push('/register/type', undefined, { locale: 'en' })
             }}
           />

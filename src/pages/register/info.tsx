@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import DateInput from '~/components/Input/DateInput'
 import TextInput from '~/components/Input/TextInput'
+import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
 import { strSubstitute } from '~/utils/formatter'
@@ -20,11 +21,22 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 const Page: NextPage = () => {
   const { t } = useTranslation('register')
   const { push } = useRouter()
+  const { form, dispatch } = useStoreon('form')
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      firstName: form.register.fields?.firstName || '',
+      lastName: form.register.fields?.lastName || '',
+      dob:
+        form.register.fields?.dob ||
+        dayjs().subtract(18, 'year').format('YYYY-MM-DD'),
+      email: form.register.fields?.email || '',
+      phone: form.register.fields?.phone || '',
+    },
+  })
 
   return (
     <Wrapper>
@@ -32,6 +44,14 @@ const Page: NextPage = () => {
         <form
           onSubmit={handleSubmit((data) => {
             console.log(data)
+            dispatch('form/register/setFields', {
+              firstName: data.firstName,
+              lastName: data.lastName,
+              dob: data.dob,
+              email: data.email,
+              phone: data.phone,
+            })
+            dispatch('form/register/nextStep')
             push('/register/additional')
           })}
         >
@@ -72,7 +92,6 @@ const Page: NextPage = () => {
                 {...register('dob', {
                   required: true,
                   valueAsDate: true,
-                  value: dayjs().subtract(18, 'year').format('YYYY-MM-DD'),
                 })}
               />
               <TextInput
