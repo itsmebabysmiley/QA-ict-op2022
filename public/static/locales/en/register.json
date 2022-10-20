@@ -1,0 +1,9 @@
+{
+  "REG_TYPE_SELECTION_TITLE": "Who are you?",
+  "REG_TYPE_STUDENT": "Student",
+  "REG_TYPE_UNI_STUDENT": "University Student",
+  "REG_TYPE_TEACHER": "Teacher",
+  "REG_TYPE_PARENTS": "Parents",
+  "REG_TYPE_MU_STAFF": "MU Staff",
+  "REG_TYPE_EXTERNAL": "Other"
+}
