@@ -6,9 +6,9 @@ import RegistrantTypes from '~/const/register/registrantType'
 import Wrapper from '~/layouts/Wrapper'
 import RegistrantTypeButton from '~/routes/Register/components/RegistrantTypeButton'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale || 'th', ['register'])),
+    ...(await serverSideTranslations(locale, ['register'])),
   },
 })
 

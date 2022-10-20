@@ -22,7 +22,7 @@ const Page = () => {
             label="สัญชาติไทย"
             className="w-full sm:w-1/2"
             onClick={() => {
-              push('/register/type')
+              push('/register/type', undefined, { locale: 'th' })
             }}
           />
           <Button

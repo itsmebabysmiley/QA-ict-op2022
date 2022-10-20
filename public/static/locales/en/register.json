@@ -34,6 +34,7 @@
     "REG_FIELD_SCHOOL_PLACEHOLDER": "Star Technology School",
 
     "REG_BUTTON_SUBMIT": "Register",
-    "REG_BUTTON_NEXT": "Next"
+    "REG_BUTTON_NEXT": "Next",
+    "REG_BUTTON_CLOSE": "Close"
   }
 }

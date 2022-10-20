@@ -1,20 +1,45 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useLiff } from 'react-liff'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
+export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['register'])),
+  },
+})
+
 const Page: NextPage = () => {
+  const { liff, isReady } = useLiff()
+  const { push } = useRouter()
+  const { t } = useTranslation('register')
+
+  useEffect(() => {
+    if (isReady) {
+      if (!liff.isInClient()) {
+        setTimeout(() => {
+          push('/register', undefined, { locale: 'th' })
+        }, 2000)
+      }
+    }
+  }, [liff])
+
   return (
     <Wrapper variant={BG_VARIANT_TYPES.STARDUST}>
-      <div className="mx-auto flex min-h-screen max-w-screen-md flex-col items-center justify-center px-8 py-10">
+      <div className="mx-auto flex min-h-screen max-w-screen-md flex-col items-center px-8 py-10 sm:justify-center">
         <IctMahidolOpenHouseWordmark className="mb-10 w-full" />
 
         <div className="mb-12 text-center">
           <h1 className="mb-5 font-heading text-4xl font-bold text-ict-turquoise">
-            ลงทะเบียนสำเร็จ
+            {t('REG_FORM.REG_SUCCESS_TITLE')}
           </h1>
           <h2 className="font-heading text-xl font-bold">
-            ไปท่องมัลติเวิร์สกันเลย!
+            {t('REG_FORM.REG_SUCCESS_SUBTITLE')}
           </h2>
         </div>
 
@@ -24,14 +49,19 @@ const Page: NextPage = () => {
           alt="Success"
         />
 
-        <div className="mt-10 w-full text-center">
-          <Button
-            type="button"
-            label="ปิด"
-            variant="ictTurquoise"
-            className="w-full sm:w-32"
-          />
-        </div>
+        {liff.isInClient?.() && (
+          <div className="mt-10 w-full text-center">
+            <Button
+              type="button"
+              label={t('REG_FORM.REG_BUTTON_CLOSE')}
+              variant="ictTurquoise"
+              className="w-full sm:w-32"
+              onClick={() => {
+                liff.closeWindow()
+              }}
+            />
+          </div>
+        )}
       </div>
     </Wrapper>
   )

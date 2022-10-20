@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -10,9 +11,9 @@ import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
 import { strSubstitute } from '~/utils/formatter'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale || 'th', ['register'])),
+    ...(await serverSideTranslations(locale, ['register'])),
   },
 })
 
@@ -71,7 +72,7 @@ const Page: NextPage = () => {
                 {...register('dob', {
                   required: true,
                   valueAsDate: true,
-                  value: '2022-07-20',
+                  value: dayjs().subtract(18, 'year').format('YYYY-MM-DD'),
                 })}
               />
               <TextInput

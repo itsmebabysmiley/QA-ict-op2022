@@ -34,6 +34,10 @@
     "REG_FIELD_SCHOOL_PLACEHOLDER": "โรงเรียนสตาร์สารสนเทศวิทยา",
 
     "REG_BUTTON_SUBMIT": "ลงทะเบียน",
-    "REG_BUTTON_NEXT": "ต่อไป"
+    "REG_BUTTON_NEXT": "ต่อไป",
+    "REG_BUTTON_CLOSE": "ปิด",
+
+    "REG_SUCCESS_TITLE": "ลงทะเบียนสำเร็จ",
+    "REG_SUCCESS_SUBTITLE": "ไปท่องมัลติเวิร์สกันเลย!"
   }
 }
