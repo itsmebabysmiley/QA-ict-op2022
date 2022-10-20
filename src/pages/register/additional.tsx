@@ -2,10 +2,12 @@ import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import SelectInput from '~/components/Input/SelectInput'
 import TextInput from '~/components/Input/TextInput'
+import Provinces from '~/const/register/province'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
 import { strSubstitute } from '~/utils/formatter'
@@ -18,12 +20,30 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 
 const Page: NextPage = () => {
   const { t } = useTranslation('register')
-  const { push } = useRouter()
+  const { push, locale = 'th' } = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+
+  const provincesList = useMemo(() => {
+    const provinceSorted =
+      locale === 'th'
+        ? Provinces
+        : Provinces.sort((a, b) => {
+            if (a.province_id === 1) {
+              return -1
+            }
+
+            return a.name.en.localeCompare(b.name.en)
+          })
+
+    return provinceSorted.map((p) => ({
+      value: `${p.province_id}`,
+      label: p.name[locale as 'th' | 'en'],
+    }))
+  }, [])
 
   return (
     <Wrapper>
@@ -51,11 +71,8 @@ const Page: NextPage = () => {
                 id="province"
                 label={t('REG_FORM.REG_FIELD_PROVINCE')}
                 required
-                className="w-full"
-                options={[
-                  { value: 'bangkok', label: 'กรุงเทพมหานคร' },
-                  { value: 'nonthaburi', label: 'นนทบุรี' },
-                ]}
+                className="w-full capitalize"
+                options={provincesList}
                 {...register('province', { required: true })}
               />
               <TextInput

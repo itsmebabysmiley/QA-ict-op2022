@@ -35,6 +35,9 @@
 
     "REG_BUTTON_SUBMIT": "Register",
     "REG_BUTTON_NEXT": "Next",
-    "REG_BUTTON_CLOSE": "Close"
+    "REG_BUTTON_CLOSE": "Close",
+
+    "REG_SUCCESS_TITLE": "Registered",
+    "REG_SUCCESS_SUBTITLE": "Let's Explore!!"
   }
 }
