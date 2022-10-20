@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import SelectInput from '~/components/Input/SelectInput'
 import TextInput from '~/components/Input/TextInput'
+import EduLevels from '~/const/register/eduLevel'
 import Provinces from '~/const/register/province'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
@@ -42,6 +43,13 @@ const Page: NextPage = () => {
     return provinceSorted.map((p) => ({
       value: `${p.province_id}`,
       label: p.name[locale as 'th' | 'en'],
+    }))
+  }, [])
+
+  const educationList = useMemo(() => {
+    return EduLevels.map((e) => ({
+      value: `${e.id}`,
+      label: e.label[locale as 'th' | 'en'],
     }))
   }, [])
 
@@ -88,10 +96,7 @@ const Page: NextPage = () => {
                 label={t('REG_FORM.REG_FIELD_SCHOOL_LEVEL')}
                 required
                 className="w-full"
-                options={[
-                  { value: '1', label: 'มัธยมศึกษาปีที่ 1' },
-                  { value: '2', label: 'มัธยมศึกษาปีที่ 2' },
-                ]}
+                options={educationList}
                 {...register('level', { required: true })}
               />
             </div>
