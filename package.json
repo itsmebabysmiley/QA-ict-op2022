@@ -8,15 +8,18 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tunnel": "cloudflared tunnel run"
   },
   "dependencies": {
     "@iconify/react": "^4.0.0",
+    "@line/liff": "^2.21.2",
     "clsx": "^1.2.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.38.0"
+    "react-hook-form": "^7.38.0",
+    "react-liff": "^2.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
