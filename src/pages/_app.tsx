@@ -1,14 +1,15 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import '~/utils/iconify.ts'
-import { LiffProvider } from 'react-liff'
+
+import LiffWrapper from '~/layouts/LiffWrapper'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      <LiffProvider liffId={process.env.NEXT_PUBLIC_LIFF_ID ?? ''}>
+      <LiffWrapper>
         <Component {...pageProps} />
-      </LiffProvider>
+      </LiffWrapper>
     </>
   )
 }
