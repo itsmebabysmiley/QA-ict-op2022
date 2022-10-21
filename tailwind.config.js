@@ -6,7 +6,7 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['Inter', 'IBM Plex Sans Thai', ...fontFamily.sans],
+        heading: ['LINE Seed Sans TH', ...fontFamily.sans],
         sans: ['Sarabun', ...fontFamily.sans],
       },
       colors: {
