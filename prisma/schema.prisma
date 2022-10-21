@@ -9,3 +9,40 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Participant {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  // LINE Information
+  lineUserId      String @unique
+  lineDisplayName String
+  linePictureUrl  String
+
+  // Registration Information – Basic Info
+  firstName   String
+  lastName    String
+  dateOfBirth String
+  email       String
+  phoneNumber String
+
+  // Registration Information – Additional Info
+  province       Int
+  school         String?
+  educationLevel Int?
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // // Event Activity
+  // ActivityLog ActivityLog[]
+}
+
+// model ActivityLog {
+//   id            String      @id @default(auto()) @map("_id") @db.ObjectId
+//   participant   Participant @relation(fields: [participantId], references: [id])
+//   participantId String
+//   activityId    String
+//   status        String
+//   createdAt     DateTime    @default(now())
+//   updatedAt     DateTime    @updatedAt
+// }

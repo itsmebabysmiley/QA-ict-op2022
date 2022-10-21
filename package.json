@@ -16,6 +16,7 @@
   "dependencies": {
     "@iconify/react": "^4.0.0",
     "@line/liff": "^2.21.2",
+    "@prisma/client": "4.5.0",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
     "next": "12.3.1",
