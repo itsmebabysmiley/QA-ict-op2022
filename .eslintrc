@@ -4,6 +4,7 @@
     "@next/next/no-img-element": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "no-console": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "import/no-mutable-exports": "off"
   }
 }
