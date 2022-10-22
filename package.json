@@ -11,6 +11,7 @@
     "build-storybook": "storybook build",
     "tunnel": "cloudflared tunnel run",
     "db:up": "docker compose -f docker-compose.development.yml up -d",
+    "db:stop": "docker compose -f docker-compose.development.yml stop",
     "db:down": "docker compose -f docker-compose.development.yml down"
   },
   "dependencies": {
