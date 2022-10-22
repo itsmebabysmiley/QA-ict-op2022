@@ -12,12 +12,14 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
       await registerSchema.validateAsync(body)
       await registerUser(body, token)
 
-      return res.status(200).json({ message: 'OK' })
+      return res.status(200).json({ success: true, payload: 'OK' })
     }
 
-    return res.status(405).json({ message: 'Method Not Allowed' })
+    return res
+      .status(405)
+      .json({ success: false, payload: 'Method Not Allowed' })
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ success: false, payload: error.message })
   }
 }
 
