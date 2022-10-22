@@ -1,9 +1,11 @@
+import axios from 'axios'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+import { useLiff } from 'react-liff'
 import Button from '~/components/Button'
 import SelectInput from '~/components/Input/SelectInput'
 import TextInput from '~/components/Input/TextInput'
@@ -21,9 +23,16 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 })
 
 const Page: NextPage = () => {
+  const { liff } = useLiff()
   const { t } = useTranslation('register')
   const { push, locale = 'th' } = useRouter()
   const { form, dispatch } = useStoreon('form')
+
+  const isEduRequired = useMemo(() => {
+    return ['student', 'uni_student', 'teacher'].includes(
+      form.register.fields?.regType || ''
+    )
+  }, [form.register.fields?.regType])
 
   const {
     register,
@@ -32,8 +41,10 @@ const Page: NextPage = () => {
   } = useForm({
     defaultValues: {
       province: form.register.fields?.province || undefined,
-      school: form.register.fields?.school || '',
-      eduLevel: form.register.fields?.eduLevel || undefined,
+      school: isEduRequired ? form.register.fields?.school || '' : undefined,
+      educationLevel: isEduRequired
+        ? form.register.fields?.educationLevel || undefined
+        : undefined,
     },
   })
 
@@ -66,13 +77,35 @@ const Page: NextPage = () => {
     <Wrapper>
       <div className="mx-auto flex min-h-screen max-w-screen-md flex-col px-8 py-10 sm:justify-center">
         <form
-          onSubmit={handleSubmit((data) => {
+          onSubmit={handleSubmit(async (data) => {
             console.log(data)
             dispatch('form/register/setFields', {
               province: data.province,
               school: data.school,
-              eduLevel: data.eduLevel,
+              educationLevel: data.educationLevel,
             })
+
+            console.log(form.register.fields)
+
+            const liffIdToken = liff.getIDToken() || undefined
+
+            const { data: r } = await axios.post(
+              '/api/v1/register',
+              {
+                ...form.register.fields,
+                ...data,
+              },
+              {
+                headers: {
+                  authorization: liffIdToken
+                    ? `Bearer ${liffIdToken}`
+                    : undefined,
+                },
+              }
+            )
+
+            console.log(r)
+
             dispatch('form/register/nextStep')
             push('/register/success')
           })}
@@ -98,22 +131,26 @@ const Page: NextPage = () => {
                 options={provincesList}
                 {...register('province', { required: true })}
               />
-              <TextInput
-                id="school"
-                label={t('REG_FORM.REG_FIELD_SCHOOL')}
-                placeholder={t('REG_FORM.REG_FIELD_SCHOOL_PLACEHOLDER')}
-                required
-                className="w-full"
-                {...register('school', { required: true })}
-              />
-              <SelectInput
-                id="level"
-                label={t('REG_FORM.REG_FIELD_SCHOOL_LEVEL')}
-                required
-                className="w-full"
-                options={educationList}
-                {...register('eduLevel', { required: true })}
-              />
+              {isEduRequired && (
+                <TextInput
+                  id="school"
+                  label={t('REG_FORM.REG_FIELD_SCHOOL')}
+                  placeholder={t('REG_FORM.REG_FIELD_SCHOOL_PLACEHOLDER')}
+                  required
+                  className="w-full"
+                  {...register('school', { required: true })}
+                />
+              )}
+              {isEduRequired && (
+                <SelectInput
+                  id="level"
+                  label={t('REG_FORM.REG_FIELD_SCHOOL_LEVEL')}
+                  required
+                  className="w-full"
+                  options={educationList}
+                  {...register('educationLevel', { required: true })}
+                />
+              )}
             </div>
           </div>
           <div className="mt-10 text-center">

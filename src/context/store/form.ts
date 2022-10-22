@@ -10,7 +10,7 @@ interface RegisterFormFields {
   phone: string
   province: string
   school: string
-  eduLevel: string
+  educationLevel: string
 }
 
 export interface FormStore {
