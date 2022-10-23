@@ -18,23 +18,26 @@ interface IParticipant {
   linePicture: string
 }
 
-const participantSchema = new Schema({
-  regType: String,
-  language: String,
-  firstName: String,
-  lastName: String,
-  dob: Date,
-  email: String,
-  phone: String,
-  province: Number,
-  school: String,
-  educationLevel: Number,
+const participantSchema = new Schema(
+  {
+    regType: String,
+    language: String,
+    firstName: String,
+    lastName: String,
+    dob: Date,
+    email: String,
+    phone: String,
+    province: Number,
+    school: String,
+    educationLevel: Number,
 
-  // LINE
-  lineUserId: String,
-  lineDisplayName: String,
-  linePicture: String,
-})
+    // LINE
+    lineUserId: String,
+    lineDisplayName: String,
+    linePicture: String,
+  },
+  { timestamps: true }
+)
 
 const Participant: Model<IParticipant> =
   models.Participant || model('Participant', participantSchema)

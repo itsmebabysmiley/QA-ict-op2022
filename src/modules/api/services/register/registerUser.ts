@@ -1,6 +1,7 @@
 import dbConnect from '~/lib/mongoose/dbConnect'
 import { verifyIdToken } from '~/modules/external/line'
 import Participant from '~/modules/mongoose/models/participant.model'
+import Registration from '~/modules/mongoose/models/registration.model'
 import type { IParticipant } from '~/types/entity/participant'
 
 const registerUser = async (data: IParticipant, lineToken?: string) => {
@@ -22,7 +23,12 @@ const registerUser = async (data: IParticipant, lineToken?: string) => {
       }
     }
 
-    const p = Participant.create(payload)
+    const p = await Participant.create(payload)
+
+    const checkInUser = await Registration.create({
+      participant: p._id,
+      registeredAt: new Date(),
+    })
 
     return p
   } catch (error: any) {
