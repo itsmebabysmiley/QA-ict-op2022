@@ -152,6 +152,6 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
         en: '5 people',
       },
     },
-    expectedAnswer: '3',
+    expectedAnswer: '3-people',
   },
 ]

@@ -88,12 +88,12 @@ const Page: NextPage = () => {
           )}
           <Button
             type="button"
-            label={t('QUEST_RESULT.TRY_AGAIN_BUTTON')}
+            label={t('QUEST_RESULT.TRY_AGAIN_BUTTON', { ns: 'activity' })}
             variant="ictTurquoise"
             className="mx-auto w-full max-w-[264px]"
             onClick={() => {
               push({
-                pathname: '/activity/q/[id]',
+                pathname: '/activity/quest/[id]',
                 query: {
                   ...query,
                 },

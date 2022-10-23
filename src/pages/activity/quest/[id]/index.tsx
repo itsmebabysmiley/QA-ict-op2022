@@ -1,7 +1,9 @@
+import axios from 'axios'
 import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLiff } from 'react-liff'
 import useSWR from 'swr/immutable'
@@ -24,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 })
 
 const Page: NextPage = () => {
-  const { register, watch, handleSubmit } = useForm()
+  const { register, watch, handleSubmit, setValue } = useForm()
   const { query, push, locale } = useRouter()
   const { liff, isReady } = useLiff()
   const { t } = useTranslation(['common', 'activity'])
@@ -41,6 +43,13 @@ const Page: NextPage = () => {
       : null,
     fetcher
   )
+
+  useEffect(() => {
+    if (data) {
+      setValue('questNo', data.payload.questNo)
+      setValue('questionId', data.payload.id)
+    }
+  }, [data?.payload])
 
   if (error) {
     return <div>failed to load</div>
@@ -65,10 +74,32 @@ const Page: NextPage = () => {
         </div>
 
         <form
-          onSubmit={handleSubmit((data) => {
-            console.log(data)
+          onSubmit={handleSubmit(async (d) => {
+            console.log(d)
+
+            const {
+              data: { payload },
+            } = await axios.post('/api/v1/activity/quest/submit', d)
+
+            if (payload.result) {
+              push({
+                pathname: '/activity/quest/[id]/correct',
+                query: {
+                  ...query,
+                },
+              })
+            } else {
+              push({
+                pathname: '/activity/quest/[id]/incorrect',
+                query: {
+                  ...query,
+                },
+              })
+            }
           })}
         >
+          <input type="hidden" {...register('questNo')} />
+          <input type="hidden" {...register('questionId')} />
           <div className="my-10">
             <div className="mb-1 font-heading font-bold">
               {t('QUEST_QUESTION.QUESTION_SECTION_TITLE', { ns: 'activity' })}
@@ -101,14 +132,6 @@ const Page: NextPage = () => {
               })}
               variant="ictTurquoise"
               className="mx-auto w-full max-w-[264px]"
-              onClick={() => {
-                push({
-                  pathname: '/activity/q/[id]/correct',
-                  query: {
-                    ...query,
-                  },
-                })
-              }}
             />
           </div>
         </form>
