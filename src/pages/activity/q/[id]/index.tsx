@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useForm } from 'react-hook-form'
+import { useLiff } from 'react-liff'
 import Button from '~/components/Button'
 import TextInput from '~/components/Input/TextInput'
 import Wrapper from '~/layouts/Wrapper'
@@ -8,6 +9,7 @@ import ChoiceGroup from '~/routes/Activity/components/Input/ChoiceGroup'
 
 const Page: NextPage = () => {
   const { register, watch, handleSubmit } = useForm()
+  const { liff } = useLiff()
 
   return (
     <Wrapper className="px-5 py-10">
@@ -54,11 +56,16 @@ const Page: NextPage = () => {
           </div>
 
           <div className="my-10 flex justify-between gap-5">
-            <Button
-              label="ปิด"
-              variant="primary"
-              className="w-full max-w-[264px]"
-            />
+            {liff.isInClient?.() && (
+              <Button
+                label="ปิด"
+                variant="primary"
+                className="w-full max-w-[264px]"
+                onClick={() => {
+                  liff.closeWindow()
+                }}
+              />
+            )}
             <Button
               type="submit"
               label="ส่งคำตอบ"
