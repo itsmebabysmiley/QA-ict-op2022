@@ -1,15 +1,13 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
 import { useLiff } from 'react-liff'
-import useSWR from 'swr/immutable'
+import useSWR from 'swr'
 import Button from '~/components/Button'
 import type { IQuestion } from '~/const/activity/questions'
 import LoadingWrapper from '~/layouts/LoadingWrapper'
 import Wrapper from '~/layouts/Wrapper'
-import { renderAnswerFromQuestion } from '~/modules/activity'
 import Header from '~/routes/Activity/components/Header'
 import type { ApiResponseError, ApiResponseSuccess } from '~/types/api'
 import { fetcher } from '~/utils'
@@ -24,11 +22,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 })
 
 const Page: NextPage = () => {
-  const { register, watch, handleSubmit } = useForm()
   const { query, push, locale } = useRouter()
   const { liff, isReady } = useLiff()
   const { t } = useTranslation(['common', 'activity'])
-
   const { data, error } = useSWR<
     ApiResponseSuccess<IQuestion>,
     ApiResponseError
@@ -64,54 +60,47 @@ const Page: NextPage = () => {
           <h1 className="text-3xl font-bold">{data.payload.questTitle}</h1>
         </div>
 
-        <form
-          onSubmit={handleSubmit((data) => {
-            console.log(data)
-          })}
-        >
-          <div className="my-10">
-            <div className="mb-1 font-heading font-bold">
-              {t('QUEST_QUESTION.QUESTION_SECTION_TITLE', { ns: 'activity' })}
-            </div>
-            <p>{data.payload.questions}</p>
-          </div>
+        <img
+          src="/static/images/nstar/nstar_wrong.svg"
+          className="mx-auto h-40 max-w-sm"
+          alt="Wrong Answer"
+        />
 
-          <div className="my-10">
-            <div className="mb-1 font-heading font-bold">
-              {t('QUEST_QUESTION.ANSWER_SECTION_TITLE', { ns: 'activity' })}
-            </div>
-            {renderAnswerFromQuestion(data.payload, register, watch)}
+        <div className="mt-10 w-full space-y-5 text-center">
+          <div className="font-heading text-3xl font-bold text-ict-magenta-process">
+            {t('QUEST_RESULT.INCORRECT_TITLE', { ns: 'activity' })}
           </div>
+          <div className="font-heading text-2xl">
+            {t('QUEST_RESULT.INCORRECT_SUBTITLE', { ns: 'activity' })}
+          </div>
+        </div>
 
-          <div className="my-10 flex justify-between gap-5">
-            {liff.isInClient?.() && (
-              <Button
-                label={t('BUTTON_LABEL.CLOSE', { ns: 'common' })}
-                variant="primary"
-                className="w-full max-w-[264px]"
-                onClick={() => {
-                  liff.closeWindow()
-                }}
-              />
-            )}
+        <div className="my-10 flex justify-between gap-5">
+          {liff.isInClient?.() && (
             <Button
-              type="submit"
-              label={t('QUEST_QUESTION.SUBMIT_ANSWER_BUTTON', {
-                ns: 'activity',
-              })}
-              variant="ictTurquoise"
+              label={t('BUTTON_LABEL.CLOSE', { ns: 'common' })}
+              variant="primary"
               className="mx-auto w-full max-w-[264px]"
               onClick={() => {
-                push({
-                  pathname: '/activity/q/[id]/correct',
-                  query: {
-                    ...query,
-                  },
-                })
+                liff.closeWindow()
               }}
             />
-          </div>
-        </form>
+          )}
+          <Button
+            type="button"
+            label={t('QUEST_RESULT.TRY_AGAIN_BUTTON')}
+            variant="ictTurquoise"
+            className="mx-auto w-full max-w-[264px]"
+            onClick={() => {
+              push({
+                pathname: '/activity/q/[id]',
+                query: {
+                  ...query,
+                },
+              })
+            }}
+          />
+        </div>
       </div>
     </Wrapper>
   )

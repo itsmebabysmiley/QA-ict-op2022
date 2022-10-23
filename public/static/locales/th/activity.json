@@ -1,0 +1,15 @@
+{
+  "QUEST_NUMBER_TITLE": "ภารกิจที่ {}",
+  "QUEST_QUESTION": {
+    "QUESTION_SECTION_TITLE": "คำถาม",
+    "ANSWER_SECTION_TITLE": "คำตอบ",
+    "SUBMIT_ANSWER_BUTTON": "ส่งคำตอบ"
+  },
+  "QUEST_RESULT": {
+    "CORRECT_TITLE": "ยินดีด้วย!!",
+    "CORRECT_SUBTITLE": "น้องผ่านภารกิจแล้ว",
+    "INCORRECT_TITLE": "คำตอบผิด!!",
+    "INCORRECT_SUBTITLE": "ไม่เป็นไรนะ พยายามหาเข้า",
+    "TRY_AGAIN_BUTTON": "ตอบอีกครั้ง"
+  }
+}

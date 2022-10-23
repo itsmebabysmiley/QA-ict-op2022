@@ -1,0 +1,15 @@
+{
+  "QUEST_NUMBER_TITLE": "Quest {}",
+  "QUEST_QUESTION": {
+    "QUESTION_SECTION_TITLE": "Question",
+    "ANSWER_SECTION_TITLE": "Answer",
+    "SUBMIT_ANSWER_BUTTON": "Submit"
+  },
+  "QUEST_RESULT": {
+    "CORRECT_TITLE": "Congratulations!!",
+    "CORRECT_SUBTITLE": "Let's continue explore!",
+    "INCORRECT_TITLE": "Wrong Answer!!",
+    "INCORRECT_SUBTITLE": "Let's try again!",
+    "TRY_AGAIN_BUTTON": "Try Again"
+  }
+}
