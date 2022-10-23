@@ -19,7 +19,7 @@ const Page: NextPage = () => {
         <img
           src="/static/images/nstar/nstar_correct.svg"
           className="mx-auto h-40 max-w-sm"
-          alt="Success"
+          alt="Correct Answer"
         />
 
         <div className="mt-10 w-full space-y-5 text-center">
