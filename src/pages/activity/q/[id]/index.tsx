@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useLiff } from 'react-liff'
 import Button from '~/components/Button'
@@ -9,6 +10,7 @@ import ChoiceGroup from '~/routes/Activity/components/Input/ChoiceGroup'
 
 const Page: NextPage = () => {
   const { register, watch, handleSubmit } = useForm()
+  const { query, push } = useRouter()
   const { liff } = useLiff()
 
   return (
@@ -70,7 +72,15 @@ const Page: NextPage = () => {
               type="submit"
               label="ส่งคำตอบ"
               variant="ictTurquoise"
-              className="w-full max-w-[264px]"
+              className="mx-auto w-full max-w-[264px]"
+              onClick={() => {
+                push({
+                  pathname: '/activity/q/[id]/correct',
+                  query: {
+                    ...query,
+                  },
+                })
+              }}
             />
           </div>
         </form>

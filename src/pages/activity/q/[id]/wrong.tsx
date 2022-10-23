@@ -1,10 +1,12 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useLiff } from 'react-liff'
 import Button from '~/components/Button'
 import Wrapper from '~/layouts/Wrapper'
 import Header from '~/routes/Activity/components/Header'
 
 const Page: NextPage = () => {
+  const { query, push } = useRouter()
   const { liff } = useLiff()
 
   return (
@@ -41,10 +43,18 @@ const Page: NextPage = () => {
             />
           )}
           <Button
-            type="submit"
+            type="button"
             label="ตอบอีกครั้ง"
             variant="ictTurquoise"
             className="mx-auto w-full max-w-[264px]"
+            onClick={() => {
+              push({
+                pathname: '/activity/q/[id]',
+                query: {
+                  ...query,
+                },
+              })
+            }}
           />
         </div>
       </div>
