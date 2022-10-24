@@ -21,7 +21,7 @@ interface BaseQuestion<T = string> {
   type: QUESTION_TYPE
   questNo: number
   questTitle: T
-  questions: T
+  question: T
 }
 
 interface TextFieldQuestion<T> extends BaseQuestion<T> {
@@ -55,7 +55,7 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
       th: 'Meet & Greet Zone',
       en: 'Meet & Greet Zone',
     },
-    questions: {
+    question: {
       th: 'จำนวนชมรม (Club) ที่จัดแสดงมีกี่ชมรม',
       en: 'How many clubs do we have for the open house?',
     },
@@ -78,7 +78,7 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
       th: 'International Experiences Zone',
       en: 'International Experiences Zone',
     },
-    questions: {
+    question: {
       th: 'ประเทศที่มีจำนวน Exchange Students มากที่สุดคือประเทศใด',
       en: 'Which country has the highest number of exchange students?',
     },
@@ -92,7 +92,7 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
       th: 'Guidance Zone',
       en: 'Guidance Zone',
     },
-    questions: {
+    question: {
       th: 'หลักสูตรปริญญาตรี ICT Program มีทั้งหมดกี่ Specializations',
       en: 'How many specializations are there in B.Sc. in ICT Program?',
     },
@@ -106,7 +106,7 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
       th: 'Guidance Zone',
       en: 'Guidance Zone',
     },
-    questions: {
+    question: {
       th: 'หลักสูตรปริญญาตรีใดของคณะ ICT ที่มุ่งเน้นการทำสหกิจศึกษาและฝึกงาน',
       en: 'Which bachelor program at ICT faculty focuses on Cooperative Education/Internship?',
     },
@@ -130,7 +130,7 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
       th: 'Innovative Projects Zone',
       en: 'Innovative Projects Zone',
     },
-    questions: {
+    question: {
       th: 'ในการจัดตั้งทีม Senior Project สามารถมีสมาชิกได้สูงสุดกี่คน',
       en: 'What is the maximum number of group members can be formed for the senior project?',
     },

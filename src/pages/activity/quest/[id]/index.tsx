@@ -14,6 +14,7 @@ import Wrapper from '~/layouts/Wrapper'
 import { renderAnswerFromQuestion } from '~/modules/activity'
 import Header from '~/routes/Activity/components/Header'
 import type { ApiResponseError, ApiResponseSuccess } from '~/types/api'
+import type { IQuestPayload } from '~/types/api/activity'
 import { fetcher } from '~/utils'
 import { strSubstitute } from '~/utils/string'
 
@@ -32,6 +33,20 @@ const Page: NextPage = () => {
   const { t } = useTranslation(['common', 'activity'])
 
   const { data, error } = useSWR<
+    ApiResponseSuccess<IQuestPayload>,
+    ApiResponseError
+  >(
+    query.id && locale && isReady
+      ? {
+          method: 'GET',
+          url: `/api/v1/activity/quest/question?questNo=${query.id}&lang=${locale}`,
+          token: liff?.getIDToken?.() ? liff.getIDToken() : undefined,
+        }
+      : null,
+    fetcher
+  )
+
+  const { data: questData, error: err } = useSWR<
     ApiResponseSuccess<IQuestion>,
     ApiResponseError
   >(
@@ -45,9 +60,9 @@ const Page: NextPage = () => {
   )
 
   useEffect(() => {
-    if (data) {
-      setValue('questNo', data.payload.questNo)
-      setValue('questionId', data.payload.id)
+    if (data?.payload.question) {
+      setValue('questNo', data.payload.question.questNo)
+      setValue('questionId', data.payload.question.id)
     }
   }, [data?.payload])
 
@@ -55,7 +70,7 @@ const Page: NextPage = () => {
     return <div>failed to load</div>
   }
 
-  if (!data || !isReady) {
+  if (!data || !questData || !isReady) {
     return <LoadingWrapper />
   }
 
@@ -67,80 +82,82 @@ const Page: NextPage = () => {
           <h2 className="mb-2 text-xl font-normal">
             {strSubstitute(
               t('QUEST_NUMBER_TITLE', { ns: 'activity' }),
-              data.payload.questNo
+              questData.payload.questNo
             )}
           </h2>
-          <h1 className="text-3xl font-bold">{data.payload.questTitle}</h1>
+          <h1 className="text-3xl font-bold">{questData.payload.questTitle}</h1>
         </div>
 
-        <form
-          onSubmit={handleSubmit(async (d) => {
-            console.log(d)
+        {data.payload.question && (
+          <form
+            onSubmit={handleSubmit(async (d) => {
+              console.log(d)
 
-            const {
-              data: { payload },
-            } = await axios.post('/api/v1/activity/quest/submit', d, {
-              headers: {
-                Authorization: liff.getIDToken()
-                  ? `Bearer ${liff.getIDToken()}`
-                  : undefined,
-              },
-            })
-
-            if (payload.result) {
-              push({
-                pathname: '/activity/quest/[id]/correct',
-                query: {
-                  ...query,
+              const {
+                data: { payload },
+              } = await axios.post('/api/v1/activity/quest/submit', d, {
+                headers: {
+                  Authorization: liff.getIDToken()
+                    ? `Bearer ${liff.getIDToken()}`
+                    : undefined,
                 },
               })
-            } else {
-              push({
-                pathname: '/activity/quest/[id]/incorrect',
-                query: {
-                  ...query,
-                },
-              })
-            }
-          })}
-        >
-          <input type="hidden" {...register('questNo')} />
-          <input type="hidden" {...register('questionId')} />
-          <div className="my-10">
-            <div className="mb-1 font-heading font-bold">
-              {t('QUEST_QUESTION.QUESTION_SECTION_TITLE', { ns: 'activity' })}
-            </div>
-            <p>{data.payload.questions}</p>
-          </div>
 
-          <div className="my-10">
-            <div className="mb-1 font-heading font-bold">
-              {t('QUEST_QUESTION.ANSWER_SECTION_TITLE', { ns: 'activity' })}
+              if (payload.result) {
+                push({
+                  pathname: '/activity/quest/[id]/correct',
+                  query: {
+                    ...query,
+                  },
+                })
+              } else {
+                push({
+                  pathname: '/activity/quest/[id]/incorrect',
+                  query: {
+                    ...query,
+                  },
+                })
+              }
+            })}
+          >
+            <input type="hidden" {...register('questNo')} />
+            <input type="hidden" {...register('questionId')} />
+            <div className="my-10">
+              <div className="mb-1 font-heading font-bold">
+                {t('QUEST_QUESTION.QUESTION_SECTION_TITLE', { ns: 'activity' })}
+              </div>
+              <p>{data.payload.question.question}</p>
             </div>
-            {renderAnswerFromQuestion(data.payload, register, watch)}
-          </div>
 
-          <div className="my-10 flex justify-between gap-5">
-            {liff.isInClient?.() && (
+            <div className="my-10">
+              <div className="mb-1 font-heading font-bold">
+                {t('QUEST_QUESTION.ANSWER_SECTION_TITLE', { ns: 'activity' })}
+              </div>
+              {renderAnswerFromQuestion(data.payload.question, register, watch)}
+            </div>
+
+            <div className="my-10 flex justify-between gap-5">
+              {liff.isInClient?.() && (
+                <Button
+                  label={t('BUTTON_LABEL.CLOSE', { ns: 'common' })}
+                  variant="primary"
+                  className="w-full max-w-[264px]"
+                  onClick={() => {
+                    liff.closeWindow()
+                  }}
+                />
+              )}
               <Button
-                label={t('BUTTON_LABEL.CLOSE', { ns: 'common' })}
-                variant="primary"
-                className="w-full max-w-[264px]"
-                onClick={() => {
-                  liff.closeWindow()
-                }}
+                type="submit"
+                label={t('QUEST_QUESTION.SUBMIT_ANSWER_BUTTON', {
+                  ns: 'activity',
+                })}
+                variant="ictTurquoise"
+                className="mx-auto w-full max-w-[264px]"
               />
-            )}
-            <Button
-              type="submit"
-              label={t('QUEST_QUESTION.SUBMIT_ANSWER_BUTTON', {
-                ns: 'activity',
-              })}
-              variant="ictTurquoise"
-              className="mx-auto w-full max-w-[264px]"
-            />
-          </div>
-        </form>
+            </div>
+          </form>
+        )}
       </div>
     </Wrapper>
   )

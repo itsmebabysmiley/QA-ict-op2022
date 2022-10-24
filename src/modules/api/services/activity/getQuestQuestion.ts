@@ -4,14 +4,14 @@ import { QUESTIONS, QUESTION_TYPE } from '~/const/activity/questions'
 export const formatQuestion = (
   question: IQuestion<I18nTranslation>,
   lang: 'th' | 'en' = 'th',
-  answer = false
+  showQuestion = false,
+  showAnswer = false
 ) => {
   const questionResult: Partial<IQuestion> = {
     id: question.id,
     type: question.type,
     questNo: question.questNo,
     questTitle: question.questTitle[lang],
-    questions: question.questions[lang],
   }
 
   if (
@@ -29,7 +29,13 @@ export const formatQuestion = (
     })
   }
 
-  if (answer) {
+  if (showQuestion) {
+    Object.assign(questionResult, {
+      question: question.question[lang],
+    })
+  }
+
+  if (showAnswer) {
     Object.assign(questionResult, {
       expectedAnswer: question.expectedAnswer,
     })
@@ -41,13 +47,14 @@ export const formatQuestion = (
 export const getQuestQuestion = async (
   questNo: number,
   lang: 'th' | 'en' = 'th',
+  question = true,
   answer = false
 ) => {
-  const question = QUESTIONS.filter((q) => q.questNo === questNo)
+  const quests = QUESTIONS.filter((q) => q.questNo === questNo)
 
-  if (!question || !question.length) {
+  if (!quests || !quests.length) {
     throw new Error('Question not found')
   }
 
-  return question.map((q) => formatQuestion(q, lang, answer))
+  return quests.map((q) => formatQuestion(q, lang, question, answer))
 }

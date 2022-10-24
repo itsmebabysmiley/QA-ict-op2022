@@ -31,7 +31,12 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (req.method === 'POST') {
-      const questions = await getQuestQuestion(body.questNo, undefined, true)
+      const questions = await getQuestQuestion(
+        body.questNo,
+        undefined,
+        true,
+        true
+      )
 
       const question = questions.find((q) => q.id === body.questionId)
       if (!question) {
@@ -47,8 +52,15 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
         await QuestLog.create({
           participant: userRecord._id,
           questNo: body.questNo,
+          questionId: question.id,
           status: 'success',
-          finishedAt: new Date(),
+        })
+      } else {
+        await QuestLog.create({
+          participant: userRecord._id,
+          questNo: body.questNo,
+          questionId: question.id,
+          status: 'incorrect',
         })
       }
 

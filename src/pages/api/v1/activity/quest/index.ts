@@ -25,10 +25,20 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (req.method === 'GET') {
-      const questions = await getQuestQuestion(Number(questNo), lang)
-      const randomQuestion = randomArray(questions)
+      const questions = await getQuestQuestion(
+        Number(questNo),
+        lang,
+        false,
+        false
+      )
 
-      return res.status(200).json({ success: true, payload: randomQuestion })
+      return res.status(200).json({
+        success: true,
+        payload: {
+          ...questions[0],
+          id: undefined,
+        },
+      })
     }
 
     return res.status(405).json({

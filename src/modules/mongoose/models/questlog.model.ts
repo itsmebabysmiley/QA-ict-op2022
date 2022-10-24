@@ -2,13 +2,16 @@ import type { Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 import type { IParticipant } from '~/types/entity/participant'
 
-enum QuestLogStatus {
+export enum QuestLogStatus {
+  INCORRECT = 'incorrect',
   SUCCESS = 'success',
+  INIT = 'init',
 }
 
 interface IQuestLog {
   participant: IParticipant
   questNo: number
+  questionId?: string
   status: QuestLogStatus
   finishedAt: Date
 }
@@ -20,11 +23,11 @@ const questLogSchema = new Schema(
       ref: 'Participant',
     },
     questNo: Number,
+    questionId: String,
     status: {
       type: String,
       enum: Object.values(QuestLogStatus),
     },
-    finishedAt: Date,
   },
   { timestamps: true }
 )
