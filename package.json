@@ -10,9 +10,12 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "tunnel": "cloudflared tunnel run",
-    "db:up": "docker compose -f docker-compose.development.yml up -d",
-    "db:stop": "docker compose -f docker-compose.development.yml stop",
-    "db:down": "docker compose -f docker-compose.development.yml down"
+    "db:up": "docker compose -f .docker/docker-compose.development.yml up -d",
+    "db:stop": "docker compose -f .docker/docker-compose.development.yml stop",
+    "db:down": "docker compose -f .docker/docker-compose.development.yml down",
+    "docker:up": "docker compose -f .docker/docker-compose.production.yml up -d",
+    "docker:stop": "docker compose -f .docker/docker-compose.production.yml stop",
+    "docker:down": "docker compose -f .docker/docker-compose.production.yml down"
   },
   "dependencies": {
     "@iconify/react": "^4.0.0",
