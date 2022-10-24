@@ -26,6 +26,10 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
     const lineUser = await getLineUserFromReq(req)
     const userRecord = await getUserRecordFromLineUId(lineUser.userId)
 
+    if (!userRecord) {
+      throw new Error('Participant not found')
+    }
+
     if (req.method === 'POST') {
       const questions = await getQuestQuestion(body.questNo, undefined, true)
 

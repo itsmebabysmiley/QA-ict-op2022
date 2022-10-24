@@ -1,3 +1,4 @@
+import { getUserRecordFromLineUId } from '../common/getUserRecordFromLine'
 import { getLineUserFromIdToken } from '~/modules/external/line'
 import Participant from '~/modules/mongoose/models/participant.model'
 
@@ -7,12 +8,10 @@ const isParticipantRegistered = async (token?: string) => {
       return false
     }
 
-    const [, user] = await getLineUserFromIdToken(token)
-    const { userId } = user
+    const user = await getLineUserFromIdToken(token)
+    const userRecord = await getUserRecordFromLineUId(user.userId)
 
-    const p = await Participant.findOne({ lineUserId: userId })
-
-    return !!p
+    return !!userRecord
   } catch (error: any) {
     throw new Error(error)
   }
