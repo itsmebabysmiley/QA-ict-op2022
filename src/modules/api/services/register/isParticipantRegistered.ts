@@ -11,7 +11,11 @@ const isParticipantRegistered = async (token?: string) => {
     const user = await getLineUserFromIdToken(token)
     const userRecord = await getUserRecordFromLineUId(user.userId)
 
-    return !!userRecord
+    if (!userRecord) {
+      return false
+    }
+
+    return true
   } catch (error: any) {
     throw new Error(error)
   }

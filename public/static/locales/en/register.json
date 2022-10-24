@@ -39,5 +39,9 @@
 
     "REG_SUCCESS_TITLE": "Registered",
     "REG_SUCCESS_SUBTITLE": "Let's Explore!!"
+  },
+  "REGISTERED": {
+    "REG_EXISTED_TITLE": "Registered",
+    "REG_EXISTED_SUBTITLE": "Have fun exploring!!"
   }
 }

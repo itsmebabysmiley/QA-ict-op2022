@@ -39,5 +39,9 @@
 
     "REG_SUCCESS_TITLE": "ลงทะเบียนสำเร็จ",
     "REG_SUCCESS_SUBTITLE": "ไปท่องมัลติเวิร์สกันเลย!"
+  },
+  "REGISTERED": {
+    "REG_EXISTED_TITLE": "ลงทะเบียนแล้ว",
+    "REG_EXISTED_SUBTITLE": "ไปสนุกกับการผจญภัยได้เลย"
   }
 }
