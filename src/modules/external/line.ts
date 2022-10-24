@@ -2,7 +2,7 @@ import axios from 'axios'
 import { stringify } from 'qs'
 import type { IVerifyIdTokenResponse } from '~/types/external/line'
 
-interface IVerifyIdTokenUser {
+interface ILineUser {
   userId: string
   displayName: string
   picture: string
@@ -10,9 +10,9 @@ interface IVerifyIdTokenUser {
 }
 
 // Verify LINE Id Token
-export const verifyIdToken = async (
+export const getLineUserFromIdToken = async (
   idToken: string
-): Promise<[boolean, IVerifyIdTokenUser]> => {
+): Promise<ILineUser> => {
   try {
     const { data } = await axios.post<IVerifyIdTokenResponse>(
       'https://api.line.me/oauth2/v2.1/verify',
@@ -29,15 +29,12 @@ export const verifyIdToken = async (
 
     console.log(data)
 
-    return [
-      true,
-      {
-        userId: data.sub,
-        displayName: data.name,
-        picture: data.picture,
-        email: data.email,
-      },
-    ]
+    return {
+      userId: data.sub,
+      displayName: data.name,
+      picture: data.picture,
+      email: data.email,
+    }
   } catch (error) {
     console.log(error)
     throw new Error('Invalid LINE Id Token')

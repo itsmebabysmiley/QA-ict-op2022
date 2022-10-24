@@ -1,11 +1,16 @@
 import Joi from 'joi'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { QUESTIONS } from '~/const/activity/questions'
+import dbConnect from '~/lib/mongoose/dbConnect'
+import { checkAnswer } from '~/modules/api/services/activity/checkAnswer'
 import { getQuestQuestion } from '~/modules/api/services/activity/getQuestQuestion'
-import { randomArray } from '~/utils'
+import { getLineUserFromReq } from '~/modules/api/services/common/getLineUserFromReq'
+import { getUserRecordFromLineUId } from '~/modules/api/services/common/getUserRecordFromLine'
+import QuestLog from '~/modules/mongoose/models/questlog.model'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    await dbConnect()
+
     const body: {
       questionId: string
       questNo: number
@@ -18,6 +23,9 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
       answer: Joi.string().required(),
     }).validateAsync(body)
 
+    const lineUser = await getLineUserFromReq(req)
+    const userRecord = await getUserRecordFromLineUId(lineUser.userId)
+
     if (req.method === 'POST') {
       const questions = await getQuestQuestion(body.questNo, undefined, true)
 
@@ -28,16 +36,19 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
         })
       }
 
-      const expectedAnswer = question.expectedAnswer
-      const normalizedAnswer = body.answer.toLowerCase().trim()
+      const result = checkAnswer(question.expectedAnswer, body.answer)
 
-      const isCorrect = Array.isArray(expectedAnswer)
-        ? expectedAnswer.includes(normalizedAnswer)
-        : expectedAnswer === normalizedAnswer
+      if (result) {
+        // Update user's quest progress
+        await QuestLog.create({
+          participant: userRecord._id,
+          questNo: body.questNo,
+          status: 'success',
+          finishedAt: new Date(),
+        })
+      }
 
-      return res
-        .status(200)
-        .json({ success: true, payload: { result: isCorrect } })
+      return res.status(200).json({ success: true, payload: { result } })
     }
 
     return res.status(405).json({

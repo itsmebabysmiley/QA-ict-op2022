@@ -11,7 +11,7 @@ import Wrapper from '~/layouts/Wrapper'
 import Header from '~/routes/Activity/components/Header'
 import type { ApiResponseError, ApiResponseSuccess } from '~/types/api'
 import { fetcher } from '~/utils'
-import { strSubstitute } from '~/utils/formatter'
+import { strSubstitute } from '~/utils/string'
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale = 'th',

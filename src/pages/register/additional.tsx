@@ -14,7 +14,7 @@ import Provinces from '~/const/register/province'
 import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
-import { strSubstitute } from '~/utils/formatter'
+import { strSubstitute } from '~/utils/string'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {

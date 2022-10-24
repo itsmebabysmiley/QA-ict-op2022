@@ -1,6 +1,5 @@
 import type { Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
-import Participant from './participant.model'
 import type { IParticipant } from '~/types/entity/participant'
 
 interface IRegistration {

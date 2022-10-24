@@ -15,7 +15,7 @@ import { renderAnswerFromQuestion } from '~/modules/activity'
 import Header from '~/routes/Activity/components/Header'
 import type { ApiResponseError, ApiResponseSuccess } from '~/types/api'
 import { fetcher } from '~/utils'
-import { strSubstitute } from '~/utils/formatter'
+import { strSubstitute } from '~/utils/string'
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale = 'th',
@@ -79,7 +79,13 @@ const Page: NextPage = () => {
 
             const {
               data: { payload },
-            } = await axios.post('/api/v1/activity/quest/submit', d)
+            } = await axios.post('/api/v1/activity/quest/submit', d, {
+              headers: {
+                Authorization: liff.getIDToken()
+                  ? `Bearer ${liff.getIDToken()}`
+                  : undefined,
+              },
+            })
 
             if (payload.result) {
               push({

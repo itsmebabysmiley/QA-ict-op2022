@@ -1,5 +1,5 @@
 import dbConnect from '~/lib/mongoose/dbConnect'
-import { verifyIdToken } from '~/modules/external/line'
+import { getLineUserFromIdToken } from '~/modules/external/line'
 import Participant from '~/modules/mongoose/models/participant.model'
 import Registration from '~/modules/mongoose/models/registration.model'
 import type { IParticipant } from '~/types/entity/participant'
@@ -13,7 +13,7 @@ const registerUser = async (data: IParticipant, lineToken?: string) => {
     }
 
     if (lineToken) {
-      const [verified, user] = await verifyIdToken(lineToken)
+      const [verified, user] = await getLineUserFromIdToken(lineToken)
       if (verified) {
         Object.assign(payload, {
           lineUserId: user.userId,

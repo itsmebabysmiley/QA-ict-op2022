@@ -1,4 +1,4 @@
-import { verifyIdToken } from '~/modules/external/line'
+import { getLineUserFromIdToken } from '~/modules/external/line'
 import Participant from '~/modules/mongoose/models/participant.model'
 
 const isParticipantRegistered = async (token?: string) => {
@@ -7,7 +7,7 @@ const isParticipantRegistered = async (token?: string) => {
       return false
     }
 
-    const [, user] = await verifyIdToken(token)
+    const [, user] = await getLineUserFromIdToken(token)
     const { userId } = user
 
     const p = await Participant.findOne({ lineUserId: userId })
