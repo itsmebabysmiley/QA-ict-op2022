@@ -6,6 +6,8 @@ import { useMemo } from 'react'
 import { useLiff } from 'react-liff'
 import useSWR from 'swr/immutable'
 import Button from '~/components/Button'
+import type { IQuestList } from '~/const/activity/quests'
+import { questLists } from '~/const/activity/quests'
 import LoadingWrapper from '~/layouts/LoadingWrapper'
 import Wrapper from '~/layouts/Wrapper'
 import Header from '~/routes/Activity/components/Header'
@@ -14,25 +16,6 @@ import type { ApiResponseSuccess } from '~/types/api'
 import { QUEST_STATUS } from '~/types/api/activity'
 import type { IMeProfilePayload } from '~/types/api/me'
 import { fetcher } from '~/utils'
-
-interface IQuestList {
-  icon: string
-  title: string
-  success?: boolean
-}
-
-const QUEST_LIST: (IQuestList & { questNo: number })[] = [
-  { questNo: 1, icon: 'op2022:app-registration', title: 'Check in' },
-  { questNo: 2, icon: 'op2022:modern-mic', title: 'Meet & Greet' },
-  {
-    questNo: 3,
-    icon: 'op2022:earth',
-    title: 'Intl. Experiences',
-  },
-  { questNo: 4, icon: 'op2022:chalkboard-teacher', title: 'Guidance' },
-  { questNo: 5, icon: 'op2022:text-snippet', title: 'Innovative Project' },
-  { questNo: 6, icon: 'op2022:star-half', title: 'Evaluation' },
-]
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale = 'th',
@@ -46,7 +29,7 @@ const Page: NextPage = () => {
   const { push } = useRouter()
   const { t } = useTranslation(['common', 'activity'])
   const { liff, isReady } = useLiff()
-  const { data } = useSWR<ApiResponseSuccess<IMeProfilePayload>>(
+  const { data, error } = useSWR<ApiResponseSuccess<IMeProfilePayload>>(
     isReady
       ? {
           method: 'GET',
@@ -58,7 +41,7 @@ const Page: NextPage = () => {
   )
 
   const questProgress = useMemo<Record<string, IQuestList>>(() => {
-    return QUEST_LIST.reduce((acc, { questNo, icon, title }) => {
+    return questLists.reduce((acc, { questNo, icon, title }) => {
       if (!data) {
         return acc
       }
@@ -76,6 +59,10 @@ const Page: NextPage = () => {
     }, {})
   }, [data?.payload?.quests])
 
+  if (error) {
+    return <div>error</div>
+  }
+
   if (!data) {
     return <LoadingWrapper />
   }
@@ -92,12 +79,20 @@ const Page: NextPage = () => {
         </div>
         <ActivityCardGrid activities={Object.values(questProgress)} />
 
-        {Object.values(questProgress).every((q) => q.success) && (
+        {data.payload.isRewardEligible && (
           <div className="my-10">
             <Button
-              label={t('ACTIVITY_SUMMARY.REWARD_BUTTON', { ns: 'activity' })}
-              variant="ictTurquoise"
-              className="w-full"
+              label={t(
+                data.payload.isRewardClaimed
+                  ? 'ACTIVITY_SUMMARY.REWARD_CLAIMED_BUTTON'
+                  : 'ACTIVITY_SUMMARY.REWARD_BUTTON',
+                { ns: 'activity' }
+              )}
+              variant={
+                data.payload.isRewardClaimed ? 'primary' : 'ictTurquoise'
+              }
+              className="w-full disabled:cursor-not-allowed"
+              disabled={data.payload.isRewardClaimed}
               onClick={() => {
                 push('/activity/claim')
               }}

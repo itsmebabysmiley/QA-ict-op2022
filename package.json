@@ -15,6 +15,7 @@
     "db:down": "docker compose -f docker-compose.development.yml down"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "@iconify/react": "^4.0.0",
     "@line/liff": "^2.21.2",
     "@lottiefiles/react-lottie-player": "^3.4.7",

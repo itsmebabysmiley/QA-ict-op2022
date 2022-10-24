@@ -8,5 +8,9 @@ export interface IQuestProgress {
 
 export interface IMeProfilePayload {
   name: string
+  language: string
+  profileImage: string
+  isRewardEligible: boolean
+  isRewardClaimed: boolean
   quests: IQuestProgress[]
 }

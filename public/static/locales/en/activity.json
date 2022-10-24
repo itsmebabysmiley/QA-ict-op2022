@@ -16,10 +16,20 @@
   },
   "ACTIVITY_SUMMARY": {
     "TITLE": "Activity Passport",
-    "REWARD_BUTTON": "Claim Reward"
+    "REWARD_BUTTON": "Claim Reward",
+    "REWARD_CLAIMED_BUTTON": "Reward Claimed"
   },
   "CLAIM_REWARD": {
-    "TITLE": "Good Job!!",
-    "SUBTITLE": "You've earned a reward!"
+    "ELIGIBLE_TITLE": "Good Job!!",
+    "ELIGIBLE_SUBTITLE": "Show this screen to front desk to claim your reward!",
+    "NOT_ELIGIBLE_TITLE": "Not yet!!",
+    "NOT_ELIGIBLE_SUBTITLE": "Explore more quests to earn rewards!",
+    "CLAIMED_TITLE": "Already Claimed!!",
+    "CLAIMED_SUBTITLE": "You've already claimed this reward!",
+    "CLAIM_BUTTON": "Claim Reward",
+    "CLAIMED_BUTTON": "Claimed!!",
+    "CONFIRM_DIALOG_TITLE": "Confirm??",
+    "CONFIRM_DIALOG_MESSAGE": "Please show the staff this screen, and they will mark the reward as claimed.",
+    "CONFIRM_DIALOG_CONFIRM_BUTTON": "Mark as Claimed"
   }
 }

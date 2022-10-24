@@ -18,18 +18,14 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       const questStatus = await getQuestStatus(userRecord.id)
-      const eligibleForReward = await getRewardEligibility(questStatus)
+      const isEligible = await getRewardEligibility(questStatus)
       const isClaimed = await isRewardClaimed(userRecord.id)
 
       return res.status(200).json({
         success: true,
         payload: {
-          name: `${userRecord.firstName} ${userRecord.lastName}`,
-          language: userRecord.language,
-          profileImage: userRecord.linePicture,
-          isRewardEligible: eligibleForReward,
-          isRewardClaimed: isClaimed,
-          quests: questStatus,
+          isEligible,
+          isClaimed,
         },
       })
     }

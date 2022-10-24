@@ -1,10 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '~/lib/mongoose/dbConnect'
+import { getQuestLogFromStatus } from '~/modules/api/services/activity/getQuestLogFromStatus'
 import { getQuestStatus } from '~/modules/api/services/activity/getQuestStatus'
 import { getRewardEligibility } from '~/modules/api/services/activity/getRewardEligibility'
 import { isRewardClaimed } from '~/modules/api/services/activity/isRewardClaimed'
 import { getLineUserFromReq } from '~/modules/api/services/common/getLineUserFromReq'
 import { getUserRecordFromLineUId } from '~/modules/api/services/common/getUserRecordFromLine'
+import QuestLog, {
+  QuestLogStatus,
+} from '~/modules/mongoose/models/questlog.model'
+import { QUEST_STATUS } from '~/types/api/activity'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -21,15 +26,26 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
       const eligibleForReward = await getRewardEligibility(questStatus)
       const isClaimed = await isRewardClaimed(userRecord.id)
 
+      if (!eligibleForReward || isClaimed) {
+        return res.status(400).json({
+          success: true,
+          payload: {
+            isEligible: false,
+            isClaimed,
+          },
+        })
+      }
+
+      await QuestLog.create({
+        participant: userRecord.id,
+        questNo: 0,
+        status: QuestLogStatus.REWARD_CLAIM,
+      })
+
       return res.status(200).json({
         success: true,
         payload: {
-          name: `${userRecord.firstName} ${userRecord.lastName}`,
-          language: userRecord.language,
-          profileImage: userRecord.linePicture,
-          isRewardEligible: eligibleForReward,
-          isRewardClaimed: isClaimed,
-          quests: questStatus,
+          message: 'Reward claimed',
         },
       })
     }

@@ -16,10 +16,20 @@
   },
   "ACTIVITY_SUMMARY": {
     "TITLE": "สมุดบันทึกของ",
-    "REWARD_BUTTON": "รับรางวัล"
+    "REWARD_BUTTON": "รับรางวัล",
+    "REWARD_CLAIMED_BUTTON": "รับรางวัลแล้ว"
   },
   "CLAIM_REWARD": {
-    "TITLE": "เก่งมากเลย",
-    "SUBTITLE": "นี่!! รับรางวัลไปเลยยย"
+    "ELIGIBLE_TITLE": "เก่งมากเลย",
+    "ELIGIBLE_SUBTITLE": "นำหน้านี้ไปให้พี่ ๆ ด้านหน้าดู เพื่อรับรางวัล",
+    "NOT_ELIGIBLE_TITLE": "ยังทำภารกิจไม่ครบ",
+    "NOT_ELIGIBLE_SUBTITLE": "ย้อนไปทำภารกิจให้ครบก่อนนะ",
+    "CLAIMED_TITLE": "รับรางวัลไปแล้ว",
+    "CLAIMED_SUBTITLE": "น้องรับรางวัลไปแล้ว อย่าลืมมาเยี่ยมคณะ ICT อีกนะ!!",
+    "CLAIM_BUTTON": "รับรางวัล",
+    "CLAIMED_BUTTON": "รับรางวัลแล้ว",
+    "CONFIRM_DIALOG_TITLE": "ยืนยันการรับรางวัล",
+    "CONFIRM_DIALOG_MESSAGE": "ให้พี่ ๆ เป็นคนกดรับรางวัลให้น้องนะ ถ้ากดไปแล้ว ไม่สามารถยกเลิกได้",
+    "CONFIRM_DIALOG_CONFIRM_BUTTON": "รับรางวัล"
   }
 }

@@ -6,6 +6,7 @@ export enum QuestLogStatus {
   INCORRECT = 'incorrect',
   SUCCESS = 'success',
   INIT = 'init',
+  REWARD_CLAIM = 'reward_claim',
 }
 
 interface IQuestLog {
