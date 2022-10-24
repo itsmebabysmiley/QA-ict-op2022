@@ -51,7 +51,7 @@ const Page: NextPage = () => {
     <Wrapper className="relative px-5 py-10">
       <div className="mx-auto max-w-screen-md">
         <Header />
-        <div className="my-8 text-center font-heading">
+        <div className="my-8 space-y-5 text-center font-heading">
           <h1 className="mb-2 text-3xl font-bold">
             {t(
               !data.payload.isEligible
@@ -64,7 +64,7 @@ const Page: NextPage = () => {
               }
             )}
           </h1>
-          <h2 className="text-xl font-bold">
+          <h2 className="text-2xl">
             {t(
               !data.payload.isEligible
                 ? 'CLAIM_REWARD.NOT_ELIGIBLE_SUBTITLE'
@@ -77,13 +77,28 @@ const Page: NextPage = () => {
         </div>
 
         <img
-          src="/static/images/nstar/nstar_atomic_success.svg"
-          className="mx-auto h-40 max-w-sm"
-          alt="Success"
+          src={
+            !data.payload.isEligible || data.payload.isClaimed
+              ? '/static/images/nstar/nstar_atomic_done.svg'
+              : '/static/images/nstar/nstar_atomic_prize.svg'
+          }
+          className="mx-auto h-40"
+          alt="Prize"
         />
 
-        {data.payload.isEligible && !data.payload.isClaimed && (
-          <div className="mt-10 w-full text-center">
+        <div className="mx-auto mt-10 flex w-full max-w-sm gap-x-5 text-center">
+          {liff.isInClient?.() && (
+            <Button
+              type="button"
+              label={t('BUTTON_LABEL.CLOSE', { ns: 'common' })}
+              variant="primary"
+              className="w-full"
+              onClick={() => {
+                liff.closeWindow()
+              }}
+            />
+          )}
+          {data.payload.isEligible && !data.payload.isClaimed && (
             <Button
               type="button"
               label={t(
@@ -94,7 +109,7 @@ const Page: NextPage = () => {
               )}
               variant={!isClaimed ? 'ictTurquoise' : 'primary'}
               disabled={isClaimed}
-              className="w-full disabled:cursor-not-allowed sm:w-32"
+              className="w-full disabled:cursor-not-allowed"
               onClick={() => {
                 if (isClaimed) {
                   return
@@ -103,22 +118,8 @@ const Page: NextPage = () => {
                 setIsDialogOpen(true)
               }}
             />
-          </div>
-        )}
-
-        {liff.isInClient?.() && isClaimed && (
-          <div className="mt-10 w-full text-center">
-            <Button
-              type="button"
-              label={t('BUTTON_LABEL.CLOSE', { ns: 'common' })}
-              variant="ictTurquoise"
-              className="w-full sm:w-32"
-              onClick={() => {
-                liff.closeWindow()
-              }}
-            />
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <Transition appear show={isDialogOpen} as={Fragment}>
         <Dialog
