@@ -13,8 +13,8 @@ const registerUser = async (data: IParticipant, lineToken?: string) => {
     }
 
     if (lineToken) {
-      const [verified, user] = await getLineUserFromIdToken(lineToken)
-      if (verified) {
+      const user = await getLineUserFromIdToken(lineToken)
+      if (user) {
         Object.assign(payload, {
           lineUserId: user.userId,
           lineDisplayName: user.displayName,
