@@ -43,8 +43,6 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
         Number(questNo)
       )
 
-      console.log(questLog)
-
       const questions = await getQuestQuestion(Number(questNo), lang, true)
 
       const initQuestLog = questLog.find((q) => q.status === 'init')

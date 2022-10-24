@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { Axios } from 'axios'
 import { stringify } from 'qs'
 import type { IVerifyIdTokenResponse } from '~/types/external/line'
 
@@ -27,8 +27,6 @@ export const getLineUserFromIdToken = async (
       }
     )
 
-    console.log(data)
-
     return {
       userId: data.sub,
       displayName: data.name,
@@ -36,7 +34,9 @@ export const getLineUserFromIdToken = async (
       email: data.email,
     }
   } catch (error) {
-    console.log(error)
-    throw new Error('Invalid LINE Id Token')
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.error_description ?? 'Unknown error')
+    }
+    throw new Error('Invalid LINE Id token')
   }
 }

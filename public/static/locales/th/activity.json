@@ -10,6 +10,16 @@
     "CORRECT_SUBTITLE": "น้องผ่านภารกิจแล้ว",
     "INCORRECT_TITLE": "คำตอบผิด!!",
     "INCORRECT_SUBTITLE": "ไม่เป็นไรนะ พยายามหาเข้า",
+    "DONE_TITLE": "ขอโทษนะ_/\\_",
+    "DONE_SUBTITLE": "น้องผ่านภารกิจไปแล้ว",
     "TRY_AGAIN_BUTTON": "ตอบอีกครั้ง"
+  },
+  "ACTIVITY_SUMMARY": {
+    "TITLE": "สมุดบันทึกของ",
+    "REWARD_BUTTON": "รับรางวัล"
+  },
+  "CLAIM_REWARD": {
+    "TITLE": "เก่งมากเลย",
+    "SUBTITLE": "นี่!! รับรางวัลไปเลยยย"
   }
 }

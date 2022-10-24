@@ -15,6 +15,7 @@ import { renderAnswerFromQuestion } from '~/modules/activity'
 import Header from '~/routes/Activity/components/Header'
 import type { ApiResponseError, ApiResponseSuccess } from '~/types/api'
 import type { IQuestPayload } from '~/types/api/activity'
+import { QUEST_STATUS } from '~/types/api/activity'
 import { fetcher } from '~/utils'
 import { strSubstitute } from '~/utils/string'
 
@@ -74,6 +75,10 @@ const Page: NextPage = () => {
     return <LoadingWrapper />
   }
 
+  if (data.payload.status === QUEST_STATUS.SUCCESS_QUEST) {
+    push(`/activity/quest/${query.id}/done`)
+  }
+
   return (
     <Wrapper className="px-5 py-10">
       <div className="mx-auto max-w-screen-md">
@@ -91,8 +96,6 @@ const Page: NextPage = () => {
         {data.payload.question && (
           <form
             onSubmit={handleSubmit(async (d) => {
-              console.log(d)
-
               const {
                 data: { payload },
               } = await axios.post('/api/v1/activity/quest/submit', d, {

@@ -10,6 +10,16 @@
     "CORRECT_SUBTITLE": "Let's continue explore!",
     "INCORRECT_TITLE": "Wrong Answer!!",
     "INCORRECT_SUBTITLE": "Let's try again!",
+    "DONE_TITLE": "Sorry!!_/\\_",
+    "DONE_SUBTITLE": "You've passed this quest!",
     "TRY_AGAIN_BUTTON": "Try Again"
+  },
+  "ACTIVITY_SUMMARY": {
+    "TITLE": "Activity Passport",
+    "REWARD_BUTTON": "Claim Reward"
+  },
+  "CLAIM_REWARD": {
+    "TITLE": "Good Job!!",
+    "SUBTITLE": "You've earned a reward!"
   }
 }

@@ -13,7 +13,8 @@ interface IQuestLog {
   questNo: number
   questionId?: string
   status: QuestLogStatus
-  finishedAt: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 const questLogSchema = new Schema(

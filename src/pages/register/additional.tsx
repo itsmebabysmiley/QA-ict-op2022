@@ -78,14 +78,11 @@ const Page: NextPage = () => {
       <div className="mx-auto flex min-h-screen max-w-screen-md flex-col px-8 py-10 sm:justify-center">
         <form
           onSubmit={handleSubmit(async (data) => {
-            console.log(data)
             dispatch('form/register/setFields', {
               province: data.province,
               school: data.school,
               educationLevel: data.educationLevel,
             })
-
-            console.log(form.register.fields)
 
             const liffIdToken = liff.getIDToken() || undefined
 
@@ -103,8 +100,6 @@ const Page: NextPage = () => {
                 },
               }
             )
-
-            console.log(r)
 
             dispatch('form/register/nextStep')
             push('/register/success')
