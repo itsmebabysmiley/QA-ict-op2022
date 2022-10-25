@@ -9,8 +9,8 @@ import TextAreaInput from '~/components/Input/TextAreaInput'
 import TextInput from '~/components/Input/TextInput'
 import ChoiceGroup from '~/routes/Activity/components/Input/ChoiceGroup'
 import ChoiceInput from '~/routes/Activity/components/Input/ChoiceInput'
-import type { IFormSection } from '~/types/formBuilder'
-import { QuestionType } from '~/types/formBuilder'
+import type { IFormSection } from '~/types/formbuilder'
+import { QuestionType } from '~/types/formbuilder'
 import { strSubstitute } from '~/utils/string'
 
 interface FormBuilderProps {
@@ -80,11 +80,20 @@ export const FormBuilder: FC<FormBuilderProps> = ({
                           {question.quantity &&
                             Array.from(Array(question.quantity)).map((_, i) => {
                               return (
-                                <TextInput
-                                  key={`${question.key}.${i}`}
-                                  className="w-full"
-                                  {...register(`${question.key}.${i}`)}
-                                />
+                                <div key={`${question.key}.${i}`}>
+                                  {question.subAnswersTitle && (
+                                    <div className="font-heading">
+                                      {strSubstitute(
+                                        t(question.subAnswersTitle),
+                                        i + 1
+                                      )}
+                                    </div>
+                                  )}
+                                  <TextInput
+                                    className="w-full"
+                                    {...register(`${question.key}.${i}`)}
+                                  />
+                                </div>
                               )
                             })}
                         </div>

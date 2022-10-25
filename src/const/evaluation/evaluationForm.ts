@@ -1,5 +1,5 @@
-import type { IFormQuestionOption, IFormSection } from '~/types/formBuilder'
-import { QuestionType } from '~/types/formBuilder'
+import type { IFormQuestionOption, IFormSection } from '~/types/formbuilder'
+import { QuestionType } from '~/types/formbuilder'
 
 export const RatingOptions: IFormQuestionOption[] = [
   {
@@ -293,6 +293,7 @@ export const Evaluation_EN: IFormSection[] = [
             question: 'SECTION_3.INTERESTED_PROGRAMS.QUESTION',
             questionType: QuestionType.MultipleText,
             quantity: 3,
+            subAnswersTitle: 'SECTION_3.INTERESTED_PROGRAMS.SUB_ANSWERS_TITLE',
           },
           {
             key: 'factors',
@@ -300,6 +301,7 @@ export const Evaluation_EN: IFormSection[] = [
             question: 'SECTION_3.FACTORS.QUESTION',
             questionType: QuestionType.MultipleText,
             quantity: 3,
+            subAnswersTitle: 'SECTION_3.FACTORS.SUB_ANSWERS_TITLE',
           },
           {
             key: 'impressed',

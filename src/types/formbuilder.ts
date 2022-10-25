@@ -59,4 +59,5 @@ export interface IFormQuestionTextArea extends IFormQuestionBase {
 export interface IFormQuestionMultipleText extends IFormQuestionBase {
   questionType: QuestionType.MultipleText
   quantity: number
+  subAnswersTitle?: string
 }
