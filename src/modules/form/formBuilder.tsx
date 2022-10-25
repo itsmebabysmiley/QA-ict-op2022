@@ -30,7 +30,7 @@ export const FormBuilder: FC<FormBuilderProps> = ({
 
   return (
     <>
-      <h1 className="mb-5 font-heading text-xl font-bold">
+      <h1 className="mb-5 font-heading text-xl font-extrabold">
         {strSubstitute(t('SECTION_TITLE_TEMPLATE'), form.sectionNo)}:{' '}
         {t(form.sectionName)}
       </h1>
@@ -39,7 +39,7 @@ export const FormBuilder: FC<FormBuilderProps> = ({
           return (
             <section key={t(group.groupName)}>
               {group.isTitleShown && (
-                <h2 className="mb-3 font-heading text-xl font-bold">
+                <h2 className="mb-3 mt-8 font-heading text-xl font-bold">
                   {t(group.groupName)}
                 </h2>
               )}
@@ -48,7 +48,7 @@ export const FormBuilder: FC<FormBuilderProps> = ({
                 {group.questions.map((question) => {
                   return (
                     <div key={question.questionNo}>
-                      <label className="mb-3 block font-heading text-base">
+                      <label className="mb-3 block font-heading text-base font-bold">
                         {question.questionNo}. {t(question.question)}
                       </label>
                       {question.questionType === QuestionType.Text ? (

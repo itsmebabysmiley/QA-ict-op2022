@@ -104,11 +104,11 @@
     "TITLE": "Others",
     "INTERESTED_PROGRAMS": {
       "QUESTION": "What are the top 3 programs, faculties, and universities you are interested in? (Rank 1 is the most interested one)",
-      "SUB_ANSWERS_TITLE": "Rank {}"
+      "SUB_ANSWERS_TITLE": "Rank {}:"
     },
     "FACTORS": {
       "QUESTION": "What are the top 3 factors that you consider when selecting the program to apply for? (Rank 1 is the most important one)",
-      "SUB_ANSWERS_TITLE": "Rank {}"
+      "SUB_ANSWERS_TITLE": "Rank {}:"
     },
     "IMPRESSED": {
       "QUESTION": "What are things that you liked or impressed from participating in this event?"
