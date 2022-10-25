@@ -1,10 +1,11 @@
 import type { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
-import { useLiff } from 'react-liff'
 import useSWR from 'swr/immutable'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
+import { LIFF_STATE } from '~/context/liff/enum'
+import { useLiff } from '~/context/liff/LIFFProvider'
 import { useStoreon } from '~/context/storeon'
 import LoadingWrapper from '~/layouts/LoadingWrapper'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
@@ -20,11 +21,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 })
 
 const Page = () => {
-  const { liff, isReady } = useLiff()
+  const { liff, state } = useLiff()
   const { push } = useRouter()
   const { dispatch } = useStoreon('form')
   const { data, error } = useSWR<ApiResponseSuccess<{ isRegistered: boolean }>>(
-    isReady
+    [LIFF_STATE.READY, LIFF_STATE.READY_UNAUTHENTICATED].includes(state)
       ? {
           url: '/api/v1/register/isRegistered',
           method: 'GET',

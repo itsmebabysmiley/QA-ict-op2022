@@ -4,9 +4,10 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Fragment, useState } from 'react'
-import { useLiff } from 'react-liff'
 import useSWR from 'swr/immutable'
 import Button from '~/components/Button'
+import { LIFF_STATE } from '~/context/liff/enum'
+import { useLiff } from '~/context/liff/LIFFProvider'
 import LoadingWrapper from '~/layouts/LoadingWrapper'
 import Wrapper from '~/layouts/Wrapper'
 import Header from '~/routes/Activity/components/Header'
@@ -23,10 +24,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 })
 
 const Page: NextPage = () => {
-  const { liff, isReady } = useLiff()
+  const { liff, state } = useLiff()
   const { t } = useTranslation(['common', 'activity'])
   const { data, error } = useSWR<ApiResponseSuccess<IRewardEligibilityPayload>>(
-    isReady
+    state === LIFF_STATE.READY
       ? {
           method: 'GET',
           url: '/api/v1/activity/checkRewardEligibility',

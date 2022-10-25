@@ -1,14 +1,15 @@
-import type { ComponentProps, FC } from 'react'
-import { LiffProvider } from 'react-liff'
+import type { ComponentProps, FC, Provider } from 'react'
+import { LIFF_ID } from '~/const/liff'
+import { LIFFProvider } from '~/context/liff/LIFFProvider'
+import type { ILIFFContextType } from '~/context/liff/types'
 
-type LiffWrapperProps = Pick<ComponentProps<typeof LiffProvider>, 'children'>
+type LiffWrapperProps = Pick<
+  ComponentProps<Provider<ILIFFContextType>>,
+  'children'
+>
 
-const LiffWrapper: FC<LiffWrapperProps> = ({ children }) => {
-  return (
-    <LiffProvider liffId={process.env.NEXT_PUBLIC_LIFF_ID ?? ''}>
-      {children}
-    </LiffProvider>
-  )
+const LiffWrapper: FC<LiffWrapperProps> = ({ ...props }) => {
+  return <LIFFProvider liffId={LIFF_ID} {...props} />
 }
 
 export default LiffWrapper

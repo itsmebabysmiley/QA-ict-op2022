@@ -26,6 +26,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 
+ENV LINE_CLIENT_ID ${LINE_CLIENT_ID}
+ENV DATABASE_URL ${DATABASE_URL}
+
 EXPOSE 3000
 
 # Run app command
