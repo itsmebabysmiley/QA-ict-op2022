@@ -93,7 +93,7 @@ const Page: NextPage = () => {
             className="mx-auto w-full max-w-[264px]"
             onClick={() => {
               push({
-                pathname: '/activity/quest/[id]',
+                pathname: '/quest/[id]',
                 query: {
                   ...query,
                 },

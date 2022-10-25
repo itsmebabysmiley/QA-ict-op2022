@@ -94,7 +94,7 @@ const Page: NextPage = () => {
               className="w-full disabled:cursor-not-allowed"
               disabled={data.payload.isRewardClaimed}
               onClick={() => {
-                push('/activity/claim')
+                push('/quest/claim')
               }}
             />
           </div>

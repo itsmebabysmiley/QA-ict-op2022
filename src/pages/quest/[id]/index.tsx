@@ -76,7 +76,7 @@ const Page: NextPage = () => {
   }
 
   if (data.payload.status === QUEST_STATUS.SUCCESS_QUEST) {
-    push(`/activity/quest/${query.id}/done`)
+    push(`/quest/${query.id}/done`)
   }
 
   return (
@@ -108,14 +108,14 @@ const Page: NextPage = () => {
 
               if (payload.result) {
                 push({
-                  pathname: '/activity/quest/[id]/correct',
+                  pathname: '/quest/[id]/correct',
                   query: {
                     ...query,
                   },
                 })
               } else {
                 push({
-                  pathname: '/activity/quest/[id]/incorrect',
+                  pathname: '/quest/[id]/incorrect',
                   query: {
                     ...query,
                   },
