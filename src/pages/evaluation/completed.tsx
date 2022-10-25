@@ -1,49 +1,72 @@
-import type { GetServerSideProps } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
 import { useLiff } from '~/context/liff/LIFFProvider'
 import { useStoreon } from '~/context/storeon'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale = 'th',
-}) => ({
+export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'evaluation'])),
+    ...(await serverSideTranslations(locale, ['evaluation'])),
   },
 })
 
-const Page = () => {
+const Page: NextPage = () => {
   const { liff, isReady } = useLiff()
   const { push } = useRouter()
+  const { t } = useTranslation('evaluation')
   const { dispatch } = useStoreon('form')
-  const { t } = useTranslation(['common', 'evaluation'])
+
+  useEffect(() => {
+    let t: NodeJS.Timeout
+    if (isReady) {
+      if (!liff.isInClient()) {
+        t = setTimeout(() => {
+          dispatch('form/evaluation/reset')
+          push('/evaluation', undefined, { locale: 'th' })
+        }, 2000)
+      }
+    }
+    return () => clearTimeout(t)
+  }, [liff])
 
   return (
-    <Wrapper variant={BG_VARIANT_TYPES.LANDING}>
-      <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col items-center justify-center px-8">
+    <Wrapper variant={BG_VARIANT_TYPES.STARDUST}>
+      <div className="mx-auto flex min-h-screen max-w-screen-md flex-col items-center px-8 py-10 sm:justify-center">
         <IctMahidolOpenHouseWordmark className="mb-10 w-full" />
 
-        <div className="mb-6 space-y-5 text-center font-heading">
-          <div className="text-3xl font-bold">
-            {t('EVALUATION_TITLE', { ns: 'evaluation' })}
-          </div>
-          <div>{t('EVALUATION_DESCRIPTION', { ns: 'evaluation' })}</div>
+        <div className="mb-12 text-center">
+          <h1 className="mb-5 font-heading text-4xl font-bold text-ict-turquoise">
+            {t('EVALUATION_SUCCESS.TITLE')}
+          </h1>
+          <h2 className="font-heading text-xl font-bold">
+            {t('EVALUATION_SUCCESS.MESSAGE')}
+          </h2>
         </div>
 
-        <div className="flex w-full flex-col gap-4 sm:flex-row sm:gap-6">
-          <Button
-            label={t('START_EVAL_BUTTON', { ns: 'evaluation' })}
-            variant="ictTurquoise"
-            className="mx-auto w-full sm:w-1/2"
-            onClick={() => {
-              push('/evaluation/general')
-            }}
-          />
-        </div>
+        <img
+          src="/static/images/nstar/nstar_normal.svg"
+          className="w-full max-w-sm"
+          alt="Success"
+        />
+
+        {liff.isInClient?.() && (
+          <div className="mt-10 w-full text-center">
+            <Button
+              type="button"
+              label={t('BUTTON_LABEL.CLOSE')}
+              variant="ictTurquoise"
+              className="w-full sm:w-32"
+              onClick={() => {
+                liff.closeWindow()
+              }}
+            />
+          </div>
+        )}
       </div>
     </Wrapper>
   )

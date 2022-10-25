@@ -120,10 +120,15 @@
       "QUESTION": "Other suggestions"
     }
   },
+  "EVALUATION_SUCCESS": {
+    "TITLE": "Thank you",
+    "MESSAGE": "for your visit!"
+  },
   "BUTTON_LABEL": {
     "SUBMIT": "Submit",
     "NEXT": "Next",
     "BACK": "Back",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "CLOSE": "Close"
   }
 }

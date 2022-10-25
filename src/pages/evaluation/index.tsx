@@ -2,11 +2,16 @@ import type { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
+import { LIFF_STATE } from '~/context/liff/enum'
 import { useLiff } from '~/context/liff/LIFFProvider'
 import { useStoreon } from '~/context/storeon'
+import LoadingWrapper from '~/layouts/LoadingWrapper'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
+import type { ApiResponseSuccess } from '~/types/api'
+import { fetcher } from '~/utils'
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale = 'th',
@@ -21,6 +26,24 @@ const Page = () => {
   const { push } = useRouter()
   const { dispatch } = useStoreon('form')
   const { t } = useTranslation(['common', 'evaluation'])
+  const { data, error } = useSWR<ApiResponseSuccess<{ isEvaluataed: boolean }>>(
+    isReady
+      ? {
+          url: '/api/v1/register/isRegistered',
+          method: 'GET',
+          token: liff.getIDToken() ? liff.getIDToken() : undefined,
+        }
+      : null,
+    fetcher
+  )
+
+  if (error) {
+    return <div>failed to load</div>
+  }
+
+  if (!data) {
+    return <LoadingWrapper />
+  }
 
   return (
     <Wrapper variant={BG_VARIANT_TYPES.LANDING}>

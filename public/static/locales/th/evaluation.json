@@ -120,10 +120,15 @@
       "QUESTION": "ข้อคิดเห็น / ข้อเสนอแนะ อื่น ๆ"
     }
   },
+  "EVALUATION_SUCCESS": {
+    "TITLE": "ขอบคุณ",
+    "MESSAGE": "ที่มาเยือน"
+  },
   "BUTTON_LABEL": {
     "SUBMIT": "ส่งข้อมูล",
     "NEXT": "ต่อไป",
     "BACK": "ก่อนหน้า",
-    "CANCEL": "ยกเลิก"
+    "CANCEL": "ยกเลิก",
+    "CLOSE": "ปิด"
   }
 }

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import dayjs from 'dayjs'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -9,6 +10,7 @@ import { EvaluationHeaderWordmark } from '~/components/Icons'
 import DateInput from '~/components/Input/DateInput'
 import TextInput from '~/components/Input/TextInput'
 import { Evaluation_EN } from '~/const/evaluation/evaluationForm'
+import { useLiff } from '~/context/liff/LIFFProvider'
 import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import { FormBuilder } from '~/modules/form/formBuilder'
@@ -22,6 +24,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 })
 
 const Page: NextPage = () => {
+  const { liff } = useLiff()
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
@@ -38,14 +41,27 @@ const Page: NextPage = () => {
     <Wrapper>
       <div className="mx-auto flex min-h-screen max-w-screen-md flex-col px-8 py-10 sm:justify-center">
         <form
-          onSubmit={handleSubmit((data) => {
+          onSubmit={handleSubmit(async (data) => {
             dispatch('form/evaluation/setFields', data)
-            console.log({
-              ...form.evaluation,
-              ...data,
-            })
 
-            // push('/evaluation/completed')
+            const liffIdToken = liff.getIDToken() || undefined
+
+            const { data: r } = await axios.post(
+              '/api/v1/evaluation',
+              {
+                ...form.evaluation.fields,
+                ...data,
+              },
+              {
+                headers: {
+                  authorization: liffIdToken
+                    ? `Bearer ${liffIdToken}`
+                    : undefined,
+                },
+              }
+            )
+
+            push('/evaluation/success')
           })}
         >
           <div className="rounded-xl sm:bg-white sm:p-16 sm:text-black">
