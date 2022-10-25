@@ -27,6 +27,7 @@ type IFormQuestion =
   | IFormQuestionMultipleText
 
 export interface IFormQuestionBase {
+  key: string
   questionNo: number
   question: string
   questionType: QuestionType
@@ -44,7 +45,7 @@ export interface IFormQuestionCheckbox extends IFormQuestionBase {
 
 export interface IFormQuestionOption {
   label: string
-  value: string
+  value: string | number
 }
 
 export interface IFormQuestionText extends IFormQuestionBase {

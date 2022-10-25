@@ -1,0 +1,107 @@
+import type { FC } from 'react'
+import type {
+  FieldValues,
+  UseFormRegister,
+  UseFormWatch,
+} from 'react-hook-form'
+import type { TFunction } from 'react-i18next'
+import TextAreaInput from '~/components/Input/TextAreaInput'
+import TextInput from '~/components/Input/TextInput'
+import ChoiceGroup from '~/routes/Activity/components/Input/ChoiceGroup'
+import ChoiceInput from '~/routes/Activity/components/Input/ChoiceInput'
+import type { IFormSection } from '~/types/formBuilder'
+import { QuestionType } from '~/types/formBuilder'
+import { strSubstitute } from '~/utils/string'
+
+interface FormBuilderProps {
+  form: IFormSection
+  register: UseFormRegister<FieldValues>
+  watch: UseFormWatch<FieldValues>
+  i18n?: TFunction<'', undefined>
+}
+
+export const FormBuilder: FC<FormBuilderProps> = ({
+  form,
+  register,
+  watch,
+  i18n,
+}) => {
+  const t = i18n || ((key) => key)
+
+  return (
+    <>
+      <h1 className="mb-5 font-heading text-xl font-bold">
+        {strSubstitute(t('SECTION_TITLE_TEMPLATE'), form.sectionNo)}:{' '}
+        {t(form.sectionName)}
+      </h1>
+      <div className="space-y-10 divide-y">
+        {form.questions.map((group) => {
+          return (
+            <section key={t(group.groupName)}>
+              {group.isTitleShown && (
+                <h2 className="mb-3 font-heading text-xl font-bold">
+                  {t(group.groupName)}
+                </h2>
+              )}
+
+              <div className="space-y-5">
+                {group.questions.map((question) => {
+                  return (
+                    <div key={question.questionNo}>
+                      <label className="mb-3 block font-heading text-base">
+                        {question.questionNo}. {t(question.question)}
+                      </label>
+                      {question.questionType === QuestionType.Text ? (
+                        <TextInput {...register(question.key)} />
+                      ) : question.questionType === QuestionType.Radio ? (
+                        <ChoiceGroup
+                          name={question.key}
+                          options={question.options.map((option) => ({
+                            label: t(option.label),
+                            value: option.value,
+                          }))}
+                          register={register}
+                          watch={watch}
+                        />
+                      ) : question.questionType === QuestionType.Checkbox ? (
+                        <ChoiceGroup
+                          type="checkbox"
+                          name={question.key}
+                          options={question.options.map((option) => ({
+                            label: t(option.label),
+                            value: option.value,
+                          }))}
+                          register={register}
+                          watch={watch}
+                        />
+                      ) : question.questionType ===
+                        QuestionType.MultipleText ? (
+                        <div className="space-y-3">
+                          {question.quantity &&
+                            Array.from(Array(question.quantity)).map((_, i) => {
+                              return (
+                                <TextInput
+                                  key={`${question.key}.${i}`}
+                                  className="w-full"
+                                  {...register(`${question.key}.${i}`)}
+                                />
+                              )
+                            })}
+                        </div>
+                      ) : question.questionType === QuestionType.TextArea ? (
+                        <TextAreaInput
+                          className="w-full"
+                          {...register(question.key)}
+                        />
+                      ) : null}
+                    </div>
+                  )
+                })}
+              </div>
+            </section>
+          )
+        })}
+      </div>
+    </>
+  )
+}

@@ -19,6 +19,7 @@ export interface FormStore {
       currentStep: number
       fields?: Partial<RegisterFormFields>
     }
+    evaluation: Record<string, any>
   }
 }
 
@@ -27,6 +28,8 @@ export interface FormEvent {
   'form/register/prevStep': void
   'form/register/setFields': Partial<RegisterFormFields>
   'form/register/reset': void
+  'form/evaluation/setFields': Record<string, any>
+  'form/evaluation/reset': void
 }
 
 export const form: StoreonModule<FormStore, FormEvent> = (store) => {
@@ -36,6 +39,7 @@ export const form: StoreonModule<FormStore, FormEvent> = (store) => {
         currentStep: 1,
         fields: {},
       },
+      evaluation: {},
     },
   }))
 
@@ -79,6 +83,23 @@ export const form: StoreonModule<FormStore, FormEvent> = (store) => {
         currentStep: 1,
         fields: {},
       },
+    },
+  }))
+
+  store.on('form/evaluation/setFields', (store, fields) => ({
+    form: {
+      ...store.form,
+      evaluation: {
+        ...store.form.evaluation,
+        ...fields,
+      },
+    },
+  }))
+
+  store.on('form/evaluation/reset', (store, event) => ({
+    form: {
+      ...store.form,
+      evaluation: {},
     },
   }))
 }

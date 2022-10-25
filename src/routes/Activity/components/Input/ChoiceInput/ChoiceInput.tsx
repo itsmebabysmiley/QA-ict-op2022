@@ -23,24 +23,27 @@ const iconType = {
 
 const ChoiceInput = forwardRef<HTMLInputElement, ChoiceInputProps>(
   (
-    { className, selected = false, label, id, type = 'radio', ...props },
+    { className, selected = false, label, id, type = 'radio', name, ...props },
     ref
   ) => {
     return (
       <div>
         <input
-          id={id}
+          id={`${name}.${id}`}
           ref={ref}
           type={type}
           className={clsx('hidden', className)}
+          name={name}
           {...props}
         />
         <label
           className={clsx(
-            'flex cursor-pointer items-center gap-3 rounded-xl border border-white py-3 px-4',
-            selected ? 'bg-white text-black' : 'bg-transparent text-white'
+            'border-gray-150 flex cursor-pointer items-center gap-3 rounded-xl border py-3 px-4',
+            selected
+              ? 'bg-white text-black sm:bg-gray-800 sm:text-white'
+              : 'bg-transparent text-white sm:text-black'
           )}
-          htmlFor={id}
+          htmlFor={`${name}.${id}`}
         >
           <Icon
             icon={iconType[type][selected ? 'checked' : 'unchecked']}

@@ -1,25 +1,25 @@
-import type { IFormQuestionOption, IFormSection } from '~/types/formbuilder'
-import { QuestionType } from '~/types/formbuilder'
+import type { IFormQuestionOption, IFormSection } from '~/types/formBuilder'
+import { QuestionType } from '~/types/formBuilder'
 
 export const RatingOptions: IFormQuestionOption[] = [
   {
-    label: 'Strongly Agree',
+    label: 'RATING_OPTIONS.STRONGLY_AGREE',
     value: 'strongly-agree',
   },
   {
-    label: 'Agree',
+    label: 'RATING_OPTIONS.AGREE',
     value: 'agree',
   },
   {
-    label: 'Neutral',
+    label: 'RATING_OPTIONS.NEUTRAL',
     value: 'neutral',
   },
   {
-    label: 'Disagree',
+    label: 'RATING_OPTIONS.DISAGREE',
     value: 'disagree',
   },
   {
-    label: 'Strongly Disagree',
+    label: 'RATING_OPTIONS.STRONGLY_DISAGREE',
     value: 'strongly-disagree',
   },
 ]
@@ -27,140 +27,148 @@ export const RatingOptions: IFormQuestionOption[] = [
 export const Evaluation_EN: IFormSection[] = [
   {
     sectionNo: 1,
-    sectionName: 'General Information',
+    sectionName: 'SECTION_1.TITLE',
     questions: [
       {
-        groupName: 'General Information',
+        groupName: 'SECTION_1.TITLE',
         isTitleShown: false,
         questions: [
           {
+            key: 'role',
             questionNo: 1,
-            question: 'Role',
+            question: 'SECTION_1.ROLE.QUESTION',
             questionType: QuestionType.Radio,
             options: [
               {
-                label: 'High School Student',
+                label: 'SECTION_1.ROLE.OPTIONS.HIGH_SCHOOL_STUDENT',
                 value: 'high-school-student',
               },
               {
-                label: 'University Student',
+                label: 'SECTION_1.ROLE.OPTIONS.UNIVERSITY_STUDENT',
                 value: 'university-student',
               },
               {
-                label: 'Teacher / Instructor',
+                label: 'SECTION_1.ROLE.OPTIONS.TEACHER',
                 value: 'teacher',
               },
               {
-                label: 'Parents / Guardians',
+                label: 'SECTION_1.ROLE.OPTIONS.PARENTS',
                 value: 'parents',
               },
               {
-                label: 'Staff / Instructor of Mahidol University',
+                label: 'SECTION_1.ROLE.OPTIONS.STAFF',
                 value: 'staff',
               },
               {
-                label: 'Other',
-                value: 'other',
+                label: 'SECTION_1.ROLE.OPTIONS.OTHERS',
+                value: 'others',
               },
             ],
           },
           {
+            key: 'gender',
             questionNo: 2,
-            question: 'Gender',
+            question: 'SECTION_1.GENDER.QUESTION',
             questionType: QuestionType.Radio,
             options: [
               {
-                label: 'Male',
+                label: 'SECTION_1.GENDER.OPTIONS.MALE',
                 value: 'male',
               },
               {
-                label: 'Female',
+                label: 'SECTION_1.GENDER.OPTIONS.FEMALE',
                 value: 'female',
               },
               {
-                label: 'Other',
-                value: 'other',
+                label: 'SECTION_1.GENDER.OPTIONS.OTHERS',
+                value: 'others',
               },
             ],
           },
           {
+            key: 'channels',
             questionNo: 3,
-            question: 'How did you know about the event?',
+            question: 'SECTION_1.CHANNELS.QUESTION',
             questionType: QuestionType.Checkbox,
             options: [
               {
-                label: 'MUICT Open House Facebook Page',
+                label: 'SECTION_1.CHANNELS.OPTIONS.MUICT_OP_FACEBOOK',
                 value: 'muict-op-facebook',
               },
               {
-                label: 'PR Video',
+                label: 'SECTION_1.CHANNELS.OPTIONS.PR_VIDEOS',
                 value: 'pr-video',
               },
               {
-                label: 'ICT Website',
+                label: 'SECTION_1.CHANNELS.OPTIONS.ICT_WEBSITE',
                 value: 'ict-website',
               },
               {
-                label: 'University Website',
+                label: 'SECTION_1.CHANNELS.OPTIONS.UNIVERSITY_WEBSITE',
                 value: 'university-website',
               },
               {
-                label: 'Educational websites (e.g. Dek-D, CampHub, etc.)',
+                label: 'SECTION_1.CHANNELS.OPTIONS.EDUCATIONAL_WEBSITE',
                 value: 'educational-website',
               },
               {
-                label: 'Social Media (e.g. Facebook, Twitter, Instagram, etc.)',
+                label: 'SECTION_1.CHANNELS.OPTIONS.SOCIAL_MEDIA',
                 value: 'social-media',
               },
               {
-                label: 'Leaflet',
+                label: 'SECTION_1.CHANNELS.OPTIONS.LEAFLET',
                 value: 'leaflet',
               },
               {
-                label: 'Poster',
+                label: 'SECTION_1.CHANNELS.OPTIONS.POSTER',
                 value: 'poster',
               },
               {
-                label: 'Friends',
+                label: 'SECTION_1.CHANNELS.OPTIONS.FRIENDS',
                 value: 'friends',
               },
               {
-                label: 'PR from the university',
+                label: 'SECTION_1.CHANNELS.OPTIONS.UNIVERSITY_PR',
                 value: 'university-pr',
               },
               {
-                label: 'Invitation letter',
+                label: 'SECTION_1.CHANNELS.OPTIONS.INVITATION_LETTER',
                 value: 'invitation-letter',
               },
               {
-                label: 'Other',
+                label: 'SECTION_1.CHANNELS.OPTIONS.OTHERS',
                 value: 'other',
               },
             ],
           },
           {
+            key: 'participated-activities',
             questionNo: 4,
-            question: 'Types of activities that you are participated in',
+            question: 'SECTION_1.PARTICIPATED_ACTIVITIES.QUESTION',
             questionType: QuestionType.Checkbox,
             options: [
               {
-                label: 'Guidance',
+                label: 'SECTION_1.PARTICIPATED_ACTIVITIES.OPTIONS.GUIDANCE',
                 value: 'guidance',
               },
               {
-                label: 'Activity Booths',
+                label:
+                  'SECTION_1.PARTICIPATED_ACTIVITIES.OPTIONS.ACTIVITY_BOOTHS',
                 value: 'activity-booths',
               },
               {
-                label: 'On-stage performance',
+                label:
+                  'SECTION_1.PARTICIPATED_ACTIVITIES.OPTIONS.ON_STAGE_PERFORMANCES',
                 value: 'on-stage-performance',
               },
               {
-                label: 'Student Projects Exhibition',
+                label:
+                  'SECTION_1.PARTICIPATED_ACTIVITIES.OPTIONS.STUDENT_PROJECTS',
                 value: 'student-projects-exhibition',
               },
               {
-                label: 'International Experience Sharing',
+                label:
+                  'SECTION_1.PARTICIPATED_ACTIVITIES.OPTIONS.INTERNATIONAL_EXPERIENCE_SHARING',
                 value: 'international-experience-sharing',
               },
             ],
@@ -171,95 +179,99 @@ export const Evaluation_EN: IFormSection[] = [
   },
   {
     sectionNo: 2,
-    sectionName:
-      'Satisfaction / Knowledge Understanding / Knowledge Application and Evaluation List',
+    sectionName: 'SECTION_2.TITLE',
     questions: [
       {
-        groupName: 'Service, Location, Date and Time',
+        groupName: 'SECTION_2.GROUP_SERVICE_LOCATION_DATE_TIME_TITLE',
         isTitleShown: true,
         questions: [
           {
+            key: 'date-and-time-rating',
             questionNo: 1,
-            question: "Appropriate choice of activities' date and time.",
+            question: 'SECTION_2.DATE_AND_TIME_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'location-rating',
             questionNo: 2,
-            question: 'Appropriate choice of location for the activities.',
+            question: 'SECTION_2.LOCATION_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'service-rating',
             questionNo: 3,
-            question: 'Service and convenience provided by ICT students.',
+            question: 'SECTION_2.SERVICE_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
         ],
       },
       {
-        groupName: 'Format, Benefit, and Overall',
+        groupName: 'SECTION_2.GROUP_FORMAT_BENEFIT_OVERALL_TITLE',
         isTitleShown: true,
         questions: [
           {
+            key: 'understanding-rating',
             questionNo: 4,
-            question: 'Participants understand ICT academic programs.',
+            question: 'SECTION_2.UNDERSTANDING_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'stage-rating',
             questionNo: 5,
-            question:
-              'Participants gained knowledge and entertainment from stage activities and performance show.',
+            question: 'SECTION_2.STAGE_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'booths-rating',
             questionNo: 6,
-            question:
-              "Participants gained knowledge and got to know seniors from students' activity booths.",
+            question: 'SECTION_2.BOOTH_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'project-rating',
             questionNo: 7,
-            question:
-              'Level of knowledge and inspiration you have received from the previous work of seniors and alumni.',
+            question: 'SECTION_2.PROJECT_EXHIBITION_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'guidance-rating',
             questionNo: 8,
-            question:
-              'Participants gained basic knowledge of ICT from the guidance activities.',
+            question: 'SECTION_2.GUIDANCE_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'intl-exp-rating',
             questionNo: 9,
-            question:
-              'Participants gained knowledge from the international experience sharing session.',
+            question: 'SECTION_2.INTL_EXPERIENCE_SHARING_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'benefit-rating',
             questionNo: 10,
-            question:
-              'Level of benefit and knowledge you have received from your visiting.',
+            question: 'SECTION_2.BENEFIT_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'overall-rating',
             questionNo: 11,
-            question: 'Overall satisfaction of the activity.',
+            question: 'SECTION_2.OVERALL_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
           {
+            key: 'interest-rating',
             questionNo: 12,
-            question:
-              'Being encouraged and interested in applying for the Faculty of ICT or would like to help promote the Faculty of ICT after entering the MUICT Open House 2022 event.',
+            question: 'SECTION_2.INTEREST_RATING.QUESTION',
             questionType: QuestionType.Radio,
             options: RatingOptions,
           },
@@ -269,41 +281,42 @@ export const Evaluation_EN: IFormSection[] = [
   },
   {
     sectionNo: 3,
-    sectionName: 'Others',
+    sectionName: 'SECTION_3.TITLE',
     questions: [
       {
-        groupName: 'Others',
+        groupName: 'SECTION_3.TITLE',
         isTitleShown: false,
         questions: [
           {
+            key: 'interested-programs',
             questionNo: 1,
-            question:
-              'What are the top 3 programs, faculties, and universities you are interested in? (Rank 1 is the most interested one)',
+            question: 'SECTION_3.INTERESTED_PROGRAMS.QUESTION',
             questionType: QuestionType.MultipleText,
             quantity: 3,
           },
           {
+            key: 'factors',
             questionNo: 2,
-            question:
-              'What are the top 3 factors that you consider when selecting the program to apply for? (Rank 1 is the most important one)',
+            question: 'SECTION_3.FACTORS.QUESTION',
             questionType: QuestionType.MultipleText,
             quantity: 3,
           },
           {
+            key: 'impressed',
             questionNo: 3,
-            question:
-              'What are things that you liked or impressed from participating in this event?',
+            question: 'SECTION_3.IMPRESSED.QUESTION',
             questionType: QuestionType.TextArea,
           },
           {
+            key: 'unimpressed',
             questionNo: 4,
-            question:
-              'What are things that you disliked or unimpressed from participating in this event?',
+            question: 'SECTION_3.UNIMPRESSED.QUESTION',
             questionType: QuestionType.TextArea,
           },
           {
+            key: 'other-suggestions',
             questionNo: 5,
-            question: 'Other suggestions',
+            question: 'SECTION_3.OTHER_SUGGESTIONS.QUESTION',
             questionType: QuestionType.TextArea,
           },
         ],
