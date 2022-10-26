@@ -137,7 +137,7 @@ const Page: NextPage = () => {
               className="w-full sm:w-32"
               onClick={() => {
                 dispatch('form/register/prevStep')
-                push('/register/type')
+                push('/register/policy')
               }}
             />
             <Button

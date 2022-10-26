@@ -1,6 +1,7 @@
 import type { StoreonModule } from 'storeon'
 
 interface RegisterFormFields {
+  policyAgreement: boolean
   language: string
   regType: string
   firstName: string

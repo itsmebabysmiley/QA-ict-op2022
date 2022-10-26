@@ -27,12 +27,15 @@ const registerUser = async (data: IParticipant, lineToken?: string) => {
       }
     }
 
+    console.log(payload)
+
     const p = await Participant.create(payload)
+
+    console.log(p)
 
     // Create registration record
     await Registration.create({
       participant: p._id,
-      registeredAt: new Date(),
     })
 
     await QuestLog.create({

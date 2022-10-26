@@ -36,7 +36,7 @@ const Page = () => {
               onClick={() => {
                 dispatch('form/register/setFields', { regType: type.type })
                 dispatch('form/register/nextStep')
-                push(`/register/info?type=${type.type}`)
+                push(`/register/policy?type=${type.type}`)
               }}
             />
           ))}

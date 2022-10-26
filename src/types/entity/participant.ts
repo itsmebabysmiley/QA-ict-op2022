@@ -8,4 +8,5 @@ export interface IParticipant {
   province: number
   school?: string
   educationLevel?: number
+  policyAgreement: boolean
 }

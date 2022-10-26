@@ -11,6 +11,7 @@ export interface IParticipant {
   province: number
   school: string
   educationLevel: number
+  policyAgreement: boolean
 
   lineUserId: string
   lineDisplayName: string
@@ -29,6 +30,7 @@ const participantSchema = new Schema(
     province: Number,
     school: String,
     educationLevel: Number,
+    policyAgreement: Boolean,
 
     // LINE
     lineUserId: String,

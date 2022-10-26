@@ -6,6 +6,7 @@ export const registerSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   // dob: Joi.date().required(),
+  policyAgreement: Joi.allow(true).required(),
   email: Joi.string().email().required(),
   phone: Joi.string()
     .regex(/^(\+66|0)([689]{1})(\d{1,8})$/)

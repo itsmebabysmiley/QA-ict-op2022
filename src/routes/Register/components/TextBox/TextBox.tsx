@@ -6,10 +6,8 @@ interface TextBoxProps {
 
 const TextBox: FC<TextBoxProps> = ({ text }) => {
   return (
-    <div className="h-96 overflow-hidden rounded-xl bg-white p-5 shadow-lg">
-      <div className="h-full overflow-y-scroll text-justify">
-        <div>{text}</div>
-      </div>
+    <div className="min-h-[24rem] overflow-hidden rounded-xl bg-white p-5 text-black shadow-lg sm:shadow-none">
+      <div>{text}</div>
     </div>
   )
 }
