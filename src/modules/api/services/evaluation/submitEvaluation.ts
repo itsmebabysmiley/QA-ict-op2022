@@ -27,7 +27,7 @@ const submitEvaluation = async (data: IParticipant, lineToken?: string) => {
     const p = await Evaluation.create(payload)
 
     await QuestLog.create({
-      participant: p._id,
+      participant: p.participant,
       questNo: 6,
       status: 'success',
     })

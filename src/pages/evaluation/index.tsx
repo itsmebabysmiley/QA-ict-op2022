@@ -29,7 +29,7 @@ const Page = () => {
   const { data, error } = useSWR<ApiResponseSuccess<{ isEvaluataed: boolean }>>(
     isReady
       ? {
-          url: '/api/v1/register/isRegistered',
+          url: '/api/v1/evaluation/isEvaluated',
           method: 'GET',
           token: liff.getIDToken() ? liff.getIDToken() : undefined,
         }

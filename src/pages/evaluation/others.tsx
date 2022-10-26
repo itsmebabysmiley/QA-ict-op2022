@@ -1,5 +1,4 @@
 import axios from 'axios'
-import dayjs from 'dayjs'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -7,15 +6,11 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import { EvaluationHeaderWordmark } from '~/components/Icons'
-import DateInput from '~/components/Input/DateInput'
-import TextInput from '~/components/Input/TextInput'
 import { Evaluation_EN } from '~/const/evaluation/evaluationForm'
 import { useLiff } from '~/context/liff/LIFFProvider'
 import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import { FormBuilder } from '~/modules/form/formBuilder'
-import FormHeader from '~/routes/Register/components/FormHeader'
-import { strSubstitute } from '~/utils/string'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {

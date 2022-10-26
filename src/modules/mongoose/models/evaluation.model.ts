@@ -59,6 +59,6 @@ const evaluationSchema = new Schema(
 )
 
 const Evaluation: Model<IEvaluation> =
-  models.Evaluation || model('evaluation', evaluationSchema)
+  models.Evaluation || model('Evaluation', evaluationSchema)
 
 export default Evaluation
