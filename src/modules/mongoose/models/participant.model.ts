@@ -1,17 +1,16 @@
 import type { Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 
-interface IParticipant {
+export interface IParticipant {
   regType: string
   language: string
   firstName: string
   lastName: string
-  dob: Date
   email: string
   phone: string
-  province: string
+  province: number
   school: string
-  educationLevel: string
+  educationLevel: number
 
   lineUserId: string
   lineDisplayName: string

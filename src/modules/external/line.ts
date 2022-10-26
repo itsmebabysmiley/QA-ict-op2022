@@ -18,7 +18,7 @@ export const getLineUserFromIdToken = async (
       'https://api.line.me/oauth2/v2.1/verify',
       stringify({
         id_token: idToken,
-        client_id: process.env.LINE_CLIENT_ID,
+        client_id: process.env.LINE_LOGIN_CHANNEL_ID,
       }),
       {
         headers: {

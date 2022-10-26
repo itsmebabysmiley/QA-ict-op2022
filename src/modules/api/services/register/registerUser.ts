@@ -1,3 +1,4 @@
+import { sendTicketToLineUser } from './sendTicketToLineUser'
 import dbConnect from '~/lib/mongoose/dbConnect'
 import { getLineUserFromIdToken } from '~/modules/external/line'
 import Participant from '~/modules/mongoose/models/participant.model'
@@ -37,6 +38,11 @@ const registerUser = async (data: IParticipant, lineToken?: string) => {
       questNo: 1,
       status: 'success',
     })
+
+    // Send Ticket to LINE user
+    if (p.lineUserId) {
+      await sendTicketToLineUser(p.lineUserId, p)
+    }
 
     return p
   } catch (error: any) {

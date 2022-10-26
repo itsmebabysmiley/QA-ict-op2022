@@ -3,7 +3,6 @@ export interface IParticipant {
   regType: string
   firstName: string
   lastName: string
-  dob: string
   email: string
   phone: string
   province: number
