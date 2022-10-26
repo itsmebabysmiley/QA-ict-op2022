@@ -5,7 +5,7 @@ interface RegisterFormFields {
   regType: string
   firstName: string
   lastName: string
-  dob: Date | string
+  // dob: Date | string
   email: string
   phone: string
   province: string

@@ -21,18 +21,18 @@ const Page: NextPage = () => {
   const { t } = useTranslation('evaluation')
   const { dispatch } = useStoreon('form')
 
-  useEffect(() => {
-    let t: NodeJS.Timeout
-    if (isReady) {
-      if (!liff.isInClient()) {
-        t = setTimeout(() => {
-          dispatch('form/evaluation/reset')
-          push('/evaluation', undefined, { locale: 'th' })
-        }, 2000)
-      }
-    }
-    return () => clearTimeout(t)
-  }, [liff])
+  // useEffect(() => {
+  //   let t: NodeJS.Timeout
+  //   if (isReady) {
+  //     if (!liff.isInClient()) {
+  //       t = setTimeout(() => {
+  //         dispatch('form/evaluation/reset')
+  //         push('/evaluation', undefined, { locale: 'th' })
+  //       }, 2000)
+  //     }
+  //   }
+  //   return () => clearTimeout(t)
+  // }, [liff])
 
   return (
     <Wrapper variant={BG_VARIANT_TYPES.STARDUST}>
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
 
         <img
           src="/static/images/nstar/nstar_normal.svg"
-          className="w-full max-w-sm"
+          className="h-48 w-full"
           alt="Success"
         />
 

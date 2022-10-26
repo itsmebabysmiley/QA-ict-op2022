@@ -1,10 +1,12 @@
 import axios from 'axios'
+import Joi from 'joi'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+import { joiResolver } from '@hookform/resolvers/joi'
 import Button from '~/components/Button'
 import SelectInput from '~/components/Input/SelectInput'
 import TextInput from '~/components/Input/TextInput'
@@ -15,6 +17,39 @@ import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import FormHeader from '~/routes/Register/components/FormHeader'
 import { strSubstitute } from '~/utils/string'
+
+const schema = Joi.object({
+  regType: Joi.string().required(),
+  province: Joi.string().required(),
+  school: Joi.alternatives().conditional('regType', [
+    {
+      is: 'student',
+      then: Joi.string().required(),
+    },
+    {
+      is: 'uni_student',
+      then: Joi.string().required(),
+    },
+    {
+      is: 'teacher',
+      then: Joi.string().required(),
+    },
+  ]),
+  educationLevel: Joi.alternatives().conditional('regType', [
+    {
+      is: 'student',
+      then: Joi.number().required(),
+    },
+    {
+      is: 'uni_student',
+      then: Joi.number().required(),
+    },
+    {
+      is: 'teacher',
+      then: Joi.number().required(),
+    },
+  ]),
+})
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
@@ -40,7 +75,9 @@ const Page: NextPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    resolver: joiResolver(schema),
     defaultValues: {
+      regType: form.register.fields?.regType,
       province: form.register.fields?.province || undefined,
       school: isEduRequired ? form.register.fields?.school || '' : undefined,
       educationLevel: isEduRequired
@@ -78,33 +115,38 @@ const Page: NextPage = () => {
     <Wrapper>
       <div className="mx-auto flex min-h-screen max-w-screen-md flex-col px-8 py-10 sm:justify-center">
         <form
-          onSubmit={handleSubmit(async (data) => {
-            dispatch('form/register/setFields', {
-              province: data.province,
-              school: data.school,
-              educationLevel: data.educationLevel,
-            })
+          onSubmit={handleSubmit(
+            async (data) => {
+              dispatch('form/register/setFields', {
+                province: data.province,
+                school: data.school,
+                educationLevel: data.educationLevel,
+              })
 
-            const liffIdToken = liff.getIDToken() || undefined
+              const liffIdToken = liff.getIDToken() || undefined
 
-            const { data: r } = await axios.post(
-              '/api/v1/register',
-              {
-                ...form.register.fields,
-                ...data,
-              },
-              {
-                headers: {
-                  authorization: liffIdToken
-                    ? `Bearer ${liffIdToken}`
-                    : undefined,
+              const { data: r } = await axios.post(
+                '/api/v1/register',
+                {
+                  ...form.register.fields,
+                  ...data,
                 },
-              }
-            )
+                {
+                  headers: {
+                    authorization: liffIdToken
+                      ? `Bearer ${liffIdToken}`
+                      : undefined,
+                  },
+                }
+              )
 
-            dispatch('form/register/nextStep')
-            push('/register/success')
-          })}
+              dispatch('form/register/nextStep')
+              push('/register/success')
+            },
+            (error) => {
+              console.log(error)
+            }
+          )}
         >
           <div className="rounded-xl sm:bg-white sm:p-16 sm:text-black">
             <div className="mb-10 w-full">
@@ -132,6 +174,7 @@ const Page: NextPage = () => {
                   id="school"
                   label={t('REG_FORM.REG_FIELD_SCHOOL')}
                   placeholder={t('REG_FORM.REG_FIELD_SCHOOL_PLACEHOLDER')}
+                  error={errors.school?.message}
                   required
                   className="w-full"
                   {...register('school', { required: true })}
@@ -149,7 +192,7 @@ const Page: NextPage = () => {
               )}
             </div>
           </div>
-          <div className="mt-10 flex justify-between">
+          <div className="mt-10 flex justify-between gap-5">
             <Button
               label={tCommon('BUTTON_LABEL.BACK')}
               variant="primary"

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
+    "@hookform/resolvers": "^2.9.10",
     "@iconify/react": "^4.0.0",
     "@line/liff": "^2.21.2",
     "@lottiefiles/react-lottie-player": "^3.4.7",

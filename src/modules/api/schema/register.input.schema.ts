@@ -5,32 +5,38 @@ export const registerSchema = Joi.object({
   regType: Joi.string().required(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  dob: Joi.date().required(),
+  // dob: Joi.date().required(),
   email: Joi.string().email().required(),
-  phone: Joi.string().required(),
+  phone: Joi.string()
+    .regex(/^(\+66|0)([689]{1})(\d{1,8})$/)
+    .required(),
   province: Joi.number().required(),
-  school: Joi.alternatives()
-    .conditional('regType', {
-      is: 'uni_student',
-      then: Joi.string().required(),
-    })
-    .conditional('regType', {
+  school: Joi.alternatives().conditional('regType', [
+    {
       is: 'student',
       then: Joi.string().required(),
-      otherwise: Joi.string().optional(),
-    }),
-  educationLevel: Joi.alternatives()
-    .conditional('regType', {
+    },
+    {
       is: 'uni_student',
-      then: Joi.number().required(),
-    })
-    .conditional('regType', {
+      then: Joi.string().required(),
+    },
+    {
+      is: 'teacher',
+      then: Joi.string().required(),
+    },
+  ]),
+  educationLevel: Joi.alternatives().conditional('regType', [
+    {
       is: 'student',
       then: Joi.number().required(),
-    })
-    .conditional('regType', {
+    },
+    {
+      is: 'uni_student',
+      then: Joi.number().required(),
+    },
+    {
       is: 'teacher',
       then: Joi.number().required(),
-      otherwise: Joi.number().optional(),
-    }),
+    },
+  ]),
 })
