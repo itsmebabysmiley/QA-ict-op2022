@@ -1,6 +1,6 @@
 import type { ComponentProps, FC, Provider } from 'react'
 import LoadingWrapper from './LoadingWrapper'
-import { LIFF_ID } from '~/const/liff'
+import { LIFF_ID } from '~/const/line/liff'
 import { LIFFProvider } from '~/context/liff/LIFFProvider'
 import type { ILIFFContextType } from '~/context/liff/types'
 

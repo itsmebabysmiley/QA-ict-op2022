@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { LINEClient } from '~/lib/line'
 import dbConnect from '~/lib/mongoose/dbConnect'
 import { getQuestStatus } from '~/modules/api/services/activity/getQuestStatus'
 import { getRewardEligibility } from '~/modules/api/services/activity/getRewardEligibility'
@@ -39,6 +40,11 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
         questNo: 0,
         status: QuestLogStatus.REWARD_CLAIM,
       })
+
+      // Unlink Rich Menu
+      await LINEClient.unlinkRichMenuFromUser(user.userId)
+
+      // TODO: Send some message
 
       return res.status(200).json({
         success: true,

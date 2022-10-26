@@ -1,7 +1,4 @@
-import {
-  FLEX_IG_FILTER,
-  FLEX_TICKET_BUBBLE,
-} from '~/const/line-message/flex-messages'
+import { FLEX_IG_FILTER, FLEX_TICKET_BUBBLE } from '~/const/line/flex-messages'
 import { LINEClient } from '~/lib/line'
 import type { IParticipant } from '~/modules/mongoose/models/participant.model'
 

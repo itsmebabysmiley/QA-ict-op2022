@@ -5,6 +5,8 @@ import Participant from '~/modules/mongoose/models/participant.model'
 import QuestLog from '~/modules/mongoose/models/questlog.model'
 import Registration from '~/modules/mongoose/models/registration.model'
 import type { IParticipant } from '~/types/entity/participant'
+import { LINEClient } from '~/lib/line'
+import { RICH_MENU_ID } from '~/const/line/rich-menu'
 
 const registerUser = async (data: IParticipant, lineToken?: string) => {
   try {
@@ -39,9 +41,12 @@ const registerUser = async (data: IParticipant, lineToken?: string) => {
       status: 'success',
     })
 
-    // Send Ticket to LINE user
     if (p.lineUserId) {
+      // Send Ticket to LINE user
       await sendTicketToLineUser(p.lineUserId, p)
+
+      // Set Registered Rich Menu
+      await LINEClient.linkRichMenuToUser(p.lineUserId, RICH_MENU_ID.REGISTERED)
     }
 
     return p
