@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from '~/utils/dayjs'
 import QuestLog from '~/modules/mongoose/models/questlog.model'
+import dbConnect from '~/lib/mongoose/dbConnect'
 
 /**
  * จำนวนผู้ลงทะเบียนในแต่ละกิจกรรม
@@ -12,6 +13,7 @@ import QuestLog from '~/modules/mongoose/models/questlog.model'
  */
 
 export const API = async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect()
   if (req.method === 'GET') {
     const g = await QuestLog.find({
       status: 'success',

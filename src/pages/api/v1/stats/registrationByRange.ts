@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from '~/utils/dayjs'
 import Registration from '~/modules/mongoose/models/registration.model'
+import dbConnect from '~/lib/mongoose/dbConnect'
 
 /**
  * จำนวนผู้ลงทะเบียนในแต่ละช่วงเวลา (ทุกๆ 1 ชั่วโมง ตั้งแต่เริ่ม จนถึงเวลาปัจจุบัน)
@@ -14,6 +15,7 @@ import Registration from '~/modules/mongoose/models/registration.model'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    await dbConnect()
     if (req.method === 'GET') {
       const g = await Registration.find({})
 

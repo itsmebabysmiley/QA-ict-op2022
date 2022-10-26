@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import dbConnect from '~/lib/mongoose/dbConnect'
 import Participant from '~/modules/mongoose/models/participant.model'
 
 /**
@@ -12,6 +13,7 @@ import Participant from '~/modules/mongoose/models/participant.model'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    await dbConnect()
     if (req.method === 'GET') {
       const g = await Participant.find({})
 

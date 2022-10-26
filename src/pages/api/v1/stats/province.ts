@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from '~/utils/dayjs'
 import Participant from '~/modules/mongoose/models/participant.model'
 import Provinces from '~/const/register/province'
+import dbConnect from '~/lib/mongoose/dbConnect'
 
 /**
  * จำนวนผู้เข้าร่วมแบ่งตามจังหวัด
@@ -13,6 +14,7 @@ import Provinces from '~/const/register/province'
  */
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect()
   if (req.method === 'GET') {
     const g = await Participant.find({})
 
