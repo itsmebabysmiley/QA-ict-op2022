@@ -17,7 +17,7 @@ import { strSubstitute } from '~/utils/string'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['evaluation'])),
+    ...(await serverSideTranslations(locale, ['common', 'evaluation'])),
   },
 })
 

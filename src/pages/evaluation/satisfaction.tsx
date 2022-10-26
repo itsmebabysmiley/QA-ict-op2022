@@ -12,7 +12,7 @@ import { FormBuilder } from '~/modules/form/formBuilder'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['evaluation'])),
+    ...(await serverSideTranslations(locale, ['common', 'evaluation'])),
   },
 })
 

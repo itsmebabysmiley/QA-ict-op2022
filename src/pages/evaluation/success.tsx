@@ -11,7 +11,7 @@ import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['evaluation'])),
+    ...(await serverSideTranslations(locale, ['common', 'evaluation'])),
   },
 })
 
