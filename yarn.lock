@@ -11597,6 +11597,11 @@ next-i18next@^12.1.0:
     i18next-fs-backend "^1.1.5"
     react-i18next "^11.18.4"
 
+next-seo@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.8.0.tgz#c71c791971e030af448cae61dc1ece5e79da1790"
+  integrity sha512-V5W/JwqdoX6/0zG4S7m5g8zNajYffytWigkPo2hrbHhLD18yGFBU9607OPhvbI9zX3QjWQFMBSmlUY456xt9cA==
+
 next@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/next/-/next-13.0.0.tgz#6f07064a4f374562cf58677bef4dd06326ca648b"

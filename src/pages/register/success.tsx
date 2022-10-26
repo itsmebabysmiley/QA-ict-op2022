@@ -11,7 +11,7 @@ import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['register'])),
+    ...(await serverSideTranslations(locale, ['common', 'register'])),
   },
 })
 
@@ -19,6 +19,7 @@ const Page: NextPage = () => {
   const { liff, isReady } = useLiff()
   const { push } = useRouter()
   const { t } = useTranslation('register')
+  const { t: tCommon } = useTranslation('common')
   const { form, dispatch } = useStoreon('form')
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const Page: NextPage = () => {
           <div className="mt-10 w-full text-center">
             <Button
               type="button"
-              label={t('REG_FORM.REG_BUTTON_CLOSE')}
+              label={tCommon('BUTTON_LABEL.CLOSE')}
               variant="ictTurquoise"
               className="w-full sm:w-32"
               onClick={() => {

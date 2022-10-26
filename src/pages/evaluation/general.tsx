@@ -52,7 +52,7 @@ const Page: NextPage = () => {
               i18n={t}
             />
           </div>
-          <div className="mt-10 text-right">
+          <div className="mt-10 flex justify-end">
             <Button
               type="submit"
               label={t('BUTTON_LABEL.NEXT')}

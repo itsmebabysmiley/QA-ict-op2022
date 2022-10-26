@@ -47,10 +47,16 @@ const Page: NextPage = () => {
               i18n={t}
             />
           </div>
-          <div className="mt-10 text-right">
+          <div className="mt-10 flex justify-between">
+            <Button
+              label={t('BUTTON_LABEL.BACK')}
+              variant="primary"
+              className="w-32"
+              onClick={() => push('/evaluation/general')}
+            />
             <Button
               type="submit"
-              label={t('BUTTON_LABEL.NEXT')}
+              label={t('BUTTON_LABEL.SUBMIT')}
               variant="ictTurquoise"
               className="w-32"
             />

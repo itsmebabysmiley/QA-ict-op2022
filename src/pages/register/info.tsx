@@ -14,12 +14,13 @@ import { strSubstitute } from '~/utils/string'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['register'])),
+    ...(await serverSideTranslations(locale, ['common', 'register'])),
   },
 })
 
 const Page: NextPage = () => {
   const { t } = useTranslation('register')
+  const { t: tCommon } = useTranslation('common')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
   const {
@@ -111,12 +112,21 @@ const Page: NextPage = () => {
               />
             </div>
           </div>
-          <div className="mt-10 text-right">
+          <div className="mt-10 flex justify-between">
+            <Button
+              label={tCommon('BUTTON_LABEL.BACK')}
+              variant="primary"
+              className="w-full sm:w-32"
+              onClick={() => {
+                dispatch('form/register/prevStep')
+                push('/register/type')
+              }}
+            />
             <Button
               type="submit"
-              label={t('REG_FORM.REG_BUTTON_NEXT')}
+              label={t('REG_FORM.REG_BUTTON_SUBMIT')}
               variant="ictTurquoise"
-              className="w-32"
+              className="w-full sm:w-32"
             />
           </div>
         </form>

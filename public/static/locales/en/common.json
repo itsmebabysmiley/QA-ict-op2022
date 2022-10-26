@@ -2,6 +2,8 @@
   "LOADING_STATE_TITLE": "Hold on…",
   "LOADING_STATE_SUBTITLE": "The adventure is about to begin!",
   "BUTTON_LABEL": {
-    "CLOSE": "ปิด"
+    "CLOSE": "Close",
+    "CANCEL": "Cancel",
+    "BACK": "Back"
   }
 }
