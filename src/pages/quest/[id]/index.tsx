@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
@@ -47,7 +47,7 @@ const Page: NextPage = () => {
     fetcher
   )
 
-  const { data: questData, error: err } = useSWR<
+  const { data: questData } = useSWR<
     ApiResponseSuccess<IQuestion>,
     ApiResponseError
   >(

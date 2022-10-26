@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import type { ComponentStoryFn, Meta } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import ChoiceGroup from './ChoiceGroup'

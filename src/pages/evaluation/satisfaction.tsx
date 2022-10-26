@@ -20,12 +20,7 @@ const Page: NextPage = () => {
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, watch, handleSubmit } = useForm({
     defaultValues: form.evaluation,
   })
 

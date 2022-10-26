@@ -1,6 +1,5 @@
-import type { ComponentProps, FC, Provider, ReactNode } from 'react'
-import { ComponentType, createContext } from 'react'
-import type { StoreonStore } from 'storeon'
+import type { FC, ReactNode } from 'react'
+import { createContext } from 'react'
 import { createStoreon } from 'storeon'
 import { customContext } from 'storeon/react'
 import { storeonDevtools } from 'storeon/devtools'

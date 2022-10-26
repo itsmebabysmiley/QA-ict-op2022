@@ -1,6 +1,5 @@
 import { getUserRecordFromLineUId } from '../common/getUserRecordFromLine'
 import { getLineUserFromIdToken } from '~/modules/external/line'
-import Participant from '~/modules/mongoose/models/participant.model'
 
 const isParticipantRegistered = async (token?: string) => {
   try {

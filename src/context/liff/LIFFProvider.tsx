@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import type { Liff } from '@line/liff'
 import type { ILIFFConfig, ILIFFContextType, ILIFFProviderProps } from './types'
-import { ILIFFConfigPlugins } from './types'
 import { LIFF_STATE } from './enum'
 
 const LIFFContextDefault: ILIFFContextType = {

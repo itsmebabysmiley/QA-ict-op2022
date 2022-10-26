@@ -1,4 +1,4 @@
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 import { stringify } from 'qs'
 import type { IVerifyIdTokenResponse } from '~/types/external/line'
 

@@ -5,9 +5,7 @@ import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
-import { LIFF_STATE } from '~/context/liff/enum'
 import { useLiff } from '~/context/liff/LIFFProvider'
-import { useStoreon } from '~/context/storeon'
 import LoadingWrapper from '~/layouts/LoadingWrapper'
 import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 import type { ApiResponseSuccess } from '~/types/api'
@@ -24,7 +22,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 const Page = () => {
   const { liff, isReady } = useLiff()
   const { push } = useRouter()
-  const { dispatch } = useStoreon('form')
   const { t } = useTranslation(['common', 'evaluation'])
   const { data, error } = useSWR<ApiResponseSuccess<{ isEvaluataed: boolean }>>(
     isReady

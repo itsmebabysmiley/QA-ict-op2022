@@ -1,8 +1,6 @@
 import Joi from 'joi'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { QUESTIONS } from '~/const/activity/questions'
 import { getQuestQuestion } from '~/modules/api/services/activity/getQuestQuestion'
-import { randomArray } from '~/utils'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

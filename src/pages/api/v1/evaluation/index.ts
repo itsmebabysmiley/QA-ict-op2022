@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { registerSchema } from '~/modules/api/schema/register.input.schema'
 import submitEvaluation from '~/modules/api/services/evaluation/submitEvaluation'
-import { registerUser } from '~/modules/api/services/register'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import clsx from 'clsx'
 import type { ComponentPropsWithoutRef } from 'react'
-import { FC, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 export interface ChoiceInputProps
   extends Omit<ComponentPropsWithoutRef<'input'>, 'type'> {

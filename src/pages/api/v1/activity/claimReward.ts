@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '~/lib/mongoose/dbConnect'
-import { getQuestLogFromStatus } from '~/modules/api/services/activity/getQuestLogFromStatus'
 import { getQuestStatus } from '~/modules/api/services/activity/getQuestStatus'
 import { getRewardEligibility } from '~/modules/api/services/activity/getRewardEligibility'
 import { isRewardClaimed } from '~/modules/api/services/activity/isRewardClaimed'
@@ -9,7 +8,6 @@ import { getUserRecordFromLineUId } from '~/modules/api/services/common/getUserR
 import QuestLog, {
   QuestLogStatus,
 } from '~/modules/mongoose/models/questlog.model'
-import { QUEST_STATUS } from '~/types/api/activity'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

@@ -1,7 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router'
 import Button from '~/components/Button'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
 import { useLiff } from '~/context/liff/LIFFProvider'
@@ -16,8 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 })
 
 const Page: NextPage = () => {
-  const { query, locale } = useRouter()
-  const { liff, isReady } = useLiff()
+  const { liff } = useLiff()
   const { t } = useTranslation(['common', 'register'])
 
   return (

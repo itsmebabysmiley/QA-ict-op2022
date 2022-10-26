@@ -1,5 +1,4 @@
 import { joiResolver } from '@hookform/resolvers/joi'
-import dayjs from 'dayjs'
 import Joi from 'joi'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -7,7 +6,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
-import DateInput from '~/components/Input/DateInput'
 import TextInput from '~/components/Input/TextInput'
 import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
@@ -45,9 +43,6 @@ const Page: NextPage = () => {
     defaultValues: {
       firstName: form.register.fields?.firstName || '',
       lastName: form.register.fields?.lastName || '',
-      // dob:
-      //   form.register.fields?.dob ||
-      //   dayjs().subtract(18, 'year').format('YYYY-MM-DD'),
       email: form.register.fields?.email || '',
       phone: form.register.fields?.phone || '',
     },

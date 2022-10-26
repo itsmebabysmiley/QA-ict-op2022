@@ -1,5 +1,4 @@
 import type { ComponentProps, FC, Provider } from 'react'
-import { useTranslation } from 'next-i18next'
 import LoadingWrapper from './LoadingWrapper'
 import { LIFF_ID } from '~/const/liff'
 import { LIFFProvider } from '~/context/liff/LIFFProvider'

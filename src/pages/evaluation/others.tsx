@@ -23,12 +23,7 @@ const Page: NextPage = () => {
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, watch, handleSubmit } = useForm({
     defaultValues: form.evaluation,
   })
 
@@ -41,7 +36,7 @@ const Page: NextPage = () => {
 
             const liffIdToken = liff.getIDToken() || undefined
 
-            const { data: r } = await axios.post(
+            await axios.post(
               '/api/v1/evaluation',
               {
                 ...form.evaluation.fields,

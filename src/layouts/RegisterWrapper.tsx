@@ -1,5 +1,6 @@
 import type { ComponentProps, FC } from 'react'
 import useSWR from 'swr'
+import LoadingWrapper from './LoadingWrapper'
 import { LIFF_STATE } from '~/context/liff/enum'
 import { useLiff } from '~/context/liff/LIFFProvider'
 import type { ApiResponseSuccess } from '~/types/api'
@@ -17,6 +18,14 @@ const RegisterWrapper: FC<ComponentProps<'div'>> = () => {
       : null,
     fetcher
   )
+
+  if (error) {
+    return <div>error</div>
+  }
+
+  if (!data) {
+    return <LoadingWrapper />
+  }
 
   return <div></div>
 }

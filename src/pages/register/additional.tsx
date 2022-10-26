@@ -125,7 +125,7 @@ const Page: NextPage = () => {
 
               const liffIdToken = liff.getIDToken() || undefined
 
-              const { data: r } = await axios.post(
+              await axios.post(
                 '/api/v1/register',
                 {
                   ...form.register.fields,

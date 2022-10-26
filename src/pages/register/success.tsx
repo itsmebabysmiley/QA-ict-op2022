@@ -20,7 +20,7 @@ const Page: NextPage = () => {
   const { push } = useRouter()
   const { t } = useTranslation('register')
   const { t: tCommon } = useTranslation('common')
-  const { form, dispatch } = useStoreon('form')
+  const { dispatch } = useStoreon('form')
 
   useEffect(() => {
     if (isReady) {

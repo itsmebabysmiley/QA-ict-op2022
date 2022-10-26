@@ -43,7 +43,7 @@ export const form: StoreonModule<FormStore, FormEvent> = (store) => {
     },
   }))
 
-  store.on('form/register/nextStep', (store, event) => ({
+  store.on('form/register/nextStep', (store, _) => ({
     form: {
       ...store.form,
       register: {
@@ -53,7 +53,7 @@ export const form: StoreonModule<FormStore, FormEvent> = (store) => {
     },
   }))
 
-  store.on('form/register/prevStep', (store, event) => ({
+  store.on('form/register/prevStep', (store, _) => ({
     form: {
       ...store.form,
       register: {
@@ -76,7 +76,7 @@ export const form: StoreonModule<FormStore, FormEvent> = (store) => {
     },
   }))
 
-  store.on('form/register/reset', (store, event) => ({
+  store.on('form/register/reset', (store, _) => ({
     form: {
       ...store.form,
       register: {
@@ -96,7 +96,7 @@ export const form: StoreonModule<FormStore, FormEvent> = (store) => {
     },
   }))
 
-  store.on('form/evaluation/reset', (store, event) => ({
+  store.on('form/evaluation/reset', (store, _) => ({
     form: {
       ...store.form,
       evaluation: {},

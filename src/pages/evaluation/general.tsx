@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -6,14 +5,10 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import { EvaluationHeaderWordmark } from '~/components/Icons'
-import DateInput from '~/components/Input/DateInput'
-import TextInput from '~/components/Input/TextInput'
 import { Evaluation_EN } from '~/const/evaluation/evaluationForm'
 import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import { FormBuilder } from '~/modules/form/formBuilder'
-import FormHeader from '~/routes/Register/components/FormHeader'
-import { strSubstitute } from '~/utils/string'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
@@ -25,12 +20,7 @@ const Page: NextPage = () => {
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, watch, handleSubmit } = useForm({
     defaultValues: form.evaluation,
   })
 

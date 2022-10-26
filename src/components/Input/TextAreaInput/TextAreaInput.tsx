@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import type { ComponentProps } from 'react'
 import { forwardRef } from 'react'
-import BaseInput from '../BaseInput'
 import BaseTextArea from '../BaseTextArea'
 import InputLabel from '../InputLabel'
 
