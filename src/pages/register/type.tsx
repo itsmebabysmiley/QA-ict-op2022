@@ -9,7 +9,7 @@ import RegistrantTypeButton from '~/routes/Register/components/RegistrantTypeBut
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['register'])),
+    ...(await serverSideTranslations(locale, ['register', 'common'])),
   },
 })
 
