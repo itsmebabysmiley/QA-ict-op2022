@@ -1,37 +1,34 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from '~/utils/dayjs'
-import QuestLog from '~/modules/mongoose/models/questlog.model'
+import Participant from '~/modules/mongoose/models/participant.model'
+import Provinces from '~/const/register/province'
 
 /**
- * จำนวนผู้ลงทะเบียนในแต่ละกิจกรรม
+ * จำนวนผู้เข้าร่วมแบ่งตามจังหวัด
  * {
- *   "EventName" : "XX",
+ *   "Province" : "XX",
  *   "Amount" : 0,
  *   "Date" : "yyyy-MM-dd"
  * }
  */
 
-export const API = async (req: NextApiRequest, res: NextApiResponse) => {
+const API = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const g = await QuestLog.find({
-      status: 'success',
-    })
-
-    console.log(g)
+    const g = await Participant.find({})
 
     const b = g.reduce((acc, cur) => {
       const date = dayjs.tz(cur.createdAt).format('YYYY-MM-DD')
-      const eventName = `Quest ${cur.questNo}`
+      const province =
+        Provinces.find((x) => x.province_id === cur.province)?.value ||
+        'ไม่ระบุ'
 
-      const found = acc.find(
-        (x) => x.EventName === eventName && x.Date === date
-      )
+      const found = acc.find((x) => x.Province === province && x.Date === date)
 
       if (found) {
         found.Amount += 1
       } else {
         acc.push({
-          EventName: eventName,
+          Province: province,
           Amount: 1,
           Date: date,
         })
@@ -48,9 +45,7 @@ export const API = async (req: NextApiRequest, res: NextApiResponse) => {
 
   return res.status(405).json({
     success: false,
-    payload: {
-      message: 'Method not allowed',
-    },
+    payload: 'Method Not Allowed',
   })
 }
 

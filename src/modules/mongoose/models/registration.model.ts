@@ -4,7 +4,8 @@ import type { IParticipant } from '~/types/entity/participant'
 
 interface IRegistration {
   participant: IParticipant
-  registeredAt: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 const registrationSchema = new Schema(
@@ -13,7 +14,6 @@ const registrationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Participant',
     },
-    registeredAt: Date,
   },
   { timestamps: true }
 )

@@ -16,6 +16,9 @@ export interface IParticipant {
   lineUserId: string
   lineDisplayName: string
   linePicture: string
+
+  createdAt: Date
+  updatedAt: Date
 }
 
 const participantSchema = new Schema(
