@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import type {
+  FieldErrorsImpl,
   FieldValues,
   UseFormRegister,
   UseFormWatch,
@@ -17,12 +18,18 @@ interface FormBuilderProps {
   register: UseFormRegister<FieldValues>
   watch: UseFormWatch<FieldValues>
   i18n?: TFunction<'', undefined>
+  errors?: Partial<
+    FieldErrorsImpl<{
+      [x: string]: any
+    }>
+  >
 }
 
 export const FormBuilder: FC<FormBuilderProps> = ({
   form,
   register,
   watch,
+  errors,
   i18n,
 }) => {
   const t = i18n || ((key) => key)
@@ -51,7 +58,10 @@ export const FormBuilder: FC<FormBuilderProps> = ({
                         {question.questionNo}. {t(question.question)}
                       </label>
                       {question.questionType === QuestionType.Text ? (
-                        <TextInput {...register(question.key)} />
+                        <TextInput
+                          error={errors?.[question.key]?.message?.toString()}
+                          {...register(question.key)}
+                        />
                       ) : question.questionType === QuestionType.Radio ? (
                         <ChoiceGroup
                           name={question.key}

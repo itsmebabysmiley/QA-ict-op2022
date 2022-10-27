@@ -1,3 +1,5 @@
+import { joiResolver } from '@hookform/resolvers/joi'
+import Joi from 'joi'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -10,6 +12,13 @@ import { useStoreon } from '~/context/storeon'
 import Wrapper from '~/layouts/Wrapper'
 import { FormBuilder } from '~/modules/form/formBuilder'
 
+export const generalSchema = Joi.object().keys({
+  role: Joi.string().required(),
+  gender: Joi.string().required(),
+  channels: Joi.array().items(Joi.string()).required(),
+  'participated-activities': Joi.array().items(Joi.string()).required(),
+})
+
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
     ...(await serverSideTranslations(locale, ['common', 'evaluation'])),
@@ -20,7 +29,13 @@ const Page: NextPage = () => {
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
-  const { register, watch, handleSubmit } = useForm({
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: joiResolver(generalSchema),
     defaultValues: form.evaluation,
   })
 
@@ -39,6 +54,7 @@ const Page: NextPage = () => {
               form={Evaluation_EN[0]}
               register={register}
               watch={watch}
+              errors={errors}
               i18n={t}
             />
           </div>

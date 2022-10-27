@@ -1,9 +1,12 @@
+import { joiResolver } from '@hookform/resolvers/joi'
 import axios from 'axios'
+import Joi from 'joi'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { satisfactionSchema } from './satisfaction'
 import Button from '~/components/Button'
 import { EvaluationHeaderWordmark } from '~/components/Icons'
 import { Evaluation_EN } from '~/const/evaluation/evaluationForm'
@@ -18,12 +21,26 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   },
 })
 
+const schema = satisfactionSchema.keys({
+  'interested-programs': Joi.array().items(Joi.string()).optional(),
+  factors: Joi.array().items(Joi.string()).optional(),
+  impressed: Joi.string().optional(),
+  unimpressed: Joi.string().optional(),
+  'other-suggestions': Joi.string().optional(),
+})
+
 const Page: NextPage = () => {
   const { liff } = useLiff()
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
-  const { register, watch, handleSubmit } = useForm({
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: joiResolver(schema),
     defaultValues: form.evaluation,
   })
 
@@ -31,34 +48,40 @@ const Page: NextPage = () => {
     <Wrapper>
       <div className="mx-auto flex min-h-screen max-w-screen-md flex-col px-8 py-10 sm:justify-center">
         <form
-          onSubmit={handleSubmit(async (data) => {
-            dispatch('form/evaluation/setFields', data)
+          onSubmit={handleSubmit(
+            async (data) => {
+              dispatch('form/evaluation/setFields', data)
 
-            const liffIdToken = liff.getIDToken() || undefined
+              const liffIdToken = liff.getIDToken() || undefined
 
-            await axios.post(
-              '/api/v1/evaluation',
-              {
-                ...form.evaluation.fields,
-                ...data,
-              },
-              {
-                headers: {
-                  authorization: liffIdToken
-                    ? `Bearer ${liffIdToken}`
-                    : undefined,
+              await axios.post(
+                '/api/v1/evaluation',
+                {
+                  ...form.evaluation.fields,
+                  ...data,
                 },
-              }
-            )
+                {
+                  headers: {
+                    authorization: liffIdToken
+                      ? `Bearer ${liffIdToken}`
+                      : undefined,
+                  },
+                }
+              )
 
-            push('/evaluation/success')
-          })}
+              push('/evaluation/success')
+            },
+            (error) => {
+              console.log(error)
+            }
+          )}
         >
           <div className="rounded-xl sm:bg-white sm:p-16 sm:text-black">
             <EvaluationHeaderWordmark className="mb-6 text-white sm:text-black" />
             <FormBuilder
               form={Evaluation_EN[2]}
               register={register}
+              errors={errors}
               watch={watch}
               i18n={t}
             />
