@@ -1,7 +1,32 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import Cors from 'cors'
 import dayjs from '~/utils/dayjs'
 import Registration from '~/modules/mongoose/models/registration.model'
 import dbConnect from '~/lib/mongoose/dbConnect'
+
+// Initializing the cors middleware
+// You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD'],
+})
+
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+function runMiddleware(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  fn: Function
+) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
 
 /**
  * จำนวนผู้ลงทะเบียนในแต่ละช่วงเวลา (ทุกๆ 1 ชั่วโมง ตั้งแต่เริ่ม จนถึงเวลาปัจจุบัน)
@@ -15,6 +40,7 @@ import dbConnect from '~/lib/mongoose/dbConnect'
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    await runMiddleware(req, res, cors)
     await dbConnect()
     if (req.method === 'GET') {
       const g = await Registration.find({})
