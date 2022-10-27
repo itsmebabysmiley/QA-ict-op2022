@@ -13,6 +13,7 @@ interface IQuestLog {
   participant: IParticipant
   questNo: number
   questionId?: string
+  answer?: string[]
   status: QuestLogStatus
   createdAt: Date
   updatedAt: Date
@@ -26,6 +27,7 @@ const questLogSchema = new Schema(
     },
     questNo: Number,
     questionId: String,
+    answer: [String],
     status: {
       type: String,
       enum: Object.values(QuestLogStatus),

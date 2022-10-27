@@ -2,17 +2,19 @@ import { normalizeString } from '~/utils/string'
 
 export const checkAnswer = (
   expectedAnswer: string | string[],
-  answer: string
+  answer: string | string[]
 ) => {
   const normalizedExpectedAnswer = Array.isArray(expectedAnswer)
     ? expectedAnswer.map((a) => normalizeString(a))
-    : normalizeString(expectedAnswer)
+    : [normalizeString(expectedAnswer)]
 
-  const normalizedAnswer = normalizeString(answer)
+  const normalizedAnswer = Array.isArray(answer)
+    ? answer.map((a) => normalizeString(a))
+    : [normalizeString(answer)]
 
-  const result = Array.isArray(normalizedExpectedAnswer)
-    ? normalizedExpectedAnswer.includes(normalizedAnswer)
-    : normalizedExpectedAnswer === normalizedAnswer
+  const result = normalizedAnswer.every((a) =>
+    normalizedExpectedAnswer.includes(a)
+  )
 
   return result
 }

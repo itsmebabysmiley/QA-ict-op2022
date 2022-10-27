@@ -18,14 +18,20 @@ export const formatQuestion = (
     question.type === QUESTION_TYPE.MULTIPLE_CHOICE ||
     question.type === QUESTION_TYPE.MULTIPLE_SELECT
   ) {
+    const choiceEntries = Object.entries(question.choices)
+
+    const randomChoices: Record<string, string> = {}
+
+    for (let i = 0; choiceEntries.length > 0; i++) {
+      const randomIndex = Math.floor(Math.random() * choiceEntries.length)
+      const elem = choiceEntries.splice(randomIndex, 1)[0]
+      Object.assign(randomChoices, {
+        [elem[0]]: elem[1][lang],
+      })
+    }
+
     Object.assign(questionResult, {
-      choices: Object.entries(question.choices).reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [key]: value[lang],
-        }),
-        {}
-      ),
+      choices: randomChoices,
     })
   }
 

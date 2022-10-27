@@ -37,7 +37,7 @@ interface TextAreaQuestion<T> extends BaseQuestion<T> {
 interface MultipleChoiceQuestion<T> extends BaseQuestion<T> {
   type: QUESTION_TYPE.MULTIPLE_CHOICE
   choices: Record<string, T>
-  expectedAnswer: string
+  expectedAnswer: string | string[]
 }
 
 interface MultipleSelectQuestion<T> extends BaseQuestion<T> {
@@ -122,6 +122,38 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
     },
     expectedAnswer: 'dst-program',
   },
+  // {
+  //   id: 'Q5',
+  //   type: QUESTION_TYPE.MULTIPLE_CHOICE,
+  //   questNo: 5,
+  //   questTitle: {
+  //     th: 'Innovative Projects Zone',
+  //     en: 'Innovative Projects Zone',
+  //   },
+  //   question: {
+  //     th: 'ในการจัดตั้งทีม Senior Project สามารถมีสมาชิกได้สูงสุดกี่คน',
+  //     en: 'What is the maximum number of group members can be formed for the senior project?',
+  //   },
+  //   choices: {
+  //     '2-people': {
+  //       th: '2 คน',
+  //       en: '2 people',
+  //     },
+  //     '3-people': {
+  //       th: '3 คน',
+  //       en: '3 people',
+  //     },
+  //     '4-people': {
+  //       th: '4 คน',
+  //       en: '4 people',
+  //     },
+  //     '5-people': {
+  //       th: '5 คน',
+  //       en: '5 people',
+  //     },
+  //   },
+  //   expectedAnswer: '3-people',
+  // },
   {
     id: 'Q5',
     type: QUESTION_TYPE.MULTIPLE_CHOICE,
@@ -131,27 +163,157 @@ export const QUESTIONS: IQuestion<I18nTranslation>[] = [
       en: 'Innovative Projects Zone',
     },
     question: {
-      th: 'ในการจัดตั้งทีม Senior Project สามารถมีสมาชิกได้สูงสุดกี่คน',
-      en: 'What is the maximum number of group members can be formed for the senior project?',
+      th: 'โปรเจกต์ใดที่คุณประทับใจมากที่สุด',
+      en: 'What is your favorite senior project in this exhibition?',
     },
     choices: {
-      '2-people': {
-        th: '2 คน',
-        en: '2 people',
+      'mu-blink-analyzer': {
+        th: 'MU Blink Analyzer',
+        en: 'MU Blink Analyzer',
       },
-      '3-people': {
-        th: '3 คน',
-        en: '3 people',
+      microusity: {
+        th: 'Microusity',
+        en: 'Microusity',
       },
-      '4-people': {
-        th: '4 คน',
-        en: '4 people',
+      tpt: {
+        th: 'TPT',
+        en: 'TPT',
       },
-      '5-people': {
-        th: '5 คน',
-        en: '5 people',
+      mosquito: {
+        th: 'Mosquito',
+        en: 'Mosquito',
+      },
+      orchidator: {
+        th: 'Orchidator',
+        en: 'Orchidator',
+      },
+      ezfit: {
+        th: 'EzFIT',
+        en: 'EzFIT',
+      },
+      esit: {
+        th: 'eSit',
+        en: 'eSit',
+      },
+      mirai: {
+        th: 'Mirai',
+        en: 'Mirai',
+      },
+      'suture-bot': {
+        th: 'Suture Bot',
+        en: 'Suture Bot',
+      },
+      psimilan: {
+        th: 'PSIMILAN',
+        en: 'PSIMILAN',
+      },
+      'receipt-recognizer': {
+        th: 'Receipt Recognizer',
+        en: 'Receipt Recognizer',
+      },
+      airadar: {
+        th: 'Airadar',
+        en: 'Airadar',
+      },
+      'web-audit-tool': {
+        th: 'Web Audit Tool',
+        en: 'Web Audit Tool',
+      },
+      'v-achilles': {
+        th: 'V-Achilles',
+        en: 'V-Achilles',
+      },
+      'food-spoilage': {
+        th: 'Food Spoilage',
+        en: 'Food Spoilage',
+      },
+      gaifa: {
+        th: 'GAIFA',
+        en: 'GAIFA',
+      },
+      'cof-learn': {
+        th: 'Cof-Learn',
+        en: 'Cof-Learn',
+      },
+      'github-autopilot': {
+        th: 'Github Autopilot',
+        en: 'Github Autopilot',
+      },
+      'self-driving-car': {
+        th: 'Self-driving car',
+        en: 'Self-driving car',
+      },
+      'dall-e': {
+        th: 'DALL-E',
+        en: 'DALL-E',
+      },
+      midjourney: {
+        th: 'Midjourney',
+        en: 'Midjourney',
+      },
+      'stable-diffusion': {
+        th: 'Stable Diffusion',
+        en: 'Stable Diffusion',
+      },
+      isit: {
+        th: 'iSit',
+        en: 'iSit',
+      },
+      ocr: {
+        th: 'OCR',
+        en: 'OCR',
+      },
+      automl: {
+        th: 'AutoML',
+        en: 'AutoML',
+      },
+      'smart-color': {
+        th: 'Smart Color',
+        en: 'Smart Color',
+      },
+      whitedefender: {
+        th: 'WhiteDefender',
+        en: 'WhiteDefender',
+      },
+      landsage: {
+        th: 'LandSage',
+        en: 'LandSage',
+      },
+      'vr-xylophone': {
+        th: 'VR Xylophone',
+        en: 'VR Xylophone',
+      },
+      'fixme-bot': {
+        th: 'FixMe Bot',
+        en: 'FixMe Bot',
+      },
+      wabiqa: {
+        th: 'WabiQA',
+        en: 'WabiQA',
+      },
+      'air-quality-monitoring': {
+        th: 'Air Quality Monitoring',
+        en: 'Air Quality Monitoring',
       },
     },
-    expectedAnswer: '3-people',
+    expectedAnswer: [
+      'mu-blink-analyzer',
+      'microusity',
+      'tpt',
+      'mosquito',
+      'orchidator',
+      'ezfit',
+      'esit',
+      'mirai',
+      'suture-bot',
+      'psimilan',
+      'receipt-recognizer',
+      'airadar',
+      'web-audit-tool',
+      'v-achilles',
+      'food-spoilage',
+      'gaifa',
+      'cof-learn',
+    ],
   },
 ]

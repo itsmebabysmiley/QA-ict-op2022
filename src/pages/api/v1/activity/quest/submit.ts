@@ -14,7 +14,7 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
     const body: {
       questionId: string
       questNo: number
-      answer: string
+      answer: string | string[]
     } = req.body
 
     await Joi.object({
@@ -53,6 +53,7 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
           participant: userRecord._id,
           questNo: body.questNo,
           questionId: question.id,
+          answer: Array.isArray(body.answer) ? body.answer : [body.answer],
           status: 'success',
         })
       } else {
