@@ -1,12 +1,9 @@
-import { joiResolver } from '@hookform/resolvers/joi'
 import axios from 'axios'
-import Joi from 'joi'
 import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { satisfactionSchema } from './satisfaction'
 import Button from '~/components/Button'
 import { EvaluationHeaderWordmark } from '~/components/Icons'
 import { Evaluation_EN } from '~/const/evaluation/evaluationForm'
@@ -21,13 +18,13 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   },
 })
 
-const schema = satisfactionSchema.keys({
-  'interested-programs': Joi.array().items(Joi.string()).optional(),
-  factors: Joi.array().items(Joi.string()).optional(),
-  impressed: Joi.string().optional(),
-  unimpressed: Joi.string().optional(),
-  'other-suggestions': Joi.string().optional(),
-})
+// const schema = satisfactionSchema.keys({
+//   'interested-programs': Joi.array().items(Joi.string().optional()).optional(),
+//   factors: Joi.array().items(Joi.string().optional()).optional(),
+//   impressed: Joi.string().optional(),
+//   unimpressed: Joi.string().optional(),
+//   'other-suggestions': Joi.string().optional(),
+// })
 
 const Page: NextPage = () => {
   const { liff } = useLiff()
@@ -40,7 +37,7 @@ const Page: NextPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: joiResolver(schema),
+    // resolver: joiResolver(schema),
     defaultValues: form.evaluation,
   })
 
