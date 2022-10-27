@@ -1,13 +1,20 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { Icon } from '@iconify/react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dayjs from '~/utils/dayjs'
 import Button from '~/components/Button'
 import Wrapper from '~/layouts/Wrapper'
 import Header from '~/routes/Activity/components/Header'
 import { AGENDA } from '~/const/agenda/agenda'
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common'])),
+  },
+})
 
 const Page: NextPage = () => {
   const { locale = 'th' } = useRouter()
