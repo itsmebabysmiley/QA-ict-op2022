@@ -3,11 +3,15 @@ import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import '~/utils/iconify.ts'
 import { DefaultSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 import nextI18nConfig from '../../next-i18next.config'
 import LIFFWrapper from '~/layouts/LiffWrapper'
 import { Context } from '~/context/storeon'
+import LocaleWrapper from '~/layouts/LocaleWrapper'
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const { pathname } = useRouter()
+
   return (
     <>
       <DefaultSeo
@@ -25,7 +29,13 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Context>
         {/* LIFF Wrapper */}
         <LIFFWrapper>
-          <Component {...pageProps} />
+          {['/quest', '/quest/[id]', '/evaluation'].includes(pathname) ? (
+            <LocaleWrapper>
+              <Component {...pageProps} />
+            </LocaleWrapper>
+          ) : (
+            <Component {...pageProps} />
+          )}
         </LIFFWrapper>
       </Context>
     </>
