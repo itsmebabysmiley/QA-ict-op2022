@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { BASE_URL } from '~/const/config'
 import { LINEClient } from '~/lib/line'
 import dbConnect from '~/lib/mongoose/dbConnect'
 import { getQuestStatus } from '~/modules/api/services/activity/getQuestStatus'
@@ -44,7 +45,23 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
       // Unlink Rich Menu
       await LINEClient.unlinkRichMenuFromUser(user.userId)
 
-      // TODO: Send some message
+      // Send some message
+      await LINEClient.pushMessage(user.userId, [
+        {
+          type: 'imagemap',
+          baseUrl: `${BASE_URL}/static/line/images/op-thankyou`,
+          altText: 'Thank you for joining the event!',
+          baseSize: {
+            width: 1040,
+            height: 1749.65,
+          },
+          actions: [],
+        },
+        {
+          type: 'text',
+          text: 'ติดตามพวกเราได้ที่\n\nFacebook: fb.com/ict.mahidol.university\nInstagram: instagram.com/ict_mahidol\nTwitter: twitter.com/ict_mahidol\nYouTube: youtube.com/ICTMahidol\nWebsite: ict.mahidol.ac.th\n',
+        },
+      ])
 
       return res.status(200).json({
         success: true,

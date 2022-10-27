@@ -5,3 +5,6 @@ export const LIFF_ID_BY_ENV = {
 }
 
 export const LIFF_ID = LIFF_ID_BY_ENV[process.env.NODE_ENV || 'development']
+
+export const getLiffUrl = (path: string) =>
+  `https://liff.line.me/${LIFF_ID}${path}`

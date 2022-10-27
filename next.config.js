@@ -31,6 +31,20 @@ const nextConfig = {
       },
     ]
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/static/line/images/:image/:size(\\d{1,})',
+          destination: '/static/line/images/:image/:size.jpg',
+        },
+        {
+          source: '/static/line/images/:image/:size(\\d{1,})',
+          destination: '/static/line/images/:image/:size.png',
+        },
+      ],
+    }
+  },
 }
 
 module.exports = nextConfig

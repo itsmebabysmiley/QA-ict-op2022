@@ -1,16 +1,37 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-// import { LINEClient } from '~/lib/line'
+import type { NextApiResponse } from 'next'
+import dbConnect from '~/lib/mongoose/dbConnect'
+import type { LINENextApiRequest } from '~/modules/api/@types/webhookHandler'
+import { eventHandler } from '~/modules/api/webhook/eventHandler'
+import { verifyLineSignature } from '~/modules/api/webhook/verifyLineSignature'
 
-const API = async (req: NextApiRequest, res: NextApiResponse) => {
-  // console.log(JSON.stringify(req.body, null, 2))
+const API = async (req: LINENextApiRequest, res: NextApiResponse) => {
+  try {
+    await dbConnect()
+    if (req.method !== 'POST') {
+      res.status(405).json({
+        success: false,
+        payload:
+          'Method Not Allowed, Please POST your request through LINE Messaging API',
+      })
+      return
+    }
 
-  // const l = await LINEClient.getProfile(req.body.events[0].source.userId)
-  // console.log(JSON.stringify(l, null, 2))
+    const { body } = req
 
-  return res.status(200).json({
-    success: true,
-    payload: 'Hello World',
-  })
+    for (const webhookEvent of body.events) {
+      await eventHandler(webhookEvent)
+    }
+
+    return res.status(200).json({ success: true, payload: { message: 'ok' } })
+  } catch (error: any) {
+    console.error(error)
+    return res.status(500).json({
+      success: false,
+      payload: {
+        message: error.message,
+      },
+    })
+  }
 }
 
-export default API
+export default verifyLineSignature(API)
