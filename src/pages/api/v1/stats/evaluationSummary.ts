@@ -121,8 +121,6 @@ export const API = async (req: NextApiRequest, res: NextApiResponse) => {
         const cleanedKey =
           typeof c[key] === 'string' ? cleanUpText(c[key]) : c[key]
 
-        console.log(key, cleanedKey)
-
         if (!cleanedKey || cleanedKey === '') {
           continue
         }
