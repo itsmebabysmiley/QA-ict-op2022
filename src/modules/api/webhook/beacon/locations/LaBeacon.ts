@@ -1,4 +1,9 @@
-import type { BeaconEvent, ImageMapMessage, TextMessage } from '@line/bot-sdk'
+import type {
+  BeaconEvent,
+  FollowEvent,
+  ImageMapMessage,
+  TextMessage,
+} from '@line/bot-sdk'
 import { BASE_URL } from '~/const/config'
 import { LINEClient } from '~/lib/line'
 import BeaconLog, {
@@ -55,7 +60,7 @@ const MUICTOP2022Detail: TextMessage = {
   text: '😍พบกับกิจกรรมจาก 4 Zone สุด wow ‼️\n👉Meet & Greet Zone โซนกิจกรรมสุดมันส์ พร้อมแชร์ประสบการณ์ในสายงาน IT\n👉International Experiences Zone พบกับนักศึกษาปัจจุบันและศิษย์เก่าที่ยกขบวนกันมาแชร์ประสบการณ์ Internship เรียนต่อ และทำงานในต่างประเทศ พร้อม Live สดจากรุ่นพี่ศิษย์เก่าส่งตรงจากต่างประเทศ\n👉Guidance Zone แนะแนวหลักสูตร ICT & DST Programs พร้อมทดลองเรียน Mock-Up Classes\n👉Innovative Project Zone พบกับ Senior Project สุดเจ๋งจากพี่ ๆ ICT Mahidol\n\nอย่าลืม‼️ แวะมาเยี่ยมชม ICT Mahidol กันนะคะ',
 }
 
-export const LABeaconHandler = async (event: BeaconEvent) => {
+export const LABeaconHandler = async (event: BeaconEvent | FollowEvent) => {
   const { replyToken } = event
 
   const result = await LINEClient.replyMessage(replyToken, [
@@ -65,12 +70,20 @@ export const LABeaconHandler = async (event: BeaconEvent) => {
     MUICTOP2022Detail,
   ])
 
-  await BeaconLog.create({
-    lineUId: event.source.userId,
-    hwid: event.beacon.hwid,
-    type: event.beacon.type,
-    messageSent: BeaconMessageSent.LA_WELCOME,
-  })
+  if (event.type === 'beacon') {
+    await BeaconLog.create({
+      lineUId: event.source.userId,
+      hwid: event.beacon.hwid,
+      type: event.beacon.type,
+      messageSent: BeaconMessageSent.LA_WELCOME,
+    })
+  } else if (event.type === 'follow') {
+    await BeaconLog.create({
+      lineUId: event.source.userId,
+      type: 'follow',
+      messageSent: BeaconMessageSent.LA_WELCOME,
+    })
+  }
 
   return result
 }
