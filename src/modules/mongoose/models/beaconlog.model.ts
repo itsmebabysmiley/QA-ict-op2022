@@ -11,6 +11,7 @@ export enum BeaconEventType {
   LEAVE = 'leave',
   BANNER = 'banner',
   STAY = 'stay',
+  FOLLOW = 'follow',
 }
 
 interface IBeaconLog {
