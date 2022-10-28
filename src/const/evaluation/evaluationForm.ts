@@ -22,6 +22,10 @@ export const RatingOptions: IFormQuestionOption[] = [
     label: 'RATING_OPTIONS.STRONGLY_DISAGREE',
     value: 'strongly-disagree',
   },
+  {
+    label: 'RATING_OPTIONS.NOT_APPLICABLE',
+    value: 'n/a',
+  },
 ]
 
 export const Evaluation_EN: IFormSection[] = [

@@ -8,7 +8,8 @@
     "AGREE": "มาก",
     "NEUTRAL": "ปานกลาง",
     "DISAGREE": "น้อย",
-    "STRONGLY_DISAGREE": "น้อยที่สุด"
+    "STRONGLY_DISAGREE": "น้อยที่สุด",
+    "NOT_APPLICABLE": "ไม่ได้เข้าร่วมกิจกรรม"
   },
   "SECTION_1": {
     "TITLE": "ข้อมูลทั่วไป",

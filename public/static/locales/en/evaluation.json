@@ -8,7 +8,8 @@
     "AGREE": "Agree",
     "NEUTRAL": "Neutral",
     "DISAGREE": "Disagree",
-    "STRONGLY_DISAGREE": "Strongly Disagree"
+    "STRONGLY_DISAGREE": "Strongly Disagree",
+    "NOT_APPLICABLE": "N/A"
   },
   "SECTION_1": {
     "TITLE": "General Information",
