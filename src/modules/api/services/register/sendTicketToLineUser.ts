@@ -1,4 +1,6 @@
+import { BASE_URL } from '~/const/config'
 import { FLEX_IG_FILTER, FLEX_TICKET_BUBBLE } from '~/const/line/flex-messages'
+import { getLiffUrl } from '~/const/line/liff'
 import { LINEClient } from '~/lib/line'
 import type { IParticipant } from '~/modules/mongoose/models/participant.model'
 
@@ -18,6 +20,60 @@ export const sendTicketToLineUser = async (
       type: 'flex',
       altText: 'Ticket',
       contents: FLEX_IG_FILTER(),
+    },
+    {
+      type: 'flex',
+      altText: 'Important Link',
+      contents: {
+        type: 'carousel',
+        contents: [
+          {
+            type: 'bubble',
+            hero: {
+              type: 'image',
+              url: `${BASE_URL}/static/line/images/carousel-agenda.jpg`,
+              size: 'full',
+              aspectRatio: '765:657',
+              aspectMode: 'cover',
+              action: {
+                type: 'uri',
+                label: 'action',
+                uri: getLiffUrl('/agenda'),
+              },
+            },
+          },
+          {
+            type: 'bubble',
+            hero: {
+              type: 'image',
+              url: `${BASE_URL}/static/line/images/carousel-my-passport.jpg`,
+              size: 'full',
+              aspectRatio: '765:657',
+              aspectMode: 'cover',
+              action: {
+                type: 'uri',
+                label: 'action',
+                uri: getLiffUrl('/quest'),
+              },
+            },
+          },
+          {
+            type: 'bubble',
+            hero: {
+              type: 'image',
+              url: `${BASE_URL}/static/line/images/carousel-scan.jpg`,
+              size: 'full',
+              aspectRatio: '765:657',
+              aspectMode: 'cover',
+              action: {
+                type: 'uri',
+                label: 'action',
+                uri: 'https://line.me/R/nv/QRCodeReader',
+              },
+            },
+          },
+        ],
+      },
     },
     {
       type: 'flex',
