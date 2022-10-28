@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Cors from 'cors'
 import dayjs from '~/utils/dayjs'
-import Registration from '~/modules/mongoose/models/registration.model'
 import dbConnect from '~/lib/mongoose/dbConnect'
+import Participant from '~/modules/mongoose/models/participant.model'
 
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -43,50 +43,54 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
     await runMiddleware(req, res, cors)
     await dbConnect()
     if (req.method === 'GET') {
-      const g = await Registration.find({})
+      const g = await Participant.find({})
 
-      const b = g.reduce((acc, cur) => {
-        const date = dayjs.tz(cur.createdAt).format('YYYY-MM-DD')
+      const b = g
+        .filter((value, index, self) => {
+          return self.findIndex((v) => v.email === value.email) === index
+        })
+        .reduce((acc, cur) => {
+          const date = dayjs.tz(cur.createdAt).format('YYYY-MM-DD')
 
-        const timeStartMinute = dayjs.tz(cur.createdAt).minute()
-        const timeStartHour = dayjs.tz(cur.createdAt).hour()
+          const timeStartMinute = dayjs.tz(cur.createdAt).minute()
+          const timeStartHour = dayjs.tz(cur.createdAt).hour()
 
-        const minuteStart =
-          timeStartMinute < 15
-            ? '00'
-            : timeStartMinute < 30
-            ? '15'
-            : timeStartMinute < 45
-            ? '30'
-            : '45'
+          const minuteStart =
+            timeStartMinute < 15
+              ? '00'
+              : timeStartMinute < 30
+              ? '15'
+              : timeStartMinute < 45
+              ? '30'
+              : '45'
 
-        const minuteEnd =
-          minuteStart === '45' ? '00' : parseInt(minuteStart) + 15
+          const minuteEnd =
+            minuteStart === '45' ? '00' : parseInt(minuteStart) + 15
 
-        const timeStart = `${timeStartHour}:${minuteStart}`
-        const timeEnd = `${
-          minuteEnd === '00' ? timeStartHour + 1 : timeStartHour
-        }:${minuteEnd}`
+          const timeStart = `${timeStartHour}:${minuteStart}`
+          const timeEnd = `${
+            minuteEnd === '00' ? timeStartHour + 1 : timeStartHour
+          }:${minuteEnd}`
 
-        const found = acc.find(
-          (x) =>
-            x.Date === date &&
-            x.TimeStart === timeStart &&
-            x.TimeEnd === timeEnd
-        )
+          const found = acc.find(
+            (x) =>
+              x.Date === date &&
+              x.TimeStart === timeStart &&
+              x.TimeEnd === timeEnd
+          )
 
-        if (found) {
-          found.Amount += 1
-        } else {
-          acc.push({
-            Date: date,
-            TimeStart: timeStart,
-            TimeEnd: timeEnd,
-            Amount: 1,
-          })
-        }
-        return acc
-      }, [] as any[])
+          if (found) {
+            found.Amount += 1
+          } else {
+            acc.push({
+              Date: date,
+              TimeStart: timeStart,
+              TimeEnd: timeEnd,
+              Amount: 1,
+            })
+          }
+          return acc
+        }, [] as any[])
 
       return res.status(200).json({
         success: true,

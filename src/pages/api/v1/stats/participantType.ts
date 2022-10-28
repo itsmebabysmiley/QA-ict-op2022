@@ -43,26 +43,30 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
       const g = await Participant.find({})
 
-      const b = g.reduce((acc, cur) => {
-        const date = cur.createdAt.toISOString().split('T')[0]
-        const participantType = cur.regType
+      const b = g
+        .filter((value, index, self) => {
+          return self.findIndex((v) => v.email === value.email) === index
+        })
+        .reduce((acc, cur) => {
+          const date = cur.createdAt.toISOString().split('T')[0]
+          const participantType = cur.regType
 
-        const found = acc.find(
-          (x) => x.ParticipantType === participantType && x.Date === date
-        )
+          const found = acc.find(
+            (x) => x.ParticipantType === participantType && x.Date === date
+          )
 
-        if (found) {
-          found.Amount += 1
-        } else {
-          acc.push({
-            ParticipantType: participantType,
-            Amount: 1,
-            Date: date,
-          })
-        }
+          if (found) {
+            found.Amount += 1
+          } else {
+            acc.push({
+              ParticipantType: participantType,
+              Amount: 1,
+              Date: date,
+            })
+          }
 
-        return acc
-      }, [] as any[])
+          return acc
+        }, [] as any[])
 
       return res.status(200).json({
         success: true,
