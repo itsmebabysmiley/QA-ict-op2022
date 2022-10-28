@@ -35,6 +35,10 @@ const SCORE_MAP: Record<string, number> = {
   'strongly-disagree': 1,
 }
 
+const cleanUpText = (text: string) => {
+  return text.replace(/[^\u0E00-\u0E7Fa-zA-Z ]/g, '').toLowerCase()
+}
+
 export const API = async (req: NextApiRequest, res: NextApiResponse) => {
   await runMiddleware(req, res, cors)
   await dbConnect()
@@ -58,36 +62,58 @@ export const API = async (req: NextApiRequest, res: NextApiResponse) => {
       'interest-rating',
     ]
 
-    const b = g
-      .filter((value, index, self) => {
-        return (
-          self.findIndex((v) => v.participant === value.participant) === index
-        )
-      })
-      .reduce((acc, cur) => {
-        for (const key of Object.keys(cur.toJSON())) {
-          if (key === '_id' || key === 'createdAt' || key === 'updatedAt') {
-            continue
-          }
+    const disticntEval = g.filter((value, index, self) => {
+      return (
+        self.findIndex(
+          (v) => v.participant?.toString() === value.participant?.toString()
+        ) === index || !value.participant
+      )
+    })
 
-          const c = cur as unknown as Record<string, any>
-
-          if (Array.isArray(c[key])) {
-            c[key].forEach((v: any) => {
-              const value = v.trim()
-
-              acc[key] = acc[key] || {}
-              acc[key][value] = acc[key][value] ? acc[key][value] + 1 : 1
-            })
-            continue
-          }
-
-          acc[key] = acc[key] || {}
-          acc[key][c[key]] = acc[key][c[key]] + 1 || 1
+    const b = disticntEval.reduce((acc, cur) => {
+      for (const key of Object.keys(cur.toJSON())) {
+        if (key === '_id' || key === 'createdAt' || key === 'updatedAt') {
+          continue
         }
 
-        return acc
-      }, {} as Record<string, Record<string, number>>)
+        const c = cur as unknown as Record<string, any>
+
+        if (Array.isArray(c[key])) {
+          c[key].forEach((v: any) => {
+            const value = v.trim()
+
+            const cleanedKey = cleanUpText(value)
+
+            // console.log(value, cleanedKey)
+
+            if (!cleanedKey || cleanedKey === '') {
+              return
+            }
+
+            acc[key] = acc[key] || {}
+            acc[key][value] = acc[key][value] ? acc[key][value] + 1 : 1
+          })
+          continue
+        }
+
+        const cleanedKey =
+          typeof c[key] === 'string' ? cleanUpText(c[key]) : c[key]
+
+        console.log(key, cleanedKey)
+
+        if (!cleanedKey || cleanedKey === '') {
+          continue
+        }
+
+        const cleanedKeyForDisplay =
+          typeof c[key] === 'string' ? c[key].trim() : c[key]
+
+        acc[key] = acc[key] || {}
+        acc[key][cleanedKeyForDisplay] = acc[key][cleanedKeyForDisplay] + 1 || 1
+      }
+
+      return acc
+    }, {} as Record<string, Record<string, number>>)
 
     ratingField.forEach((field) => {
       const [noOfReply, score] = Object.entries(b[field]).reduce(
@@ -108,7 +134,10 @@ export const API = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({
       success: true,
-      payload: b,
+      payload: {
+        total: disticntEval.length,
+        ...b,
+      },
     })
   }
 
