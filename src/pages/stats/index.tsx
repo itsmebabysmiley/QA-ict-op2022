@@ -53,7 +53,7 @@ const Page = () => {
       <div>
         <div className="mt-10 text-center font-heading text-2xl font-bold">
           ข้อมูล ณ วันที่{' '}
-          {dayjs(data?.payload.timestamp).format('DD MMMM YYYY HH:mm น.')}
+          {dayjs(data?.payload.timestamp).format('DD MMMM YYYY HH:mm:ss น.')}
         </div>
       </div>
     </Wrapper>
