@@ -25,6 +25,8 @@ interface IEvaluation {
   impressed: string
   unimpressed: string
   'other-suggestions': string
+  createdAt: Date
+  updatedAt: Date
 }
 
 const evaluationSchema = new Schema(
