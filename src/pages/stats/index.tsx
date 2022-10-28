@@ -1,10 +1,11 @@
 import useSWR from 'swr'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import dayjs from '~/utils/dayjs'
 import { IctMahidolOpenHouseWordmark } from '~/components/Icons'
 import LoadingWrapper from '~/layouts/LoadingWrapper'
-import Wrapper from '~/layouts/Wrapper'
+import Wrapper, { BG_VARIANT_TYPES } from '~/layouts/Wrapper'
 import type { ApiResponseSuccess } from '~/types/api'
 import { fetcher } from '~/utils'
 
@@ -15,13 +16,16 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 })
 
 const Page = () => {
+  const { query, isReady } = useRouter()
   const { data } = useSWR<
     ApiResponseSuccess<{ total: number; timestamp: string }>
   >(
-    {
-      url: 'api/v1/stats/total',
-      method: 'GET',
-    },
+    isReady
+      ? {
+          url: `api/v1/stats/total${query?.date ? `?date=${query.date}` : ''}`,
+          method: 'GET',
+        }
+      : null,
     fetcher,
     {
       refreshInterval: 3000,
@@ -33,7 +37,10 @@ const Page = () => {
   }
 
   return (
-    <Wrapper className="flex flex-col items-center justify-center p-10">
+    <Wrapper
+      variant={BG_VARIANT_TYPES.SPACE}
+      className="flex flex-col items-center justify-center p-10"
+    >
       <IctMahidolOpenHouseWordmark className="mx-auto h-36" />
 
       <div className="mt-10 flex justify-center gap-8">

@@ -30,6 +30,7 @@ const config = {
         'base-mobile': 'url(/static/images/background/base-mobile.svg)',
         'landing-mobile': 'url(/static/images/background/landing-mobile.svg)',
         'stardust-mobile': 'url(/static/images/background/stardust-mobile.svg)',
+        'space-desktop': 'url(/static/images/background/space-desktop.svg)',
       },
       backgroundSize: {
         'size-half': '50%',

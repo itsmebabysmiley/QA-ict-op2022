@@ -5,12 +5,14 @@ export enum BG_VARIANT_TYPES {
   BASE = 'base',
   STARDUST = 'stardust',
   LANDING = 'landing',
+  SPACE = 'space',
 }
 
 const WrapperBgVariants: Record<BG_VARIANT_TYPES, string> = {
   base: 'bg-base-mobile sm:bg-base-desktop',
   stardust: 'bg-stardust-mobile sm:bg-stardust-desktop',
   landing: 'bg-landing-mobile sm:bg-landing-desktop',
+  space: 'bg-space-desktop',
 }
 
 interface WrapperProps extends ComponentProps<'div'> {

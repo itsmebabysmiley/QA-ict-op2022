@@ -37,11 +37,27 @@ function runMiddleware(
  */
 
 const API = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { date } = req.query
+
   try {
     await runMiddleware(req, res, cors)
     await dbConnect()
     if (req.method === 'GET') {
-      const distinctEmails = await Participant.distinct('email')
+      const distinctEmails = await Participant.distinct(
+        'email',
+        date
+          ? {
+              createdAt: {
+                $gte: new Date(date as string),
+                $lt: new Date(
+                  new Date(date as string).setDate(
+                    new Date(date as string).getDate() + 1
+                  )
+                ),
+              },
+            }
+          : {}
+      )
 
       const noOfParticipants = distinctEmails.length
 
