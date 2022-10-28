@@ -3,6 +3,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '~/components/Button'
 import { EvaluationHeaderWordmark } from '~/components/Icons'
@@ -31,6 +32,7 @@ const Page: NextPage = () => {
   const { t } = useTranslation('evaluation')
   const { push } = useRouter()
   const { form, dispatch } = useStoreon('form')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const {
     register,
     watch,
@@ -50,6 +52,8 @@ const Page: NextPage = () => {
               dispatch('form/evaluation/setFields', data)
 
               const liffIdToken = liff.getIDToken() || undefined
+
+              setIsSubmitting(true)
 
               await axios.post(
                 '/api/v1/evaluation',
@@ -94,6 +98,7 @@ const Page: NextPage = () => {
               type="submit"
               label={t('BUTTON_LABEL.SUBMIT')}
               variant="ictTurquoise"
+              disabled={isSubmitting}
               className="w-32"
             />
           </div>
