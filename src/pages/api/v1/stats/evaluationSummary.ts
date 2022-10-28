@@ -40,12 +40,34 @@ const cleanUpText = (text: string) => {
 }
 
 export const API = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { date } = req.query
+
   await runMiddleware(req, res, cors)
   await dbConnect()
   if (req.method === 'GET') {
-    const g = await Evaluation.find({})
+    const g = await Evaluation.find(
+      date
+        ? {
+            createdAt: {
+              $gte: new Date(date as string),
+              $lt: new Date(
+                new Date(date as string).setDate(
+                  new Date(date as string).getDate() + 1
+                )
+              ),
+            },
+          }
+        : {}
+    )
 
-    // console.log(g)
+    if (!g || g.length === 0) {
+      return res.status(404).json({
+        success: true,
+        payload: {
+          total: 0,
+        },
+      })
+    }
 
     const ratingField = [
       'date-and-time-rating',
