@@ -4,6 +4,8 @@ import { appWithTranslation } from 'next-i18next'
 import '~/utils/iconify.ts'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import TagManager from 'react-gtm-module'
 import nextI18nConfig from '../../next-i18next.config'
 import LIFFWrapper from '~/layouts/LiffWrapper'
 import { Context } from '~/context/storeon'
@@ -11,6 +13,10 @@ import LocaleWrapper from '~/layouts/LocaleWrapper'
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter()
+
+  useEffect(() => {
+    TagManager.initialize({ gtmId: 'GTM-MDH3CML' })
+  }, [])
 
   return (
     <>
