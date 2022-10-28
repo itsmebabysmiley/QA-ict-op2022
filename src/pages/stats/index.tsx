@@ -33,7 +33,7 @@ const Page = () => {
   }
 
   return (
-    <Wrapper className="p-10">
+    <Wrapper className="flex flex-col items-center justify-center p-10">
       <IctMahidolOpenHouseWordmark className="mx-auto h-36" />
 
       <div className="mt-10 flex justify-center gap-8">
