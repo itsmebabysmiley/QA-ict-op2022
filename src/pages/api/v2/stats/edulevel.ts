@@ -10,43 +10,26 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const participants = await getParticipants()
 
-    const schools = participants.reduce((acc, participant) => {
-      const { school } = participant
+    const eduLevel = participants.reduce((acc, participant) => {
+      const { educationLevel } = participant
 
-      const cleanedSchoolName = school
-        ?.replace(/โร[งว]?เร([ีั]?)ย?น?/g, '')
-        .replace(/ร.?ร./g, '')
-        .replace('เเ', 'แ')
-        .replace(/[-_]/g, '')
-        .trim()
-        .toLowerCase()
-
-      if (!cleanedSchoolName || cleanedSchoolName === '') {
-        return acc
-      }
-
-      if (!acc[cleanedSchoolName]) {
-        acc[cleanedSchoolName] = {
-          school: cleanedSchoolName,
+      if (!acc[educationLevel]) {
+        acc[educationLevel] = {
+          level: educationLevel,
           count: 0,
           participants: isSuperPrivileged ? [] : undefined,
         }
       }
 
-      isSuperPrivileged && acc[cleanedSchoolName].participants.push(participant)
-      acc[cleanedSchoolName].count += 1
+      isSuperPrivileged && acc[educationLevel].participants.push(participant)
+      acc[educationLevel].count += 1
 
       return acc
     }, {} as Record<string, number>)
 
-    const schoolParticipants = Object.values(schools).sort(
-      (a, b) => b.count - a.count
-    )
-
     return res.status(200).json({
       success: true,
-      // payload: schools,
-      payload: schoolParticipants,
+      payload: [...Object.values(eduLevel).sort((a, b) => b.count - a.count)],
     })
   } catch (error: any) {
     return res.status(500).json({

@@ -14,9 +14,7 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const participants = await getParticipants()
 
-    console.log(participants.length)
-
-    res.status(200).json({ success: true, payload: participants })
+    return res.status(200).json({ success: true, payload: participants })
   } catch (error: any) {
     return res.status(500).json({
       success: false,

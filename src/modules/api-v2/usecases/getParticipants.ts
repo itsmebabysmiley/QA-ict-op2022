@@ -12,9 +12,12 @@ export const getParticipants = async (query = {}) => {
     const participantFormatted = participants
       .filter((value, index, self) => {
         return (
-          self.findIndex(
-            (v) => v.lineUserId === value.lineUserId || v.email === value.email
-          ) === index
+          self.findIndex((v) => {
+            return (
+              (v.lineUserId && v.lineUserId === value.lineUserId) ||
+              v.email === value.email
+            )
+          }) === index
         )
       })
       .map((participant) => {
