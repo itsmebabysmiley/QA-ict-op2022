@@ -11,7 +11,7 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const participants = await getParticipants()
 
-    const total = participants.reduce(
+    const payloadCount = participants.reduce(
       (acc, participant) => {
         const { createdAt } = participant
         const dateFormatted = dayjs.tz(createdAt).format('YYYY-MM-DD')
@@ -32,7 +32,10 @@ const API = async (req: NextApiRequest, res: NextApiResponse) => {
       } as Record<string, number | Record<string, number>>
     )
 
-    return res.status(200).json({ success: true, payload: total })
+    return res.status(200).json({
+      success: true,
+      payload: { ...payloadCount, timestamp: new Date().toISOString() },
+    })
   } catch (error: any) {
     return res.status(500).json({
       success: false,
