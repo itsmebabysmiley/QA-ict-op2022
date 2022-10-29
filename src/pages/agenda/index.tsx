@@ -18,7 +18,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
 
 const Page: NextPage = () => {
   const { locale = 'th' } = useRouter()
-  const [selectedDate, setSelectedDate] = useState<string>('2022-10-28')
+  const [selectedDate, setSelectedDate] = useState<string>('2022-10-29')
 
   return (
     <Wrapper className="px-5 pt-10 pb-14">
