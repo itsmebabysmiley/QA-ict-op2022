@@ -1,4 +1,4 @@
-import type { Model } from 'mongoose'
+import type { Document, Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 import type { IParticipant } from '~/types/entity/participant'
 
@@ -9,7 +9,7 @@ export enum QuestLogStatus {
   REWARD_CLAIM = 'reward_claim',
 }
 
-interface IQuestLog {
+interface IQuestLog extends Document {
   participant: IParticipant
   questNo: number
   questionId?: string

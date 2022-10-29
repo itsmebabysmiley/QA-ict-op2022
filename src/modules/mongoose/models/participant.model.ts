@@ -1,7 +1,7 @@
-import type { Model } from 'mongoose'
+import type { Document, Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 
-export interface IParticipant {
+export interface IParticipant extends Document {
   regType: string
   language: string
   firstName: string

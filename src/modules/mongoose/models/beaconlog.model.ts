@@ -1,4 +1,4 @@
-import type { Model } from 'mongoose'
+import type { Document, Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 
 export enum BeaconMessageSent {
@@ -14,7 +14,7 @@ export enum BeaconEventType {
   FOLLOW = 'follow',
 }
 
-interface IBeaconLog {
+interface IBeaconLog extends Document {
   lineUId: string
   hwid: string
   type: BeaconEventType

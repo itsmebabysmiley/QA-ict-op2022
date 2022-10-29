@@ -1,8 +1,8 @@
-import type { Model } from 'mongoose'
+import type { Document, Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 import type { IParticipant } from '~/types/entity/participant'
 
-interface IRegistration {
+interface IRegistration extends Document {
   participant: IParticipant
   createdAt: Date
   updatedAt: Date

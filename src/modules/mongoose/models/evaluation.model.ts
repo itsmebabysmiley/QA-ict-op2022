@@ -1,8 +1,8 @@
-import type { Model } from 'mongoose'
+import type { Document, Model } from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 import type { IParticipant } from '~/types/entity/participant'
 
-interface IEvaluation {
+interface IEvaluation extends Document {
   participant: IParticipant
   role: string
   gender: string
