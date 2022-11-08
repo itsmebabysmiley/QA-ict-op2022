@@ -1,12 +1,25 @@
 # QA-ICT-OP2022
 
 This project is focus on QA and Tester decides. In this project will include both manual and automate testing which was decided by QA and Tester priciples.
+
 # How to run this project
+
 ## Pre-requirement
 
-You need docker.
+1. You need Docker.
+2. You need Node.js
 
-## Run
+## Run with Node.js
+
+1. Change directory to `QA-ict-op2022`.
+2. Run following command. It may take some few minutes.
+
+```sh
+npm run build
+npm run start
+```
+
+## Run with Docker.
 
 1. Change directory to `QA-ict-op2022`.
 2. Run following command. It may take some few minutes.
