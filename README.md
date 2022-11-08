@@ -18,6 +18,7 @@ This project is focus on QA and Tester decides. In this project will include bot
 npm run build
 npm run start
 ```
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Run with Docker.
 
