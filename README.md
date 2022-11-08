@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# QA-ICT-OP2022
 
-## Getting Started
+This project is focus on QA and Tester decides. In this project will include both manual and automate testing which was decided by QA and Tester priciples.
+# How to run this project
+## Pre-requirement
 
-First, run the development server:
+You need docker.
 
-```bash
-npm run dev
-# or
-yarn dev
+## Run
+
+1. Change directory to `QA-ict-op2022`.
+2. Run following command. It may take some few minutes.
+
+```sh
+docker compose -p ict-op2022 -f docker-compose-local.yml up -d
+```
+After it finished, you should see something like this.
+```sh
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+[+] Running 4/4
+ ⠿ Network ict-op2022_default            Created                                                                                                      0.2s
+ ⠿ Container ict-op2022-local-server     Started                                                                                                      3.1s
+ ⠿ Container ict-op2022-mongo-express-1  Started                                                                                                      3.5s
+ ⠿ Container ict-op2022-mongo-1          Started   
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Check whether container is runing by run the following command.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```sh
+docker ps
+# CONTAINER ID   IMAGE            COMMAND                  CREATED              STATUS              PORTS                      NAMES
+# 1900a81e9d5c   ict-op2022_web   "/nodejs/bin/node ./…"   About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp     ict-op2022-local-server
+# d2a68348b49c   mongo            "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:27017->27017/tcp   ict-op2022-mongo-1
+# 1620ddfd8965   mongo-express    "tini -- /docker-ent…"   About a minute ago   Up About a minute   0.0.0.0:8081->8081/tcp     ict-op2022-mongo-express-1
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
+# API ENDPOINTS
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`/agenda`  
+`/evaluation`  
+`/register`  
+`stats`
