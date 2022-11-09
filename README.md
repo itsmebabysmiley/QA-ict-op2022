@@ -42,4 +42,4 @@ docker ps
 `/agenda`  
 `/evaluation`  
 `/register`  
-`stats`
+`/stats`
