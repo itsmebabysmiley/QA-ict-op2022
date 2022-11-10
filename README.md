@@ -8,6 +8,24 @@ This project is focus on QA and Tester decides. In this project will include bot
 
 1. You need Docker.
 2. You need Node.js
+3. You need `.env`
+
+## Getting started
+
+Create `.env` file into your root directory.
+
+```
+NEXT_PUBLIC_LIFF_ID=
+
+LINE_LOGIN_CHANNEL_ID=
+LINE_MESSAGING_API_CHANNEL_ACCESS_TOKEN=
+LINE_MESSAGING_API_CHANNEL_SECRET=
+
+DATABASE_URL=mongodb://root:12345678@mongo:27017/op2022?authSource=admin
+
+API_KEY=
+SUPER_PRIVILEGED_API_KEY=
+```
 
 ## Run with Node.js
 
