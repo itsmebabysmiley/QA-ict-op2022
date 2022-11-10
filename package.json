@@ -9,12 +9,7 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
-    "tunnel": "cloudflared tunnel run",
-    "db:up": "docker compose -f docker-compose.development.yml up -d",
-    "db:stop": "docker compose -f docker-compose.development.yml stop",
-    "db:down": "docker compose -f docker-compose.development.yml down",
-    "docker:build": "docker build -f .docker/Dockerfile -t op2022-web:latest .",
-    "docker:run": "docker run --name op2022-web-dev --env-file .env.local -p 3000:3000 --rm op2022-web:latest"
+    "tunnel": "cloudflared tunnel run"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
