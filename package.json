@@ -13,7 +13,7 @@
     "db:up": "docker compose -f docker-compose.development.yml up -d",
     "db:stop": "docker compose -f docker-compose.development.yml stop",
     "db:down": "docker compose -f docker-compose.development.yml down",
-    "docker:build": "docker build -f .docker/Dockerfile -t op2022-web:latest .",
+    "docker:build": "docker build -f .Dockerfile -t op2022-web:latest .",
     "docker:run": "docker run --name op2022-web-dev --env-file .env.local -p 3000:3000 --rm op2022-web:latest"
   },
   "dependencies": {
