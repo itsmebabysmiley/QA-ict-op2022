@@ -1,6 +1,7 @@
 # QA-ICT-OP2022
 
-This project is focus on QA and Tester decides. In this project will include both manual and automate testing which was decided by QA and Tester priciples.
+This project is focus on QA and Tester decides. In this project will include both manual and automate testing which was decided by QA and Tester priciples.  
+Please see [unit-testing.md](./unit-testing.md) for more details.
 
 # How to run this project
 
