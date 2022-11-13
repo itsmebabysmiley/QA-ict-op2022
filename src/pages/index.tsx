@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Wrapper from '~/layouts/Wrapper'
+import Wrapper from '../layouts/Wrapper'
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'th' }) => ({
   props: {
